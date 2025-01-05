@@ -11,7 +11,7 @@ export function withAuth(WrappedComponent) {
     useEffect(() => {
       const token = localStorage.getItem("tk");
 
-      const publicPaths = ["/Login", "/","/earlyaccess","/terms-of-service","/credits","/contact-us","privacy-policy"];
+      const publicPaths = ["/Login", "/","/earlyaccess","/terms-of-service","/credits","/contact-us",,"/Application"];
       const publicPatterns = [{ pattern: /^\/s\/.+/ }];
 
       const isPublicPath = publicPaths.includes(pathname);
