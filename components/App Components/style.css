@@ -1,0 +1,20 @@
+.custom-textarea {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.custom-textarea::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* Hide scrollbar for WebKit browsers (Chrome, Safari) */
+.your-scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.your-scroll-container {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
