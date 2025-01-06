@@ -395,7 +395,7 @@ export default function LandingPage() {
         transition={{ duration: 0.8 }}
         className="mb-6"
       >
-        <span className="md:block hidden px-4 py-2 rounded-full bg-purple-100 dark:bg-white/10 backdrop-blur-sm text-purple-800 dark:text-purple-300 text-sm font-medium mb-6">
+        <span className="md:inline-block hidden px-4 py-2 rounded-full bg-purple-100 dark:bg-white/10 backdrop-blur-sm text-purple-800 dark:text-purple-300 text-sm font-medium mb-6">
           🚀 Empowering 10,000+ Newsletter Creators
         </span>
       </motion.div>
