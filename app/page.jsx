@@ -559,7 +559,7 @@ export default function LandingPage() {
                 step: 1,
                 title: "Share Your Idea",
                 description:
-                  "Pick your topic, industry, and audience preferences",
+                  "Write/Pick your topic, industry, and audience preferences",
                 icon: "🎯",
               },
               {
