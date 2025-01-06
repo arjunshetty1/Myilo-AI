@@ -172,17 +172,6 @@ export default function Credits() {
                 </li>
                 <li>
                   <a
-                    href="https://github.com/ytdl-org/youtube-dl"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 hover:underline flex items-center"
-                  >
-                    ytdl-core - YouTube downloader{" "}
-                    <ExternalLink className="h-4 w-4 ml-1" />
-                  </a>
-                </li>
-                <li>
-                  <a
                     href="https://nodemailer.com/"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -217,16 +206,6 @@ export default function Credits() {
                     className="text-blue-600 hover:underline flex items-center"
                   >
                     OpenAI API <ExternalLink className="h-4 w-4 ml-1" />
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="https://developers.google.com/youtube/v3"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 hover:underline flex items-center"
-                  >
-                    YouTube API <ExternalLink className="h-4 w-4 ml-1" />
                   </a>
                 </li>
                 <li>
@@ -285,7 +264,7 @@ export default function Credits() {
                 <p className="text-gray-600">
                   We are grateful to all the developers and organizations that
                   have contributed to these technologies and services, making
-                  Clipmailo possible. This project uses various open-source
+                  Myilo AI possible. This project uses various open-source
                   packages and third-party services - each playing a crucial
                   role in our application.
                 </p>
