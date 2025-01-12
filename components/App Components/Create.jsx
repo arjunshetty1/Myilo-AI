@@ -160,7 +160,7 @@ const Create = () => {
     setIsLoadingRecommendations(true);
     try {
       const response = await Reccomandations(selectedIndustry, selectedLength);
-      setRecommendations(response.recommendations || []);
+      setRecommendations(response.suggestions || []);
     } catch (error) {
       console.error("Error fetching recommendations:", error);
     } finally {
