@@ -73,3 +73,16 @@ export const SendTestMail = async (id, email) => {
     return error;
   }
 };
+
+export const Reccomandations = async (industry, length) => {
+
+  try {
+    
+    const response = await api.post('/newsletter/suggestion', { industry, length });
+    const result = response.data;
+    return result;
+  } catch (error) {
+    console.error("Error sending test email:", error);
+    return error;
+  }
+}

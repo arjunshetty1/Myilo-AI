@@ -86,7 +86,6 @@ const templates = [
   },
 ];
 
-
 const categories = [
   "all",
   "General",
@@ -199,15 +198,17 @@ export default function NewsletterTemplates() {
     setIsLoading(true);
 
     const params = {
-      videoId: context.selectedVideoId,
       templateId: selectedTemplate.id,
-      thumbnail: context.selectedVideoThumbnail,
+      topic: context.choosenNewsLetterInputs.topic,
+      length: context.choosenNewsLetterInputs.length,
+      target: context.choosenNewsLetterInputs.target,
+      tone: context.choosenNewsLetterInputs.tone,
+      brandGuidelines: context.choosenNewsLetterInputs.brandGuidelines,
+      keyPoints: context.choosenNewsLetterInputs.keyPoints,
     };
+    console.log(context.choosenNewsLetterInputs);
 
-    if (
-      context.selectedVideoId == null &&
-      context.selectedVideoThumbnail == null
-    ) {
+    if (context.choosenNewsLetterInputs == null) {
       router.push("/Application");
 
       toast({

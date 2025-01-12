@@ -5,14 +5,13 @@ import { createContext, useState } from "react";
 export const CreateContextWrapper = createContext();
 
 const CreateContextProvider = ({ children }) => {
-  const [selectedVideoId, setSelectedVideoId] = useState(null);
-  const [selectedVideoThumbnail, setSelectedVideoThumbnail] = useState(null);
+  const [choosenNewsLetterInputs, setChoosenNewsLetterInputs] = useState(null);
+
+  console.log(choosenNewsLetterInputs);
 
   const contextValue = {
-    selectedVideoId,
-    setSelectedVideoId,
-    selectedVideoThumbnail,
-    setSelectedVideoThumbnail,
+    choosenNewsLetterInputs,
+    setChoosenNewsLetterInputs,
   };
 
   return (
