@@ -75,14 +75,26 @@ export const SendTestMail = async (id, email) => {
 };
 
 export const Reccomandations = async (industry, length) => {
-
   try {
-    
-    const response = await api.post('/newsletter/suggestion', { industry, length });
+    const response = await api.post("/newsletter/suggestion", {
+      industry,
+      length,
+    });
     const result = response.data;
     return result;
   } catch (error) {
     console.error("Error sending test email:", error);
     return error;
   }
-}
+};
+
+export const UpdateNewsletter = async (data, id) => {
+  try {
+    const response = await api.patch(`/newsletter/${id}`, data);
+    const result = response.data;
+    return result;
+  } catch (error) {
+    console.log("Error in updating newsletter API response");
+    return error;
+  }
+};

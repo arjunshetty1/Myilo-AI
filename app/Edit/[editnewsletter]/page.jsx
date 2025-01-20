@@ -43,6 +43,7 @@ import {
   GetNewsletterByID,
   PublishNewsetter,
   SendTestMail,
+  UpdateNewsletter,
 } from "@/services/Newsletter";
 import { AnimatePresence, motion } from "framer-motion";
 import {
@@ -162,8 +163,8 @@ export default function ImprovedNewsletterEditor() {
       setCurrentTemplate(response.templateId);
       setThumbnail(response.thumbnail);
 
-      const Data = response.newsletterData;
-      console.log(response)
+      const Data = response.editedData;
+      console.log("editData is here", Data);
       setDataToTemplate(Data);
       setHistory([Data]);
       setHistoryIndex(0);
@@ -262,22 +263,6 @@ export default function ImprovedNewsletterEditor() {
     setHistoryIndex(0);
   }, [history]);
 
-  const toggleEditing = useCallback(() => {
-    if (isEditing) {
-      // handleUpdate(dataToTemplate);
-      toast({
-        variant: "outline",
-        title: "Newsletter saved to draft!",
-        description:
-          "You can always head to drafts section then edit and publish the newsletter.",
-        className: "bg-[white]",
-      });
-    }
-
-    setIsEditing((prev) => !prev);
-  }, [isEditing, dataToTemplate]);
-  // }, [isEditing, dataToTemplate, handleUpdate]);
-
   const handleContentUpdate = (updatedData) => {
     setDataToTemplate(updatedData);
     addToHistory(updatedData);
@@ -325,6 +310,64 @@ export default function ImprovedNewsletterEditor() {
     }
   };
 
+  const SaveEdited = async () => {
+    try {
+      const response = await UpdateNewsletter(dataToTemplate, id);
+      // Validate response has required structure
+      if (!response || typeof response !== "object") {
+        throw new Error("Invalid response format");
+      }
+      return response;
+    } catch (error) {
+      console.error("Error saving newsletter:", error);
+      throw error;
+    }
+  };
+
+  const toggleEditing = useCallback(async () => {
+    if (isEditing) {
+      try {
+        setIsSaving(true);
+        const response = await SaveEdited();
+        fetchNewsletter();
+
+        if (response) {
+          setDataToTemplate((prev) => {
+            const newData = {
+              ...prev,
+              ...response,
+            };
+            return newData;
+          });
+
+          await new Promise((resolve) => setTimeout(resolve, 0));
+
+          toast({
+            variant: "outline",
+            title: "Newsletter saved to draft!",
+            description:
+              "You can always head to drafts section then edit and publish the newsletter.",
+            className: "bg-[white]",
+          });
+
+          // Then toggle editing state
+          setIsEditing(false);
+        }
+      } catch (error) {
+        toast({
+          variant: "destructive",
+          title: "Error saving newsletter",
+          description: "Failed to save changes. Please try again.",
+        });
+        return;
+      } finally {
+        setIsSaving(false);
+      }
+    } else {
+      setIsEditing(true);
+    }
+  }, [isEditing, dataToTemplate]);
+
   const renderPreview = () => {
     let PreviewComponent;
     let wrapperClass;
@@ -343,6 +386,7 @@ export default function ImprovedNewsletterEditor() {
         wrapperClass = "w-full";
     }
 
+    console.log("edit data", dataToTemplate);
     return (
       <div className="w-full flex justify-center items-center">
         <div
