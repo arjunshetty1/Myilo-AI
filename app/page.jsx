@@ -67,7 +67,7 @@ const Logo = () => (
     href="/"
     className="text-2xl font-bold bg-clip-text dark:text-[white] text-black"
   >
-    ClipMailo AI
+    ClipMailo
   </Link>
 );
 
