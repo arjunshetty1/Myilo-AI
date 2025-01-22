@@ -236,7 +236,7 @@ export default function NewsletterTemplates() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-gray-50 to-gray-100">
+    <div className="bg-gradient-to-br from-gray-50 to-gray-100 h-[100vh]">
       <TooltipProvider>
         <div className="mx-auto px-4 md:px-24 py-12 ">
           <h1 className="text-2xl font-semibold mb-2 text-gray-800 dark:text-gray-200">
