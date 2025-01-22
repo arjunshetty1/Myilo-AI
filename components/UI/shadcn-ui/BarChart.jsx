@@ -39,7 +39,7 @@ const initialChartData = generateLast12Months();
 const chartConfig = {
   count: {
     label: "Monthly Subscribers",
-    color: "var(--red)",
+    color: "var(--primary)",
   },
 };
 

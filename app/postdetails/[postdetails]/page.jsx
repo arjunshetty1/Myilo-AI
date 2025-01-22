@@ -257,7 +257,7 @@ const Page = () => {
           <IoChevronBackCircle
             onClick={() => router.back()}
             size={35}
-            color="red"
+            color="#3b82f6"
             className="cursor-pointer mt-0"
           />
           <div className="flex flex-col text-sm">
@@ -395,7 +395,7 @@ const Page = () => {
                           Analytics?.previousNewsletterAverage?.viewCount
                         )}
                       />
-                      <StatCard
+                      {/* <StatCard
                         title="Video Duration Processed"
                         value={`${
                           Analytics?.currentNewsletter
@@ -406,7 +406,7 @@ const Page = () => {
                           Analytics?.previousNewsletterAverage
                             ?.videoDurationProcessed
                         )}
-                      />
+                      /> */}
                       <StatCard
                         title="Open Rate"
                         value={

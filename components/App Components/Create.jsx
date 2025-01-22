@@ -220,12 +220,10 @@ const Create = () => {
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 md:p-8">
         <div className="max-w-7xl mx-auto">
           <div className="mb-6 md:mb-8">
-            <h1 className="text-3xl md:text-3xl font-bold text-gray-900 mb-2">
-              Generate a Newsletter with AI
-            </h1>
-            <p className="text-gray-600 text-sm md:text-base">
+          <h1 className="text-2xl font-medium text-gray-900 mb-4 pb-4 border-b border-gray-200">Generate a Newsletter</h1>
+            {/* <p className="text-gray-600 text-sm md:text-base">
               Create professional newsletters in minutes with AI assistance
-            </p>
+            </p> */}
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 md:gap-8">

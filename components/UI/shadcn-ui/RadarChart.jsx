@@ -36,7 +36,7 @@ export function Radarchart({ chartData }) {
   const chartConfig = {
     subscribers: {
       label: "Subscribers",
-      color: "var(--red)",
+      color: "var(--primary)",
     },
   };
 

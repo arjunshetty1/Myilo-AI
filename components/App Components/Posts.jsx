@@ -57,7 +57,7 @@ export default function Posts() {
     } catch (error) {
       console.error("Error fetching newsletters:", error);
       setError("Failed to fetch newsletters. Please try again.");
-      setNewsletters([]);  // Ensure `newsletters` is an array even on error
+      setNewsletters([]); // Ensure `newsletters` is an array even on error
       setTotalItems(0);
     } finally {
       setLoading(false);
@@ -98,7 +98,7 @@ export default function Posts() {
       return <div className="text-red-500 text-center py-8">{error}</div>;
     }
 
-    if (!Array.isArray(newsletters) || newsletters.length === 0) {  
+    if (!Array.isArray(newsletters) || newsletters.length === 0) {
       return (
         <div className="text-gray-500 text-center py-8">
           No newsletters available.
@@ -110,7 +110,7 @@ export default function Posts() {
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {newsletters.map((newsletter) => {
           if (!newsletter) return null;
-          const title = newsletter.newsletterData.title || "Untitled";  // Access title from the parsed data
+          const title = newsletter.newsletterData.title || "Untitled"; // Access title from the parsed data
 
           const linkHref =
             newsletter.status === "published"
@@ -134,11 +134,9 @@ export default function Posts() {
                 <div className="flex justify-between items-center">
                   <Badge
                     variant={
-                      newsletter.status === "published"
-                        ? "default"
-                        : "secondary"
+                      newsletter.status === "published" ? "default" : "default"
                     }
-                    className="text-xs"
+                    className="text-[10px] bg-[var(--primary)]"
                   >
                     {newsletter.status === "published" ? (
                       <FileTextIcon className="w-3 h-3 mr-1" />
@@ -182,17 +180,19 @@ export default function Posts() {
 
   return (
     <div className="max-w-6xl mx-auto px-10 md:px-4 py-8">
-      <h1 className="text-3xl font-bold text-gray-900 mb-6">Posts</h1>
+      <h1 className="text-2xl font-medium text-gray-900 mb-4 pb-2 border-b border-gray-200">
+        Posts
+      </h1>
       <Tabs
         defaultValue={selectedTab}
         onValueChange={handleTabChange}
         className="w-full mb-6"
       >
         <TabsList className="grid w-full max-w-md grid-cols-2 mb-6">
-          <TabsTrigger value="published" className="text-sm">
+          <TabsTrigger value="published" className="text-sm ">
             Published ({totalNewsletter?.publishedCount || 0})
           </TabsTrigger>
-          <TabsTrigger value="draft" className="text-sm">
+          <TabsTrigger value="draft" className="text-sm bg-primary">
             Drafts ({totalNewsletter?.draftCount || 0})
           </TabsTrigger>
         </TabsList>

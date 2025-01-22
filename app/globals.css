@@ -89,21 +89,27 @@
 
 @layer base {
   :root {
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --chart-1: #3b82f6;
+    --chart-2: #3b82f6;
+    --chart-3: #3b82f6;
+    --chart-4: #3b82f6;
+    --chart-5: #3b82f6;
   }
 
   .dark {
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+    --chart-1: #3b82f6;
+    --chart-2: #3b82f6;
+    --chart-3: #3b82f6;
+    --chart-4: #3b82f6;
+    --chart-5: #3b82f6;
   }
 }
+
+:root {
+  /* primary color */
+  --primary: rgb(59 130 246); 
+
+ }
 
 :root {
   --secondary: #18181b;

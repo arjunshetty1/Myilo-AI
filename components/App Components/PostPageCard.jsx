@@ -1,5 +1,5 @@
 import Image from "next/image";
-import {  MoveRight } from "lucide-react";
+import { MoveRight } from "lucide-react";
 
 const PostPageCard = ({ image, title, date, status }) => {
   return (
@@ -26,10 +26,10 @@ const PostPageCard = ({ image, title, date, status }) => {
           </p>
         </div>
 
-        <div className="ml-auto border-[1px] hidden md:block border-[#D8D8D8] rounded-md p-2 group-hover:border-[var(--red)]">
+        <div className="ml-auto border-[1px] hidden md:block border-[#D8D8D8] rounded-md p-2 group-hover:border-[var(--primary)]">
           <MoveRight
             size={30}
-            className="text-[#808080]  group-hover:text-[var(--red)] transition group-hover:duration-150 ease-in-out"
+            className="text-[#808080]  group-hover:text-[var(--primary)] transition group-hover:duration-150 ease-in-out"
           />
         </div>
       </div>

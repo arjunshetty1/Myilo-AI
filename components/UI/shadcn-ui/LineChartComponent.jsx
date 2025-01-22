@@ -19,7 +19,7 @@ import { GetViewsDeatils } from "@/services/Analytics";
 const chartConfig = {
   desktop: {
     label: "View Count",
-    color: "var(--red)",
+    color: "var(--primary)",
   },
 };
 

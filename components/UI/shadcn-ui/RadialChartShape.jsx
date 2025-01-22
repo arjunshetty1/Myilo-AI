@@ -22,13 +22,13 @@ const chartConfig = {
   },
   safari: {
     label: "Safari",
-    color: "var(--red)",
+    color: "var(--primary)",
   },
 };
 
 export function RiadialChartShape({ totalSubscribers }) {
   const chartData = [
-    { browser: "safari", visitors: totalSubscribers, fill: "var(--red)" },
+    { browser: "safari", visitors: totalSubscribers, fill: "var(--primary)" },
   ];
   return (
     <Card className="flex flex-col">
