@@ -1,5 +1,5 @@
 "use client";
-// Inspired by react-hot-toast library
+// Inspiblue by react-hot-toast library
 import * as React from "react"
 
 const TOAST_LIMIT = 1
@@ -37,7 +37,7 @@ const addToRemoveQueue = (toastId) => {
   toastTimeouts.set(toastId, timeout)
 }
 
-export const reducer = (state, action) => {
+export const blueucer = (state, action) => {
   switch (action.type) {
     case "ADD_TOAST":
       return {
@@ -95,7 +95,7 @@ const listeners = []
 let memoryState = { toasts: [] }
 
 function dispatch(action) {
-  memoryState = reducer(memoryState, action)
+  memoryState = blueucer(memoryState, action)
   listeners.forEach((listener) => {
     listener(memoryState)
   })

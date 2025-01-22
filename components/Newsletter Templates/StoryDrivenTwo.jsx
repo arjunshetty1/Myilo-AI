@@ -38,7 +38,7 @@ export default function StoryDrivenTwo({
     onUpdate(updatedData);
   };
 
-  const renderEditableText = (content, field, placeholder = "Edit text") => {
+  const rendeblueitableText = (content, field, placeholder = "Edit text") => {
     return isEditing ? (
       <textarea
         value={content}
@@ -59,7 +59,7 @@ export default function StoryDrivenTwo({
     );
   };
 
-  const renderEditableInput = (content, field, placeholder = "Edit text") => {
+  const rendeblueitableInput = (content, field, placeholder = "Edit text") => {
     return isEditing ? (
       <input
         type="text"
@@ -81,11 +81,11 @@ export default function StoryDrivenTwo({
     <div className="font-['Roboto'] text-base leading-relaxed text-gray-800 max-w-4xl mx-auto p-5 bg-white">
       <header className="mb-10">
         <h1 className="text-4xl font-bold text-gray-900 mb-3 font-['Playfair_Display']">
-          {renderEditableInput(editableData.title, "title", "Edit title")}
+          {rendeblueitableInput(editableData.title, "title", "Edit title")}
         </h1>
         <p className="text-lg text-gray-600 mb-5">
-          By {renderEditableInput(editableData.author, "author", "Edit author")}{" "}
-          | {renderEditableInput(editableData.date, "date", "Edit date")}
+          By {rendeblueitableInput(editableData.author, "author", "Edit author")}{" "}
+          | {rendeblueitableInput(editableData.date, "date", "Edit date")}
         </p>
         <div className="relative h-[400px] overflow-hidden rounded-lg">
           <img
@@ -95,7 +95,7 @@ export default function StoryDrivenTwo({
           />
           <div className="absolute bottom-0 left-0 right-0 p-5 bg-gradient-to-t from-black/70 to-transparent">
             <p className="text-white text-xl italic m-0">
-              {renderEditableText(
+              {rendeblueitableText(
                 editableData.introduction,
                 "introduction",
                 "Edit introduction"
@@ -176,7 +176,7 @@ export default function StoryDrivenTwo({
           Conclusion
         </h3>
         <div className="text-base text-gray-800 italic">
-          {renderEditableText(
+          {rendeblueitableText(
             editableData.conclusion,
             "conclusion",
             "Edit conclusion"
@@ -194,13 +194,13 @@ export default function StoryDrivenTwo({
       </div>
 
       <footer className="border-t border-gray-200 pt-5 text-center text-sm text-gray-600">
-        <p>{renderEditableInput(editableData.footer, "footer", "Edit footer")}</p>
+        <p>{rendeblueitableInput(editableData.footer, "footer", "Edit footer")}</p>
         <p className="mt-3">
           <a
             href="https://www.clipmailo.com"
             className="text-blue-500 no-underline hover:text-blue-600"
           >
-            Powered by clipmailo.com
+            Poweblue by clipmailo.com
           </a>
         </p>
       </footer>

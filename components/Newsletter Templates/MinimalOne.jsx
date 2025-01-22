@@ -38,7 +38,7 @@ const MinimalOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
     e.target.style.height = `${e.target.scrollHeight}px`; // Set height to scroll height
   };
 
-  const renderEditableText = (content, field, placeholder = "Edit text") => {
+  const rendeblueitableText = (content, field, placeholder = "Edit text") => {
     if (isEditing) {
       return (
         <textarea
@@ -60,7 +60,7 @@ const MinimalOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
     return <div dangerouslySetInnerHTML={{ __html: content || "" }} />;
   };
 
-  const renderEditableInput = (content, field, placeholder = "Edit text") => {
+  const rendeblueitableInput = (content, field, placeholder = "Edit text") => {
     if (isEditing) {
       return (
         <input
@@ -137,7 +137,7 @@ const MinimalOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
           </div>
 
           <div className="text-sm text-gray-600 mb-6 leading-relaxed">
-            {renderEditableText(editabledataToTemplate.summary, "summary", "Edit summary")}
+            {rendeblueitableText(editabledataToTemplate.summary, "summary", "Edit summary")}
           </div>
 
           <div className="space-y-6 mb-6">
@@ -178,7 +178,7 @@ const MinimalOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
 
           <div className="flex justify-center mb-6">
             <button
-              className="flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors"
+              className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
               onClick={() => editabledataToTemplate.youtubeLink && window.open(editabledataToTemplate.youtubeLink, "_blank")}
             >
               <Youtube size={20} />
@@ -189,7 +189,7 @@ const MinimalOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
 
         <div className="bg-gray-100 text-gray-600 p-4 text-center flex flex-col gap-2">
           <p className="mb-1 text-sm w-full">
-            {renderEditableInput(editabledataToTemplate.footer, "footer", "Edit footer")}
+            {rendeblueitableInput(editabledataToTemplate.footer, "footer", "Edit footer")}
           </p>
         </div>
       </div>

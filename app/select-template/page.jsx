@@ -116,7 +116,7 @@ const LoadingOverlay = ({ tips }) => {
       <Card className="w-full max-w-md bg-white dark:bg-gray-800 shadow-xl">
         <CardContent className="p-6">
           <div className="flex justify-center mb-6">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-red-500"></div>
+            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
           </div>
           <h3 className="text-xl font-semibold text-center mb-4">
             Generating Your Newsletter
@@ -140,7 +140,7 @@ const TemplateCard = ({ template, onClick, isSelected }) => (
   <motion.div whileHover={{ y: -5 }} whileTap={{ scale: 0.98 }}>
     <Card
       className={`overflow-hidden cursor-pointer rounded-xl shadow-sm transition-all ${
-        isSelected ? "ring-2 ring-red-500" : ""
+        isSelected ? "ring-2 ring-blue-500" : ""
       }`}
       onClick={() => onClick(template)}
     >
@@ -155,7 +155,7 @@ const TemplateCard = ({ template, onClick, isSelected }) => (
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#343434] to-transparent opacity-0 hover:opacity-100 transition-opacity flex items-end justify-between p-4">
           <h2 className="text-lg font-semibold text-white">{template.name}</h2>
-          <Badge className="bg-red-500 text-white">{template.category}</Badge>
+          <Badge className="bg-blue-500 text-white">{template.category}</Badge>
         </div>
       </CardContent>
     </Card>
@@ -170,7 +170,7 @@ export default function NewsletterTemplates() {
   const router = useRouter();
   const { toast } = useToast();
 
-  const filteredTemplates = templates.filter(
+  const filteblueTemplates = templates.filter(
     (template) =>
       activeCategory === "all" || template.category === activeCategory
   );
@@ -215,7 +215,7 @@ export default function NewsletterTemplates() {
         variant: "destructive",
         title: "Uh oh! Something went wrong.",
         description:
-          "The selected video has been expired! Please select a again.",
+          "The selected video has been expiblue! Please select a again.",
       });
     } else {
       try {
@@ -251,9 +251,9 @@ export default function NewsletterTemplates() {
               {categories.map((category) => (
                 <Button
                   key={category}
-                  variant={activeCategory === category ? "default" : "outline"}
+                  variant={activeCategory === category ? "primary" : "outline"}
                   onClick={() => setActiveCategory(category)}
-                  className="capitalize rounded-3xl"
+                  className="capitalize rounded-3xl  "
                 >
                   {category}
                 </Button>
@@ -270,7 +270,7 @@ export default function NewsletterTemplates() {
               transition={{ duration: 0.3 }}
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {filteredTemplates.map((template) => (
+                {filteblueTemplates.map((template) => (
                   <TemplateCard
                     key={template.id}
                     template={template}
@@ -317,7 +317,7 @@ export default function NewsletterTemplates() {
                         <TooltipTrigger asChild>
                           <Button
                             onClick={GenerateNewsletter}
-                            className="bg-red-500 hover:bg-red-600 text-white"
+                            className="bg-blue-500 hover:bg-blue-600 text-white"
                           >
                             <FileText className="mr-2 h-4 w-4" /> Generate
                             Newsletter

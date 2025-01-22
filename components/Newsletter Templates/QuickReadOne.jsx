@@ -25,7 +25,7 @@ const QuickReadOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
     onUpdate(updatedData);
   };
 
-  const renderEditableText = (content, field, placeholder = "Edit text") => {
+  const rendeblueitableText = (content, field, placeholder = "Edit text") => {
     if (isEditing) {
       return (
         <textarea
@@ -40,7 +40,7 @@ const QuickReadOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
     return <div dangerouslySetInnerHTML={{ __html: content }} />;
   };
 
-  const renderEditableInput = (content, field, placeholder = "Edit text") => {
+  const rendeblueitableInput = (content, field, placeholder = "Edit text") => {
     if (isEditing) {
       return (
         <input
@@ -72,7 +72,7 @@ const QuickReadOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
           <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-black/30 p-4 flex flex-col justify-end">
             <div className="text-white space-y-2">
               <h1 className="text-xl font-bold">
-                {renderEditableInput(editableData.title, "title", "Edit title")}
+                {rendeblueitableInput(editableData.title, "title", "Edit title")}
               </h1>
               <div className="flex items-center space-x-2 text-xs">
                 <Clock size={14} />
@@ -86,7 +86,7 @@ const QuickReadOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
         <div className="p-4 space-y-4">
           {/* Main Title */}
           <h2 className="text-lg font-semibold text-gray-900">
-            {renderEditableInput(editableData.mainTitle, "mainTitle", "Edit main title")}
+            {rendeblueitableInput(editableData.mainTitle, "mainTitle", "Edit main title")}
           </h2>
 
           {/* Tags */}
@@ -110,7 +110,7 @@ const QuickReadOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
 
           {/* Summary */}
           <div className="text-gray-600">
-            {renderEditableText(editableData.summary, "summary", "Edit summary")}
+            {rendeblueitableText(editableData.summary, "summary", "Edit summary")}
           </div>
 
           {/* Key Points */}
@@ -141,14 +141,14 @@ const QuickReadOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
           <div className="bg-gray-50 p-4 rounded-lg">
             <h3 className="font-semibold text-gray-900 mb-2">Bottom Line</h3>
             <div className="text-gray-600">
-              {renderEditableText(editableData.conclusion, "conclusion", "Edit conclusion")}
+              {rendeblueitableText(editableData.conclusion, "conclusion", "Edit conclusion")}
             </div>
           </div>
 
           {/* Footer */}
           <div className="text-center space-y-2 pt-4 border-t">
             <p className="text-gray-600">
-              {renderEditableInput(editableData.footer, "footer", "Edit footer")}
+              {rendeblueitableInput(editableData.footer, "footer", "Edit footer")}
             </p>
             <a
               href="#"

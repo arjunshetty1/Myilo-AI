@@ -38,7 +38,7 @@ export default function DeepDiveTwo({
     onUpdate(updatedData);
   };
 
-  const renderEditableText = (content, field, placeholder = "Edit text") => {
+  const rendeblueitableText = (content, field, placeholder = "Edit text") => {
     return isEditing ? (
       <textarea
         value={content}
@@ -51,7 +51,7 @@ export default function DeepDiveTwo({
     );
   };
 
-  const renderEditableInput = (content, field, placeholder = "Edit text") => {
+  const rendeblueitableInput = (content, field, placeholder = "Edit text") => {
     return isEditing ? (
       <input
         type="text"
@@ -73,25 +73,25 @@ export default function DeepDiveTwo({
     <div className="font-sans text-base leading-relaxed text-gray-800 max-w-4xl mx-auto p-5 bg-gray-100">
       <header className="text-center mb-10">
         <h1 className="text-3xl font-bold text-gray-900 mb-3">
-          {renderEditableInput(editableData.title, "title", "Edit title")}
+          {rendeblueitableInput(editableData.title, "title", "Edit title")}
         </h1>
         <p className="text-sm text-gray-600">
-          By {renderEditableInput(editableData.author, "author", "Edit author")}{" "}
-          | {renderEditableInput(editableData.date, "date", "Edit date")}
+          By {rendeblueitableInput(editableData.author, "author", "Edit author")}{" "}
+          | {rendeblueitableInput(editableData.date, "date", "Edit date")}
         </p>
       </header>
 
       <div className="flex justify-between mb-10">
         <div className="w-3/5">
           <h2 className="text-2xl font-bold text-gray-900 mb-4">
-            {renderEditableInput(
+            {rendeblueitableInput(
               editableData.mainTitle,
               "mainTitle",
               "Edit main title"
             )}
           </h2>
           <div className="text-gray-700 mb-4">
-            {renderEditableText(editableData.summary, "summary", "Edit summary")}
+            {rendeblueitableText(editableData.summary, "summary", "Edit summary")}
           </div>
         </div>
         <div className="w-2/5">
@@ -162,7 +162,7 @@ export default function DeepDiveTwo({
       <div className="bg-blue-600 text-white p-6 rounded-lg mb-10">
         <h3 className="text-xl font-bold mb-4">Conclusion</h3>
         <div className="text-gray-200">
-          {renderEditableText(
+          {rendeblueitableText(
             editableData.conclusion,
             "conclusion",
             "Edit conclusion"
@@ -173,7 +173,7 @@ export default function DeepDiveTwo({
       <div className="text-center mb-8">
         <a
           href="#"
-          className="inline-flex items-center bg-red-500 text-white px-6 py-3 rounded-full hover:bg-red-600 transition-colors duration-300 font-semibold text-sm shadow-md"
+          className="inline-flex items-center bg-blue-500 text-white px-6 py-3 rounded-full hover:bg-blue-600 transition-colors duration-300 font-semibold text-sm shadow-md"
         >
           Watch Full Video
         </a>
@@ -181,14 +181,14 @@ export default function DeepDiveTwo({
 
       <footer className="border-t border-gray-200 pt-6 text-center text-sm text-gray-600">
         <p className="mb-2">
-          {renderEditableInput(editableData.footer, "footer", "Edit footer")}
+          {rendeblueitableInput(editableData.footer, "footer", "Edit footer")}
         </p>
         <p>
           <a
             href="https://www.clipmailo.com"
             className="text-blue-500 hover:text-blue-600 transition-colors duration-300"
           >
-            Powered by clipmailo.com
+            Poweblue by clipmailo.com
           </a>
         </p>
       </footer>

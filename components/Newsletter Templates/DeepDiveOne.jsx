@@ -38,7 +38,7 @@ export default function DeepDiveOne({
     onUpdate(updatedData);
   };
 
-  const renderEditableText = (content, field, placeholder = "Edit text") => {
+  const rendeblueitableText = (content, field, placeholder = "Edit text") => {
     return isEditing ? (
       <textarea
         value={content}
@@ -59,7 +59,7 @@ export default function DeepDiveOne({
     );
   };
 
-  const renderEditableInput = (content, field, placeholder = "Edit text") => {
+  const rendeblueitableInput = (content, field, placeholder = "Edit text") => {
     return isEditing ? (
       <input
         type="text"
@@ -81,11 +81,11 @@ export default function DeepDiveOne({
     <div className="font-sans text-base leading-relaxed text-gray-800 max-w-4xl mx-auto p-5">
       <div className="mb-8">
         <h1 className="text-3xl font-bold text-gray-900 mb-3">
-          {renderEditableInput(editableData.title, "title", "Edit title")}
+          {rendeblueitableInput(editableData.title, "title", "Edit title")}
         </h1>
         <p className="text-sm text-gray-600">
-          By {renderEditableInput(editableData.author, "author", "Edit author")}{" "}
-          | {renderEditableInput(editableData.date, "date", "Edit date")}
+          By {rendeblueitableInput(editableData.author, "author", "Edit author")}{" "}
+          | {rendeblueitableInput(editableData.date, "date", "Edit date")}
         </p>
       </div>
 
@@ -99,14 +99,14 @@ export default function DeepDiveOne({
 
       <div className="mb-8">
         <h2 className="text-2xl font-bold text-gray-900 mb-4">
-          {renderEditableInput(
+          {rendeblueitableInput(
             editableData.mainTitle,
             "mainTitle",
             "Edit main title"
           )}
         </h2>
         <div className="text-gray-700 mb-6">
-          {renderEditableText(editableData.summary, "summary", "Edit summary")}
+          {rendeblueitableText(editableData.summary, "summary", "Edit summary")}
         </div>
       </div>
 
@@ -181,7 +181,7 @@ export default function DeepDiveOne({
           Conclusion
         </h3>
         <div className="text-gray-700">
-          {renderEditableText(
+          {rendeblueitableText(
             editableData.conclusion,
             "conclusion",
             "Edit conclusion"
@@ -200,14 +200,14 @@ export default function DeepDiveOne({
 
       <div className="border-t border-gray-200 pt-6 text-center text-sm text-gray-600">
         <p className="mb-2">
-          {renderEditableInput(editableData.footer, "footer", "Edit footer")}
+          {rendeblueitableInput(editableData.footer, "footer", "Edit footer")}
         </p>
         <p>
           <a
             href="https://www.clipmailo.com"
             className="text-blue-500 hover:text-blue-600 transition-colors duration-300"
           >
-            Powered by clipmailo.com
+            Poweblue by clipmailo.com
           </a>
         </p>
       </div>

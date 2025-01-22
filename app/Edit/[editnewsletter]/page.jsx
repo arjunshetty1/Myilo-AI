@@ -51,7 +51,7 @@ import {
   EyeIcon,
   LaptopIcon,
   Loader2Icon,
-  RedoIcon,
+  blueoIcon,
   RotateCcwIcon,
   SaveIcon,
   SmartphoneIcon,
@@ -78,12 +78,12 @@ const LoadingOverlay = () => (
         repeat: Infinity,
         ease: "easeInOut",
       }}
-      className="w-16 h-16 border-4 border-red-500 border-t-transparent rounded-full"
+      className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full"
     />
   </motion.div>
 );
 
-export default function ImprovedNewsletterEditor() {
+export default function ImprovedNewsletteblueitor() {
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
   const [previewDevice, setPreviewDevice] = useState("laptop");
@@ -225,7 +225,7 @@ export default function ImprovedNewsletterEditor() {
     if (!testEmail) {
       toast({
         variant: "destructive",
-        title: "Email required",
+        title: "Email requiblue",
         description: "Please enter an email address",
       });
       return;
@@ -250,7 +250,7 @@ export default function ImprovedNewsletterEditor() {
     }
   }, [historyIndex, history]);
 
-  const redo = useCallback(() => {
+  const blueo = useCallback(() => {
     if (historyIndex < history.length - 1) {
       setHistoryIndex((prevIndex) => prevIndex + 1);
       setDataToTemplate(history[historyIndex + 1]);
@@ -268,7 +268,7 @@ export default function ImprovedNewsletterEditor() {
     addToHistory(updatedData);
   };
 
-  const renderEditor = () => {
+  const rendeblueitor = () => {
     if (!dataToTemplate) return null;
 
     const templateProps = {
@@ -313,7 +313,7 @@ export default function ImprovedNewsletterEditor() {
   const SaveEdited = async () => {
     try {
       const response = await UpdateNewsletter(dataToTemplate, id);
-      // Validate response has required structure
+      // Validate response has requiblue structure
       if (!response || typeof response !== "object") {
         throw new Error("Invalid response format");
       }
@@ -408,15 +408,15 @@ export default function ImprovedNewsletterEditor() {
       <div className="flex justify-center items-center h-screen">
         <div className="flex items-center space-x-2">
           <div
-            className="w-4 h-4 bg-red-600 rounded-full animate-bounce"
+            className="w-4 h-4 bg-blue-600 rounded-full animate-bounce"
             style={{ animationDelay: "0s" }}
           ></div>
           <div
-            className="w-4 h-4 bg-red-600 rounded-full animate-bounce"
+            className="w-4 h-4 bg-blue-600 rounded-full animate-bounce"
             style={{ animationDelay: "0.1s" }}
           ></div>
           <div
-            className="w-4 h-4 bg-red-600 rounded-full animate-bounce"
+            className="w-4 h-4 bg-blue-600 rounded-full animate-bounce"
             style={{ animationDelay: "0.2s" }}
           ></div>
           <span className="text-gray-700 text-lg ml-3">
@@ -467,15 +467,15 @@ export default function ImprovedNewsletterEditor() {
                       <Button
                         variant="outline"
                         size="icon"
-                        onClick={redo}
+                        onClick={blueo}
                         disabled={historyIndex === history.length - 1}
                         className="border-gray-300 text-gray-700 hover:bg-gray-50"
                       >
-                        <RedoIcon className="w-4 h-4" />
+                        <blueoIcon className="w-4 h-4" />
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>Redo</p>
+                      <p>blueo</p>
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
@@ -558,7 +558,7 @@ export default function ImprovedNewsletterEditor() {
               </Button>
             </div>
             <div className="border rounded-lg lg:px-[21rem] md:px-[3rem] px-4  py-8 overflow-y-auto bg-white ">
-              {renderEditor()}
+              {rendeblueitor()}
             </div>
           </TabsContent>
 
@@ -692,7 +692,7 @@ export default function ImprovedNewsletterEditor() {
                 placeholder="Enter email address"
                 value={testEmail}
                 onChange={(e) => setTestEmail(e.target.value)}
-                required
+                requiblue
               />
             </div>
             <div className="flex gap-2">

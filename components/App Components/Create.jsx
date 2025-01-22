@@ -87,7 +87,7 @@ const Create = () => {
   ]);
 
   const calculateProgress = () => {
-    const requiredFields = {
+    const requiblueFields = {
       industry: Boolean(industry),
       length: Boolean(newsletterLength),
       topics: Boolean(selectedTopic || customTopic),
@@ -100,12 +100,12 @@ const Create = () => {
       brandGuidelines: Boolean(brandGuidelines.trim()),
     };
 
-    const totalRequired = Object.keys(requiredFields).length;
-    const filledRequired = Object.values(requiredFields).filter(Boolean).length;
+    const totalRequiblue = Object.keys(requiblueFields).length;
+    const filledRequiblue = Object.values(requiblueFields).filter(Boolean).length;
     const filledOptional = Object.values(optionalFields).filter(Boolean).length;
 
     const progress =
-      ((filledRequired / totalRequired) * 0.7 +
+      ((filledRequiblue / totalRequiblue) * 0.7 +
         (filledOptional / Object.keys(optionalFields).length) * 0.3) *
       100;
 
@@ -170,11 +170,11 @@ const Create = () => {
 
   const validateForm = () => {
     const errors = {};
-    if (!industry) errors.industry = "Industry is required";
+    if (!industry) errors.industry = "Industry is requiblue";
     if (!newsletterLength)
-      errors.newsletterLength = "Newsletter length is required";
+      errors.newsletterLength = "Newsletter length is requiblue";
     if (!selectedTopic && !customTopic)
-      errors.topics = "At least one topic is required";
+      errors.topics = "At least one topic is requiblue";
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -260,7 +260,7 @@ const Create = () => {
                             </SelectContent>
                           </Select>
                           {formErrors.industry && (
-                            <p className="text-red-500 text-sm mt-1">
+                            <p className="text-blue-500 text-sm mt-1">
                               {formErrors.industry}
                             </p>
                           )}
@@ -295,7 +295,7 @@ const Create = () => {
                             </p>
                           )}
                           {formErrors.newsletterLength && (
-                            <p className="text-red-500 text-sm mt-1">
+                            <p className="text-blue-500 text-sm mt-1">
                               {formErrors.newsletterLength}
                             </p>
                           )}
@@ -364,7 +364,7 @@ const Create = () => {
                           </div>
                         )}
                         {formErrors.topics && (
-                          <p className="text-red-500 text-sm mt-1">
+                          <p className="text-blue-500 text-sm mt-1">
                             {formErrors.topics}
                           </p>
                         )}
@@ -557,8 +557,8 @@ const Create = () => {
                     </div>
 
                     {Object.keys(formErrors).length > 0 && (
-                      <div className="mt-4 p-3 md:p-4 bg-red-50 rounded-lg border border-red-100">
-                        <h3 className="text-red-800 font-medium flex items-center text-sm md:text-base">
+                      <div className="mt-4 p-3 md:p-4 bg-blue-50 rounded-lg border border-blue-100">
+                        <h3 className="text-blue-800 font-medium flex items-center text-sm md:text-base">
                           <AlertCircle className="mr-2 h-4 w-4 md:h-5 md:w-5" />
                           Please fix the following:
                         </h3>
@@ -566,7 +566,7 @@ const Create = () => {
                           {Object.entries(formErrors).map(([key, value]) => (
                             <li
                               key={key}
-                              className="text-red-600 text-xs md:text-sm"
+                              className="text-blue-600 text-xs md:text-sm"
                             >
                               {value}
                             </li>

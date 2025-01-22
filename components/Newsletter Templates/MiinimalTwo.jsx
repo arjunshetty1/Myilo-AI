@@ -38,7 +38,7 @@ const MinimalTwo = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
     e.target.style.height = `${e.target.scrollHeight}px`; // Set height to scroll height
   };
 
-  const renderEditableText = (content, field, placeholder = "Edit text") => {
+  const rendeblueitableText = (content, field, placeholder = "Edit text") => {
     if (isEditing) {
       return (
         <textarea
@@ -60,7 +60,7 @@ const MinimalTwo = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
     return <div dangerouslySetInnerHTML={{ __html: content || "" }} />;
   };
 
-  const renderEditableInput = (content, field, placeholder = "Edit text") => {
+  const rendeblueitableInput = (content, field, placeholder = "Edit text") => {
     if (isEditing) {
       return (
         <input
@@ -104,10 +104,10 @@ const MinimalTwo = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
           </div>
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-4">
             <h1 className="text-2xl md:text-3xl font-bold text-white mb-2 leading-tight">
-              {renderEditableInput(editableData.mainTitle, "mainTitle", "Edit main title")}
+              {rendeblueitableInput(editableData.mainTitle, "mainTitle", "Edit main title")}
             </h1>
             <p className="text-lg text-white/80">
-              {renderEditableInput(editableData.title, "title", "Edit title")}
+              {rendeblueitableInput(editableData.title, "title", "Edit title")}
             </p>
           </div>
         </div>
@@ -116,7 +116,7 @@ const MinimalTwo = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
           <div className="flex flex-wrap items-center gap-4 text-sm text-gray-600 mb-4">
             <span className="flex items-center">
               <Calendar size={14} className="mr-1" />
-              {renderEditableInput(editableData.date, "date", "Edit date")}
+              {rendeblueitableInput(editableData.date, "date", "Edit date")}
             </span>
           </div>
 
@@ -125,7 +125,7 @@ const MinimalTwo = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
           </div>
 
           <div className="text-sm text-gray-600 mb-6 leading-relaxed">
-            {renderEditableText(editableData.summary, "summary", "Edit summary")}
+            {rendeblueitableText(editableData.summary, "summary", "Edit summary")}
           </div>
 
           <div className="space-y-6 mb-6">
@@ -162,7 +162,7 @@ const MinimalTwo = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
           </div>
 
           <div className="flex justify-center mb-6">
-            <button className="flex items-center gap-2 bg-red-600 text-white px-4 py-2 rounded hover:bg-red-700 transition-colors">
+            <button className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors">
               <span>Watch Full Video</span>
             </button>
           </div>
@@ -170,7 +170,7 @@ const MinimalTwo = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
 
         <div className="bg-gray-100 text-gray-600 p-4 text-center flex flex-col gap-2">
           <p className="mb-1 text-sm w-full">
-            {renderEditableInput(editableData.footer, "footer", "Edit footer")}
+            {rendeblueitableInput(editableData.footer, "footer", "Edit footer")}
           </p>
         </div>
       </div>

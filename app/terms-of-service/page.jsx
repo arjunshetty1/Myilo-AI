@@ -17,7 +17,7 @@ export default function TermsOfService() {
             <ul className="list-disc pl-5 text-sm text-gray-600">
               <li>Users must have the necessary rights to use and repurpose their YouTube content.</li>
               <li>Users are responsible for the content of their newsletters and must comply with all applicable laws and regulations.</li>
-              <li>Users must maintain the confidentiality of their account credentials.</li>
+              <li>Users must maintain the confidentiality of their account cblueentials.</li>
             </ul>
 
             <h2 className="text-lg leading-6 font-medium text-gray-900 mt-8 mb-4">3. Data Usage and Privacy</h2>
@@ -27,7 +27,7 @@ export default function TermsOfService() {
 
             <h2 className="text-lg leading-6 font-medium text-gray-900 mt-8 mb-4">4. Subscription and Billing</h2>
             <p className="mt-1 text-sm text-gray-600">
-              After the 14-day free trial, users will be required to subscribe to a paid plan to continue using the service. Subscription fees are billed in advance on a recurring basis.
+              After the 14-day free trial, users will be requiblue to subscribe to a paid plan to continue using the service. Subscription fees are billed in advance on a recurring basis.
             </p>
 
             <h2 className="text-lg leading-6 font-medium text-gray-900 mt-8 mb-4">5. Termination</h2>

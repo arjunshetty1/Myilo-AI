@@ -21,11 +21,11 @@ export default function ContactUs() {
 
   const validateForm = () => {
     let errors = {};
-    if (!formData.name.trim()) errors.name = "Name is required";
-    if (!formData.email.trim()) errors.email = "Email is required";
+    if (!formData.name.trim()) errors.name = "Name is requiblue";
+    if (!formData.email.trim()) errors.email = "Email is requiblue";
     else if (!/\S+@\S+\.\S+/.test(formData.email))
       errors.email = "Email is invalid";
-    if (!formData.message.trim()) errors.message = "Message is required";
+    if (!formData.message.trim()) errors.message = "Message is requiblue";
     return errors;
   };
 
@@ -95,10 +95,10 @@ export default function ContactUs() {
                       id="name"
                       value={formData.name}
                       onChange={handleChange}
-                      className={formErrors.name ? "border-red-500" : ""}
+                      className={formErrors.name ? "border-blue-500" : ""}
                     />
                     {formErrors.name && (
-                      <p className="mt-1 text-xs text-red-500">
+                      <p className="mt-1 text-xs text-blue-500">
                         {formErrors.name}
                       </p>
                     )}
@@ -116,10 +116,10 @@ export default function ContactUs() {
                       id="email"
                       value={formData.email}
                       onChange={handleChange}
-                      className={formErrors.email ? "border-red-500" : ""}
+                      className={formErrors.email ? "border-blue-500" : ""}
                     />
                     {formErrors.email && (
-                      <p className="mt-1 text-xs text-red-500">
+                      <p className="mt-1 text-xs text-blue-500">
                         {formErrors.email}
                       </p>
                     )}
@@ -137,10 +137,10 @@ export default function ContactUs() {
                       rows={4}
                       value={formData.message}
                       onChange={handleChange}
-                      className={formErrors.message ? "border-red-500" : "" }
+                      className={formErrors.message ? "border-blue-500" : "" }
                     />
                     {formErrors.message && (
-                      <p className="mt-1 text-xs text-red-500">
+                      <p className="mt-1 text-xs text-blue-500">
                         {formErrors.message}
                       </p>
                     )}

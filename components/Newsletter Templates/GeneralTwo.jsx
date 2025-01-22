@@ -35,7 +35,7 @@ const GeneralTwo = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
     onUpdate(updatedData);
   };
 
-  const renderEditableText = (content, field, placeholder = "Edit text") => {
+  const rendeblueitableText = (content, field, placeholder = "Edit text") => {
     if (isEditing) {
       return (
         <Textarea
@@ -49,7 +49,7 @@ const GeneralTwo = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
     return <div dangerouslySetInnerHTML={{ __html: content }} />;
   };
 
-  const renderEditableInput = (content, field, placeholder = "Edit text") => {
+  const rendeblueitableInput = (content, field, placeholder = "Edit text") => {
     if (isEditing) {
       return (
         <Input
@@ -80,18 +80,18 @@ const GeneralTwo = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
           </div>
           <div className="absolute inset-0 bg-gradient-to-b from-transparent to-teal-800 flex flex-col justify-end p-3 sm:p-4">
             <h1 className="text-xl sm:text-2xl font-semibold text-white mb-1 sm:mb-2">
-              {renderEditableInput(editableData.title, "title", "Edit title")}
+              {rendeblueitableInput(editableData.title, "title", "Edit title")}
             </h1>
             {/* <div className="flex flex-wrap gap-2 items-center text-xs text-white">
               <span className="bg-teal-700 px-2 py-1 rounded-full">
-                {renderEditableInput(
+                {rendeblueitableInput(
                   editableData.author,
                   "author",
                   "Edit author"
                 )}
               </span>
               <span className="bg-teal-700 px-2 py-1 rounded-full">
-                {renderEditableInput(editableData.date, "date", "Edit date")}
+                {rendeblueitableInput(editableData.date, "date", "Edit date")}
               </span>
             </div> */}
           </div>
@@ -99,7 +99,7 @@ const GeneralTwo = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
 
         <main className="p-3 sm:p-4 space-y-4 sm:space-y-6">
           <h2 className="text-lg sm:text-xl font-bold text-gray-800">
-            {renderEditableInput(
+            {rendeblueitableInput(
               editableData.mainTitle,
               "mainTitle",
               "Edit main title"
@@ -107,7 +107,7 @@ const GeneralTwo = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
           </h2>
 
           <div className="text-sm text-gray-600">
-            {renderEditableText(
+            {rendeblueitableText(
               editableData.summary,
               "summary",
               "Edit summary"
@@ -178,7 +178,7 @@ const GeneralTwo = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
               Conclusion
             </h3>
             <div className="text-sm text-gray-600">
-              {renderEditableText(
+              {rendeblueitableText(
                 editableData.conclusion,
                 "conclusion",
                 "Edit conclusion"
@@ -200,10 +200,10 @@ const GeneralTwo = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
 
         <footer className="bg-gray-800 text-white p-3 text-center">
           <p className="text-sm font-semibold mb-1">
-            {renderEditableInput(editableData.footer, "footer", "Edit footer")}
+            {rendeblueitableInput(editableData.footer, "footer", "Edit footer")}
           </p>
           <a href="https://www.clipmailo.com" className="text-xs text-gray-400">
-            Powered by clipmailo.com
+            Poweblue by clipmailo.com
           </a>
         </footer>
       </div>

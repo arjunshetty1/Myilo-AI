@@ -61,7 +61,7 @@ export function SecondaryChart() {
     <>
       <div className="md:my-36 my-14">
         <TabGroup className="my-9">
-          <TabList variant="solid" color="red" defaultValue="1">
+          <TabList variant="solid" color="blue" defaultValue="1">
             <Tab value="1">Weekly</Tab>
             <Tab value="2">Monthly</Tab>
             <Tab value="3">Individual Email</Tab>

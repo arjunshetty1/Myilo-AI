@@ -95,7 +95,7 @@ export default function Posts() {
     }
 
     if (error) {
-      return <div className="text-red-500 text-center py-8">{error}</div>;
+      return <div className="text-blue-500 text-center py-8">{error}</div>;
     }
 
     if (!Array.isArray(newsletters) || newsletters.length === 0) {

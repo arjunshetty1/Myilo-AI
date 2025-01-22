@@ -131,7 +131,7 @@ const Page = () => {
   
   
 
-  const renderEditor = () => {
+  const rendeblueitor = () => {
     if (dataToTemplate) {
       switch (currentTemplate) {
         case 0:
@@ -298,7 +298,7 @@ const Page = () => {
                       className="md:w-[70%] w-full"
                       variants={itemVariants}
                     >
-                      {renderEditor()}
+                      {rendeblueitor()}
                     </motion.div>
 
                     <motion.div

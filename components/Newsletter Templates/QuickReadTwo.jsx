@@ -25,7 +25,7 @@ const QuickReadTwo = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
     onUpdate(updatedData);
   };
 
-  const renderEditableText = (content, field, placeholder = "Edit text") => {
+  const rendeblueitableText = (content, field, placeholder = "Edit text") => {
     if (isEditing) {
       return (
         <textarea
@@ -40,7 +40,7 @@ const QuickReadTwo = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
     return <div dangerouslySetInnerHTML={{ __html: content }} />;
   };
 
-  const renderEditableInput = (content, field, placeholder = "Edit text") => {
+  const rendeblueitableInput = (content, field, placeholder = "Edit text") => {
     if (isEditing) {
       return (
         <input
@@ -90,10 +90,10 @@ const QuickReadTwo = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
             {/* Title Card */}
             <div className="bg-white rounded-2xl shadow-lg p-4 mb-6">
               <h1 className="text-xl font-bold text-gray-800">
-                {renderEditableInput(editableData.title, "title", "Edit title")}
+                {rendeblueitableInput(editableData.title, "title", "Edit title")}
               </h1>
               <h2 className="text-lg text-indigo-600 mt-2">
-                {renderEditableInput(editableData.mainTitle, "mainTitle", "Edit main title")}
+                {rendeblueitableInput(editableData.mainTitle, "mainTitle", "Edit main title")}
               </h2>
             </div>
 
@@ -122,7 +122,7 @@ const QuickReadTwo = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
             {/* Summary Box */}
             <div className="bg-gradient-to-r from-indigo-50 to-purple-50 rounded-2xl p-5 mb-6">
               <div className="text-gray-700">
-                {renderEditableText(editableData.summary, "summary", "Edit summary")}
+                {rendeblueitableText(editableData.summary, "summary", "Edit summary")}
               </div>
             </div>
 
@@ -155,14 +155,14 @@ const QuickReadTwo = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
                 Final Thoughts
               </h3>
               <div className="text-white/90">
-                {renderEditableText(editableData.conclusion, "conclusion", "Edit conclusion")}
+                {rendeblueitableText(editableData.conclusion, "conclusion", "Edit conclusion")}
               </div>
             </div>
 
             {/* Footer */}
             <div className="text-center py-6">
               <p className="text-gray-600 mb-4">
-                {renderEditableInput(editableData.footer, "footer", "Edit footer")}
+                {rendeblueitableInput(editableData.footer, "footer", "Edit footer")}
               </p>
               <a
                 href="#"

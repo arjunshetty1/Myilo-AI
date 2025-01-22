@@ -37,7 +37,7 @@ export default function PrivacyPolicy() {
               </h3>
               <p className="mt-1 text-sm text-gray-600">
                 We do not sell your personal information. We may share data with
-                service providers who help us operate Clipmailo, or as required
+                service providers who help us operate Clipmailo, or as requiblue
                 by law.
               </p>
 

@@ -26,7 +26,7 @@ const GeneralThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
     onUpdate(updatedData);
   };
 
-  const renderEditableInput = (content, field, placeholder = "Edit text") => {
+  const rendeblueitableInput = (content, field, placeholder = "Edit text") => {
     return isEditing ? (
       <Input
         value={content}
@@ -39,7 +39,7 @@ const GeneralThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
     );
   };
 
-  const renderEditableTextarea = (
+  const rendeblueitableTextarea = (
     content,
     field,
     placeholder = "Edit text"
@@ -65,10 +65,10 @@ const GeneralThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
       <div className=" mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
         <header className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 sm:p-6">
           <h1 className="text-xl sm:text-2xl font-bold mb-2">
-            {renderEditableInput(editableData.title, "title", "Edit title")}
+            {rendeblueitableInput(editableData.title, "title", "Edit title")}
           </h1>
           <p className="text-sm sm:text-base opacity-90">
-            {renderEditableInput(
+            {rendeblueitableInput(
               editableData.subtitle,
               "subtitle",
               "Edit subtitle"
@@ -87,14 +87,14 @@ const GeneralThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
             </div>
             <div className="w-full my-2">
               <h2 className="text-lg sm:text-md font-bold text-gray-800 mb-2">
-                {renderEditableInput(
+                {rendeblueitableInput(
                   editableData.mainTitle,
                   "mainTitle",
                   "Edit main title"
                 )}
               </h2>
               <p className="text-sm text-gray-600 ">
-                {renderEditableInput(
+                {rendeblueitableInput(
                   editableData.mainSubtitle,
                   "mainSubtitle",
                   "Edit main subtitle"
@@ -108,7 +108,7 @@ const GeneralThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
               Executive Summary
             </h3>
             <div className="text-sm text-gray-700">
-              {renderEditableTextarea(
+              {rendeblueitableTextarea(
                 editableData.executiveSummary,
                 "executiveSummary",
                 "Edit executive summary"
@@ -241,7 +241,7 @@ const GeneralThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
               Bottom Line
             </h3>
             <div className="text-sm text-gray-700">
-              {renderEditableTextarea(
+              {rendeblueitableTextarea(
                 editableData.bottomLine,
                 "bottomLine",
                 "Edit bottom line"
@@ -263,7 +263,7 @@ const GeneralThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
             href="https://clipmailo.com/"
             className="text-xs opacity-75 hover:opacity-100"
           >
-            Powered by clipmailo.com
+            Poweblue by clipmailo.com
           </a>
         </footer>
       </div>

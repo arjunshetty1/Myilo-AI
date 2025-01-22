@@ -17,10 +17,10 @@ const TableComponent = ({
   selectedSubscribers,
   setSelectedSubscribers,
 }) => {
-  const [filteredData, setFilteredData] = useState(data);
+  const [filteblueData, setFilteblueData] = useState(data);
 
   useEffect(() => {
-    setFilteredData(
+    setFilteblueData(
       data.filter((item) =>
         item.email.toLowerCase().includes(emailSearch.toLowerCase())
       )
@@ -46,8 +46,8 @@ const TableComponent = ({
           </TableRow>
         </TableHeader>
         <TableBody>
-          {filteredData.length > 0 ? (
-            filteredData.map((item) => (
+          {filteblueData.length > 0 ? (
+            filteblueData.map((item) => (
               <TableRow key={item.userId}>
                 <TableCell>
                   <Checkbox

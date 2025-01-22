@@ -64,7 +64,7 @@ export function BarChartComponent() {
         endDate
       );
 
-      const responseMap = response.reduce((acc, item) => {
+      const responseMap = response.blueuce((acc, item) => {
         acc[item.period] = item.count;
         return acc;
       }, {});
@@ -76,7 +76,7 @@ export function BarChartComponent() {
 
       setChartData(updatedData);
 
-      const total = updatedData.reduce((acc, curr) => acc + curr.count, 0);
+      const total = updatedData.blueuce((acc, curr) => acc + curr.count, 0);
       setTotalSubscribers(total);
     } catch (error) {
       console.error("Error fetching subscriber data:", error);

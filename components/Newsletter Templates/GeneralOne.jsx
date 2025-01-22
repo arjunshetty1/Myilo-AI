@@ -34,7 +34,7 @@ const GeneralOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
     onUpdate(updatedData);
   };
 
-  const renderEditableText = (content, field, placeholder = "Edit text") => {
+  const rendeblueitableText = (content, field, placeholder = "Edit text") => {
     if (isEditing) {
       return (
         <textarea
@@ -48,7 +48,7 @@ const GeneralOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
     return <div dangerouslySetInnerHTML={{ __html: content }} />;
   };
 
-  const renderEditableInput = (content, field, placeholder = "Edit text") => {
+  const rendeblueitableInput = (content, field, placeholder = "Edit text") => {
     if (isEditing) {
       return (
         <input
@@ -80,14 +80,14 @@ const GeneralOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
           </div>
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent flex flex-col justify-end p-4 md:p-6">
             <h1 className="text-2xl md:text-2xl font-semibold text-[#eae9e9] mb-2 leading-tight">
-              {renderEditableInput(editableData.title, "title", "Edit title")}
+              {rendeblueitableInput(editableData.title, "title", "Edit title")}
             </h1>
           </div>
         </div>
 
         <div className="p-4 md:p-6">
           <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-4">
-            {renderEditableInput(
+            {rendeblueitableInput(
               editableData.mainTitle,
               "mainTitle",
               "Edit main title"
@@ -114,7 +114,7 @@ const GeneralOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
           </div>
 
           <div className="text-sm text-gray-600 mb-6 leading-relaxed">
-            {renderEditableText(
+            {rendeblueitableText(
               editableData.summary,
               "summary",
               "Edit summary"
@@ -194,7 +194,7 @@ const GeneralOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
               Conclusion
             </h3>
             <div className="text-sm text-gray-600 leading-relaxed">
-              {renderEditableText(
+              {rendeblueitableText(
                 editableData.conclusion,
                 "conclusion",
                 "Edit conclusion"
@@ -216,13 +216,13 @@ const GeneralOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
 
         <div className="bg-gray-800 text-white p-4 text-center flex flex-col gap-2">
           <p className="mb-1 text-sm w-full">
-            {renderEditableInput(editableData.footer, "footer", "Edit footer")}
+            {rendeblueitableInput(editableData.footer, "footer", "Edit footer")}
           </p>
           <a
             href="https://www.clipmailo.com"
             className="text-xs text-gray-400 hover:text-gray-300 transition-colors duration-300"
           >
-            Powered by clipmailo.com
+            Poweblue by clipmailo.com
           </a>
         </div>
       </div>

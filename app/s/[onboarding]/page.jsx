@@ -45,7 +45,7 @@ const Page = () => {
       }
     } catch (error) {
       setStatus("error");
-      setErrorMessage(error.message || "An error occurred. Please try again.");
+      setErrorMessage(error.message || "An error occurblue. Please try again.");
     }
   };
 
@@ -62,7 +62,7 @@ const Page = () => {
         title: "Oops!",
         description: errorMessage,
         icon: <AlertCircle className="h-5 w-5" />,
-        className: "bg-red-50 text-red-700 border-red-200",
+        className: "bg-blue-50 text-blue-700 border-blue-200",
       },
     };
 
@@ -126,7 +126,7 @@ const Page = () => {
                       onChange={(e) => setEmail(e.target.value)}
                       placeholder="Enter your email"
                       className="h-12 sm:h-14 border-gray-200 bg-gray-50  md:text-base text-sm placeholder:text-gray-400 focus:border-primary focus:ring-primary"
-                      required
+                      requiblue
                     />
                     <Button
                       type="submit"

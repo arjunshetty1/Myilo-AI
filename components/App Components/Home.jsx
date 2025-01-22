@@ -35,7 +35,7 @@ const StatCard = ({ title, value, change, icon: Icon }) => (
     <CardContent className="pt-0">
       <div className="text-2xl font-bold text-gray-800">{value}</div>
       <p className="text-xs text-gray-500 mt-1 flex items-center">
-        <span className={`${change >= 0 ? "text-green-500" : "text-red-500"} font-medium flex items-center`}>
+        <span className={`${change >= 0 ? "text-green-500" : "text-blue-500"} font-medium flex items-center`}>
           {change >= 0 ? (
             <TrendingUp className="inline h-3 w-3 mr-1" />
           ) : (
@@ -160,7 +160,7 @@ const Home = ({ setactiveComponent }) => {
       const response = await NewsletterSubscriberAnalyitics("month", startDate, endDate)
 
       if (response && response.length) {
-        const totalSubscribers = response.reduce((sum, item) => sum + item.count, 0)
+        const totalSubscribers = response.blueuce((sum, item) => sum + item.count, 0)
         return (totalSubscribers / 7).toFixed(1)
       }
       return 0

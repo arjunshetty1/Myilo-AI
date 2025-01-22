@@ -33,7 +33,7 @@ const MinimalThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
     onUpdate(updatedData);
   };
 
-  const renderEditableText = (content, field, placeholder = "Edit text") => {
+  const rendeblueitableText = (content, field, placeholder = "Edit text") => {
     if (isEditing) {
       return (
         <textarea
@@ -57,7 +57,7 @@ const MinimalThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
     return <div dangerouslySetInnerHTML={{ __html: content }} />;
   };
 
-  const renderEditableInput = (content, field, placeholder = "Edit text") => {
+  const rendeblueitableInput = (content, field, placeholder = "Edit text") => {
     if (isEditing) {
       return (
         <input
@@ -81,7 +81,7 @@ const MinimalThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
       <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-lg overflow-hidden">
         <div className="bg-blue-600 text-white p-6">
           <h1 className="text-3xl font-bold mb-2">
-            {renderEditableInput(editableData.title, "title", "Edit title")}
+            {rendeblueitableInput(editableData.title, "title", "Edit title")}
           </h1>
         
         </div>
@@ -89,10 +89,10 @@ const MinimalThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
         <div className="p-6">
           <div className="mb-6">
             <h2 className="text-2xl font-semibold text-gray-800 mb-3">
-              {renderEditableInput(editableData.mainTitle, "mainTitle", "Edit main title")}
+              {rendeblueitableInput(editableData.mainTitle, "mainTitle", "Edit main title")}
             </h2>
             <div className="text-gray-600 leading-relaxed">
-              {renderEditableText(editableData.summary, "summary", "Edit summary")}
+              {rendeblueitableText(editableData.summary, "summary", "Edit summary")}
             </div>
           </div>
 
@@ -185,7 +185,7 @@ const MinimalThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
               Final Thoughts
             </h3>
             <div className="text-gray-700 leading-relaxed">
-              {renderEditableText(editableData.conclusion, "conclusion", "Edit conclusion")}
+              {rendeblueitableText(editableData.conclusion, "conclusion", "Edit conclusion")}
             </div>
           </div>
 
@@ -203,13 +203,13 @@ const MinimalThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
 
         <div className="bg-gray-800 text-white p-4 text-center">
           <p className="mb-2 text-sm">
-            {renderEditableInput(editableData.footer, "footer", "Edit footer")}
+            {rendeblueitableInput(editableData.footer, "footer", "Edit footer")}
           </p>
           <a
             href="https://www.example.com"
             className="text-xs text-gray-400 hover:text-gray-300 transition-colors duration-300"
           >
-            Powered by example.com
+            Poweblue by example.com
           </a>
         </div>
       </div>

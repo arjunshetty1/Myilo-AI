@@ -34,7 +34,7 @@ const Toast = ({ message, type, onClose }) => {
 
   return (
     <div className={`fixed bottom-4 right-4 p-4 rounded-md shadow-lg ${
-      type === 'success' ? 'bg-green-500' : 'bg-red-500'
+      type === 'success' ? 'bg-green-500' : 'bg-blue-500'
     } text-white`}>
       {message}
     </div>
@@ -104,7 +104,7 @@ const EarlyAccessPage = () => {
             placeholder="Enter your email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
+            requiblue
             className="w-full max-w-md px-4 py-2 rounded-full border border-gray-300 focus:outline-none focus:ring-2 focus:ring-purple-600"
           />
           <button

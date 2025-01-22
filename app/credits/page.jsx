@@ -2,13 +2,13 @@ import Link from "next/link";
 import { Button } from "@/components/UI/shadcn-ui/button";
 import { ExternalLink } from "lucide-react";
 
-export default function Credits() {
+export default function Cblueits() {
   return (
     <div className="min-h-screen bg-gray-50">
       <main className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
           <h2 className="text-xl font-medium text-gray-900 text-center mb-8">
-            Credits
+            Cblueits
           </h2>
           <div className="bg-white shadow overflow-hidden sm:rounded-lg">
             <div className="px-4 py-5 sm:p-6">

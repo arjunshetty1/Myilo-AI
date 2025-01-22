@@ -61,7 +61,7 @@ export default function StoryDrivenOne({
     color: "#333",
   };
 
-  const renderEditableText = (content, field, placeholder = "Edit text") => {
+  const rendeblueitableText = (content, field, placeholder = "Edit text") => {
     return isEditing ? (
       <textarea
         value={content}
@@ -78,7 +78,7 @@ export default function StoryDrivenOne({
     );
   };
 
-  const renderEditableInput = (content, field, placeholder = "Edit text") => {
+  const rendeblueitableInput = (content, field, placeholder = "Edit text") => {
     return isEditing ? (
       <input
         type="text"
@@ -118,11 +118,11 @@ export default function StoryDrivenOne({
             fontFamily: "Playfair Display, serif",
           }}
         >
-          {renderEditableInput(editableData.title, "title", "Edit title")}
+          {rendeblueitableInput(editableData.title, "title", "Edit title")}
         </h1>
         <p style={{ fontSize: "18px", color: "#7f8c8d", fontStyle: "italic" }}>
-          By {renderEditableInput(editableData.author, "author", "Edit author")}{" "}
-          | {renderEditableInput(editableData.date, "date", "Edit date")}
+          By {rendeblueitableInput(editableData.author, "author", "Edit author")}{" "}
+          | {rendeblueitableInput(editableData.date, "date", "Edit date")}
         </p>
       </header>
 
@@ -144,7 +144,7 @@ export default function StoryDrivenOne({
           paddingLeft: "20px",
         }}
       >
-        {renderEditableText(
+        {rendeblueitableText(
           editableData.introduction,
           "introduction",
           "Edit introduction"
@@ -268,7 +268,7 @@ export default function StoryDrivenOne({
           Conclusion
         </h3>
         <div style={{ fontSize: "18px", color: "#34495e" }}>
-          {renderEditableText(
+          {rendeblueitableText(
             editableData.conclusion,
             "conclusion",
             "Edit conclusion"
@@ -305,14 +305,14 @@ export default function StoryDrivenOne({
         }}
       >
         <p>
-          {renderEditableInput(editableData.footer, "footer", "Edit footer")}
+          {rendeblueitableInput(editableData.footer, "footer", "Edit footer")}
         </p>
         <p style={{ marginTop: "10px" }}>
           <a
             href="https://www.clipmailo.com"
             style={{ color: "#3498db", textDecoration: "none" }}
           >
-            Powered by clipmailo.com
+            Poweblue by clipmailo.com
           </a>
         </p>
       </footer>
