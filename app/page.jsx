@@ -381,7 +381,7 @@ export default function LandingPage() {
         </div>
 
         <div className="px-8 z-10">
-          <div className="max-w-4xl mx-auto text-center lg:pt-[5rem] pb-[6rem] pt-0 pb-0">
+          <div className="max-w-4xl mx-auto text-center lg:pt-[5rem] lg:pb-[12rem] pt-0 pb-0">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
