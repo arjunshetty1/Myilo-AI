@@ -1,4 +1,6 @@
 import api from "@/utils/api";
+import { supabase } from "@/utils/supabaseConfig";
+
 
 export const GetProfile = async () => {
   try {
@@ -13,9 +15,12 @@ export const GetProfile = async () => {
 
 export const Logout = async () => {
   try {
-    const response = await api.get("auth/logout");
-    return response.data;
+    const { error } = await supabase.auth.signOut();
+    if (error) throw error;
+    console.log("User logged out successfully.");
   } catch (error) {
+    console.error("Error during logout:", error);
     return error;
   }
 };
+

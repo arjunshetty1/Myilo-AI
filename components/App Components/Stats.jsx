@@ -5,17 +5,28 @@ import Account from "./Profile";
 const Stats = () => {
   return (
     <>
-      <div className="lg:mx-[5%] flex flex-col gap-8 py-10 mx-[5%] pt-12">
+      <div className="lg:mx-[2%] flex flex-col gap-0 py-10 mx-[5%] pt-12">
+        {/* Bar Chart and Account Section */}
         <div className="flex md:flex-row flex-col-reverse w-full gap-4">
-          <div className="flex-grow">
+          {/* Bar Chart */}
+          <div className="flex-grow md:h-[450px]">
             <BarChartComponent />
           </div>
-          <div>
+          {/* Account Card */}
+          <div className="md:w-[450px] md:h-[450px] flex-shrink-0">
             <Account />
           </div>
         </div>
 
-        <LineChartComponent />
+        {/* Line Chart Section */}
+        <div className="flex w-full">
+          {/* Ensure the LineChart has the same width as BarChart */}
+          <div className="flex-grow">
+            <LineChartComponent />
+          </div>
+          {/* Add whitespace under the Account card */}
+          <div className="md:w-[460px]"></div>
+        </div>
       </div>
     </>
   );

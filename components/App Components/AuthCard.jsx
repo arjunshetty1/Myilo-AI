@@ -1,7 +1,7 @@
 "use client";
 import { Button } from "@/components/UI/shadcn-ui/button";
-import api from "@/utils/api";
-import { useGoogleLogin } from "@react-oauth/google";
+import { useEffect } from "react";
+import { supabase } from "@/utils/supabaseConfig";
 import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -10,25 +10,37 @@ import { FcGoogle } from "react-icons/fc";
 
 const AuthCard = () => {
   const router = useRouter();
-
   const [isLoading, setIsLoading] = useState(false);
 
-  const googleLogin = useGoogleLogin({
-    onSuccess: async ({ code }) => {
-      setIsLoading(true);
-      try {
-        const response = await api.post("auth", { code });
-        // Store JWT in localStorage
-        localStorage.setItem("tk", response.data);
-        router.push("/Application");
-      } catch (error) {
-        console.error("Error during login:", error);
-      } finally {
-        setIsLoading(false);
+  useEffect(() => {
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        if (session) {
+          localStorage.setItem("tk", session.access_token);
+          router.push("/Application");
+        }
       }
-    },
-    flow: "auth-code",
-  });
+    );
+
+    return () => authListener.subscription.unsubscribe();
+  }, [router]);
+
+  const handleGoogleLogin = async () => {
+    setIsLoading(true);
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          redirectTo: `${window.location.origin}/Application`,
+        },
+      });
+
+      if (error) throw error;
+    } catch (error) {
+      console.error("Login error:", error);
+      setIsLoading(false);
+    }
+  };
 
   return (
     <motion.div
@@ -55,7 +67,6 @@ const AuthCard = () => {
               width={80}
               height={80}
               alt="Myilo logo"
-              
             />
           </motion.div>
 
@@ -79,7 +90,7 @@ const AuthCard = () => {
             whileTap={{ scale: 0.98 }}
           >
             <Button
-              onClick={() => !isLoading && googleLogin()}
+              onClick={() => !isLoading && handleGoogleLogin()}
               className="w-full py-3 bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 hover:border-gray-400 transition-all duration-300 flex items-center justify-center gap-2 text-base font-medium rounded-lg shadow-sm "
               disabled={isLoading}
             >
@@ -113,8 +124,7 @@ const AuthCard = () => {
             transition={{ delay: 0.5, duration: 0.5 }}
             className="text-gray-500 text-sm text-center max-w-xs"
           >
-            Your details will be synced automatically upon
-            login.
+            Your details will be synced automatically upon login.
           </motion.p>
         </div>
       </motion.div>

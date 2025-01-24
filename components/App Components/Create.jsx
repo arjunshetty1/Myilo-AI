@@ -6,6 +6,7 @@ import { Button } from "@/components/UI/shadcn-ui/button";
 import { Input } from "@/components/UI/shadcn-ui/input";
 import { Label } from "@/components/UI/shadcn-ui/label";
 import { Textarea } from "@/components/UI/shadcn-ui/textarea";
+
 import {
   Select,
   SelectContent,
@@ -28,6 +29,7 @@ import { Separator } from "@/components/UI/shadcn-ui/separator";
 import { Reccomandations } from "@/services/Newsletter";
 import { CreateContextWrapper } from "@/context/global/GlobalContext";
 import { useRouter } from "next/navigation";
+import { supabase } from "@/utils/supabaseConfig";
 
 const LoadingOverlay = () => (
   <motion.div
@@ -71,6 +73,17 @@ const Create = () => {
     useState(false);
   const { setChoosenNewsLetterInputs } = useContext(CreateContextWrapper);
 
+  const log = async () => {
+    const { data: user, error } = await supabase.auth.getUser();
+    if (error) {
+      console.error("Error fetching user:", error);
+    } else {
+      console.log("User:", user);
+    }
+  };
+
+  log();
+
   const router = useRouter();
 
   useEffect(() => {
@@ -101,7 +114,8 @@ const Create = () => {
     };
 
     const totalRequiblue = Object.keys(requiblueFields).length;
-    const filledRequiblue = Object.values(requiblueFields).filter(Boolean).length;
+    const filledRequiblue =
+      Object.values(requiblueFields).filter(Boolean).length;
     const filledOptional = Object.values(optionalFields).filter(Boolean).length;
 
     const progress =
@@ -220,7 +234,9 @@ const Create = () => {
       <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 md:p-8">
         <div className="max-w-7xl mx-auto">
           <div className="mb-6 md:mb-8">
-          <h1 className="text-2xl font-medium text-gray-900 mb-4 pb-4 border-b border-gray-200">Generate a Newsletter</h1>
+            <h1 className="text-2xl font-medium text-gray-900 mb-4 pb-4 border-b border-gray-200">
+              Generate a Newsletter
+            </h1>
             {/* <p className="text-gray-600 text-sm md:text-base">
               Create professional newsletters in minutes with AI assistance
             </p> */}

@@ -65,7 +65,7 @@ const StatCard = ({ title, value, change }) => (
 );
 
 const Page = () => {
-  const [newsletterData, setNewsletterData] = useState(null);
+  const [editedData, setNewsletterData] = useState(null);
   const [currentTemplate, setCurrentTemplate] = useState("");
   const [Analytics, setAnalytics] = useState(null);
   const [dataToTemplate, setdataToTemplate] = useState("");
@@ -96,7 +96,7 @@ const Page = () => {
       setNewsletterData(response);
       setCurrentTemplate(response.templateId);
       setthumbnail(response.thumbnail);
-      const str = response.newsletterData;
+      const str = response.editedData;
       setdataToTemplate(str);
     } catch (error) {
       console.error("Error fetching newsletter:", error);
@@ -280,14 +280,14 @@ const Page = () => {
                 <Card className="xl:col-span-2">
                   <CardHeader className="flex flex-row items-center">
                     <div className="grid gap-2">
-                    <CardTitle>{newsletterData?.title || "Newsletter"}</CardTitle>
+                    <CardTitle>{editedData?.title || "Newsletter"}</CardTitle>
 
 
                       <CardDescription>
                         Posted on{" "}
-                        {newsletterData?.createdAt
+                        {editedData?.createdAt
                           ? new Date(
-                              newsletterData.createdAt
+                              editedData.createdAt
                             ).toLocaleDateString()
                           : "N/A"}
                       </CardDescription>

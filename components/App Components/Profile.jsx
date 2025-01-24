@@ -1,62 +1,125 @@
-"use client"
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/UI/shadcn-ui/card"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/UI/shadcn-ui//avatar"
-import { Button } from "@/components/UI/shadcn-ui/button"
-import { LogOut } from "lucide-react"
+"use client";
 
-const Account = ({ userName = "Arjun Shetty", avatarUrl, memberSince = 23, accountType }) => {
+import { useState } from "react";
+
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardFooter,
+} from "@/components/UI/shadcn-ui/card";
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/components/UI/shadcn-ui/avatar";
+import { Button } from "@/components/UI/shadcn-ui/button";
+import { Input } from "@/components/UI/shadcn-ui/input";
+import { LogOut, Edit2, Check } from "lucide-react";
+import { Logout } from "@/services/Profile";
+import { useRouter } from "next/navigation";
+
+const Account = ({
+  initialUserName = "Arjun Shetty",
+  avatarUrl,
+  memberSince = 23,
+  accountType,
+  plan = "Pro",
+  email = "arjun.shetty@example.com",
+}) => {
+  const [userName, setUserName] = useState(initialUserName);
+  const [isEditing, setIsEditing] = useState(false);
+
   const getInitials = (name) => {
-    const names = name.split(" ")
-    const initials = names.reduce((acc, curr) => acc + curr[0], "")
-    return initials.toUpperCase().slice(0, 2)
-  }
+    const names = name.split(" ");
+    const initials = names.reduce((acc, curr) => acc + curr[0], "");
+    return initials.toUpperCase().slice(0, 2);
+  };
 
-  const initials = getInitials(userName)
+  const initials = getInitials(userName);
 
-  // Dummy numbers for newsletters
-  const newslettersGenerated = 15
-  const newslettersReceived = 42
+  const newslettersGenerated = 15;
+  const newslettersReceived = 42;
+const router  = useRouter()
+  const handleEditClick = () => setIsEditing(true);
+  const handleSaveClick = () => setIsEditing(false);
+
+  const handleLogout = async () => {
+    const error = await Logout();
+    if (!error) {
+    
+      router.push("/Login"); 
+  }}
 
   return (
-    <Card className="w-full min-w-[25rem] ml-auto h-full flex flex-col">
-      <CardHeader className="flex flex-row items-center justify-between pb-2 border-b">
-        <div className="flex items-center gap-4">
-          <Avatar className="h-16 w-16">
+    <Card className="w-full max-w-2xl mx-auto shadow-sm rounded-lg overflow-hidden">
+      <CardHeader className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
+        <div className="flex items-center space-x-4">
+          <Avatar className="h-20 w-20 ring-2 ring-white dark:ring-gray-800">
             <AvatarImage src={avatarUrl} alt={userName} />
-            <AvatarFallback>{initials}</AvatarFallback>
+            <AvatarFallback className="text-lg">{initials}</AvatarFallback>
           </Avatar>
-          <div className="flex flex-col">
-            <CardTitle className="text-xl font-semibold">{userName}</CardTitle>
-            <p className="text-sm text-muted-foreground">{accountType} Account</p>
+          <div className="space-y-1">
+            {isEditing ? (
+              <div className="flex items-center space-x-2">
+                <Input
+                  value={userName}
+                  onChange={(e) => setUserName(e.target.value)}
+                  className="max-w-[200px]"
+                />
+                <Button onClick={handleSaveClick} size="sm" variant="ghost">
+                  <Check className="h-4 w-4" />
+                </Button>
+              </div>
+            ) : (
+              <div className="flex items-center space-x-2">
+                <CardTitle className="text-2xl font-bold">{userName}</CardTitle>
+                <Button onClick={handleEditClick} size="sm" variant="ghost">
+                  <Edit2 className="h-4 w-4" />
+                </Button>
+              </div>
+            )}
+            <p className="text-sm text-muted-foreground">
+              {accountType} Account
+            </p>
           </div>
         </div>
       </CardHeader>
-      <CardContent className="flex-grow py-6">
-        <div className="space-y-6">
-          <div className="flex justify-between items-center">
-            <span className="text-sm text-muted-foreground">Member since {memberSince} days</span>
-          </div>
-          <div className="space-y-4">
-            <div className="flex justify-between items-center py-2 border-b">
-              <span className="text-sm">Newsletters Generated</span>
-              <span className="text-lg font-semibold">{newslettersGenerated}</span>
-            </div>
-            <div className="flex justify-between items-center py-2 border-b">
-              <span className="text-sm">Newsletters Received</span>
-              <span className="text-lg font-semibold">{newslettersReceived}</span>
-            </div>
-          </div>
+      <CardContent className="p-6 space-y-6">
+        <div className="grid grid-cols-2 gap-4">
+          <InfoItem label="Member since" value={`${memberSince} days`} />
+          <InfoItem label="Email" value={email} />
+          <InfoItem label="Current Plan" value={plan} />
+          <InfoItem
+            label="Newsletters Generated"
+            value={newslettersGenerated}
+          />
+          <InfoItem label="Newsletters Received" value={newslettersReceived} />
         </div>
       </CardContent>
-      <CardFooter className="pt-6">
-        <Button variant="outline" className="w-full flex items-center justify-center gap-2">
+      <CardFooter className="bg-gray-50 dark:bg-gray-900 p-6 flex flex-col items-center space-y-4">
+        <Button
+          onClick={handleLogout}
+          variant="outline"
+          className="w-full sm:w-auto flex items-center justify-center space-x-2"
+        >
           <LogOut className="h-4 w-4" />
-          Logout
+          <span>Logout</span>
         </Button>
+        <p className="text-xs text-center text-muted-foreground max-w-sm">
+          Your username will be used to send emails. Please ensure it's correct.
+        </p>
       </CardFooter>
     </Card>
-  )
-}
+  );
+};
 
-export default Account
+const InfoItem = ({ label, value }) => (
+  <div className="flex flex-col space-y-1">
+    <span className="text-sm text-muted-foreground">{label}</span>
+    <span className="font-medium">{value}</span>
+  </div>
+);
 
+export default Account;

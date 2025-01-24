@@ -46,12 +46,12 @@ export default function StoryDrivenTwo({
         placeholder={placeholder}
         className="w-full p-2 text-base border rounded-md focus:ring-2 focus:ring-blue-500 bg-white text-gray-800 min-h-[120px] resize-none"
         style={{
-          height: 'auto',
-          overflow: 'hidden'
+          height: "auto",
+          overflow: "hidden",
         }}
         onInput={(e) => {
-          e.target.style.height = 'auto'; // Reset the height
-          e.target.style.height = e.target.scrollHeight + 'px'; // Set the height to the scroll height
+          e.target.style.height = "auto"; // Reset the height
+          e.target.style.height = e.target.scrollHeight + "px"; // Set the height to the scroll height
         }}
       />
     ) : (
@@ -84,12 +84,13 @@ export default function StoryDrivenTwo({
           {rendeblueitableInput(editableData.title, "title", "Edit title")}
         </h1>
         <p className="text-lg text-gray-600 mb-5">
-          By {rendeblueitableInput(editableData.author, "author", "Edit author")}{" "}
-          | {rendeblueitableInput(editableData.date, "date", "Edit date")}
+          By{" "}
+          {rendeblueitableInput(editableData.author, "author", "Edit author")} |{" "}
+          {rendeblueitableInput(editableData.date, "date", "Edit date")}
         </p>
         <div className="relative h-[400px] overflow-hidden rounded-lg">
           <img
-            src={thumbnail.hero}
+            src={thumbnail}
             alt="Hero Image"
             className="w-full h-full object-cover"
           />
@@ -121,7 +122,11 @@ export default function StoryDrivenTwo({
               section.title
             )}
           </h2>
-          <div className={`flex ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'} gap-8 items-center`}>
+          <div
+            className={`flex ${
+              index % 2 === 0 ? "flex-row" : "flex-row-reverse"
+            } gap-8 items-center`}
+          >
             <div className="flex-1 text-base text-gray-800">
               {isEditing ? (
                 <textarea
@@ -131,12 +136,12 @@ export default function StoryDrivenTwo({
                   }
                   className="w-full p-2 text-base border rounded-md focus:ring-2 focus:ring-blue-500 bg-white text-gray-800 min-h-[120px] resize-none"
                   style={{
-                    height: 'auto',
-                    overflow: 'hidden'
+                    height: "auto",
+                    overflow: "hidden",
                   }}
                   onInput={(e) => {
-                    e.target.style.height = 'auto'; // Reset the height
-                    e.target.style.height = e.target.scrollHeight + 'px'; // Set the height to the scroll height
+                    e.target.style.height = "auto"; // Reset the height
+                    e.target.style.height = e.target.scrollHeight + "px"; // Set the height to the scroll height
                   }}
                 />
               ) : (
@@ -159,7 +164,11 @@ export default function StoryDrivenTwo({
                   type="text"
                   value={point}
                   onChange={(e) =>
-                    handleArrayInputChange("keyTakeaways", index, e.target.value)
+                    handleArrayInputChange(
+                      "keyTakeaways",
+                      index,
+                      e.target.value
+                    )
                   }
                   className="w-full p-2 text-base border rounded-md focus:ring-2 focus:ring-blue-500 bg-white text-gray-800"
                 />
@@ -194,7 +203,9 @@ export default function StoryDrivenTwo({
       </div>
 
       <footer className="border-t border-gray-200 pt-5 text-center text-sm text-gray-600">
-        <p>{rendeblueitableInput(editableData.footer, "footer", "Edit footer")}</p>
+        <p>
+          {rendeblueitableInput(editableData.footer, "footer", "Edit footer")}
+        </p>
         <p className="mt-3">
           <a
             href="https://www.clipmailo.com"

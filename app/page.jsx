@@ -452,7 +452,7 @@ export default function LandingPage() {
                 <span className="font-semibold text-gray-900 dark:text-white">
                   Rated 4.9/5
                 </span>{" "}
-                by 200+ creators like you
+                by 5-6+ creators like you
               </p>
             </motion.div>
           </div>
@@ -660,7 +660,7 @@ export default function LandingPage() {
       </section>
 
       {/* Testimonials Section */}
-      <section
+      {/* <section
         id="testimonials"
         className="py-20 px-8 sm:px-6 lg:px-14 bg-white dark:bg-gray-900"
       >
@@ -724,7 +724,7 @@ export default function LandingPage() {
             />
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-br from-purple-600 to-pink-600">

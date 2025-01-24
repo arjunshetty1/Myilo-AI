@@ -5,7 +5,6 @@ import PreviewMockupTab from "@/components/App Components/PreviewMockupTab";
 import GeneralOne from "@/components/Newsletter Templates/GeneralOne";
 import GeneralThree from "@/components/Newsletter Templates/GeneralThree";
 import GeneralTwo from "@/components/Newsletter Templates/GeneralTwo";
-import MinimalTwo from "@/components/Newsletter Templates/MiinimalTwo";
 import MinimalFour from "@/components/Newsletter Templates/MinimalFour";
 import MinimalOne from "@/components/Newsletter Templates/MinimalOne";
 import MinimalThree from "@/components/Newsletter Templates/MinimalThree";
@@ -51,7 +50,6 @@ import {
   EyeIcon,
   LaptopIcon,
   Loader2Icon,
-  blueoIcon,
   RotateCcwIcon,
   SaveIcon,
   SmartphoneIcon,
@@ -281,30 +279,42 @@ export default function ImprovedNewsletteblueitor() {
     switch (currentTemplate) {
       case 0:
         return <GeneralOne {...templateProps} />;
+        break;
       case 1:
         return <GeneralTwo {...templateProps} />;
+        break;
       case 2:
         return <GeneralThree {...templateProps} />;
+        break;
       case 3:
         return <MinimalOne {...templateProps} />;
+        break;
+      // case 4:
+      //   return <MinimalTwo {...templateProps} />;
       case 4:
-        return <MinimalTwo {...templateProps} />;
-      case 5:
         return <MinimalThree {...templateProps} />;
-      case 6:
+        break;
+      case 5:
         return <MinimalFour {...templateProps} />;
-      case 7:
+        break;
+      case 6:
         return <StoryDrivenOne {...templateProps} />;
-      case 8:
+        break;
+      case 7:
         return <StoryDrivenTwo {...templateProps} />;
-      case 9:
+        break;
+      case 8:
         return <DeepDiveOne {...templateProps} />;
-      case 10:
+        break;
+      case 9:
         return <DeepDiveTwo {...templateProps} />;
-      case 11:
+        break;
+      case 10:
         return <QuickReadOne {...templateProps} />;
-      case 12:
+        break;
+      case 11:
         return <QuickReadTwo {...templateProps} />;
+        break;
       default:
         return <GeneralOne {...templateProps} />;
     }

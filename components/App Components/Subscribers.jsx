@@ -274,7 +274,7 @@ export default function Subscribers() {
   };
 
   return (
-    <div className="mx-auto px-4 md:px-6 lg:px-8 py-8 max-w-7xl">
+    <div className="mx-auto px-4 md:px-6 lg:px-8 py-8">
       <div className="grid gap-8 lg:grid-cols-3">
         <div className="lg:col-span-2 space-y-8 flex flex-col">
           <div className="bg-white rounded-2xl shadow-sm p-6 flex-grow flex flex-col">

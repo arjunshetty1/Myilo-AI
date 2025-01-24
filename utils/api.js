@@ -1,24 +1,34 @@
-"use client"
-
-import axios from 'axios';
+"use client";
+import axios from "axios";
+import { supabase } from "./supabaseConfig";
 
 const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
 });
 
-// Request interceptor
+const getAccessToken = async () => {
+  const { data: session, error } = await supabase.auth.getSession();
+
+  if (error || !session) {
+    console.error(
+      "Error retrieving session:",
+      error?.message || "No session found"
+    );
+    return;
+  }
+
+  console.log("session", session.session.access_token);
+
+  return session.session.access_token;
+};
+
 api.interceptors.request.use(
-  (config) => {
-    // Get the token from localStorage before each request
-    const token = localStorage.getItem('tk');
-    if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`;
-    }
+  async (config) => {
+    const token = await getAccessToken();
+    if (token) config.headers.Authorization = `Bearer ${token}`;
     return config;
   },
-  (error) => {
-    return Promise.reject(error);
-  }
+  (error) => Promise.reject(error)
 );
 
 export default api;

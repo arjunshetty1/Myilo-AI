@@ -86,7 +86,7 @@ export default function Posts() {
   const renderNewsletters = () => {
     if (loading) {
       return (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           {[...Array(itemsPerPage)].map((_, i) => (
             <SkeletonCard key={i} />
           ))}
@@ -107,10 +107,10 @@ export default function Posts() {
     }
 
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 ">
         {newsletters.map((newsletter) => {
           if (!newsletter) return null;
-          const title = newsletter.newsletterData.title || "Untitled"; // Access title from the parsed data
+          const title = newsletter.editedData.title || "Untitled"; // Access title from the parsed data
 
           const linkHref =
             newsletter.status === "published"
@@ -179,7 +179,7 @@ export default function Posts() {
   };
 
   return (
-    <div className="max-w-6xl mx-auto px-10 md:px-4 py-8">
+    <div className="mx-auto px-10 md:px-4 py-8">
       <h1 className="text-2xl font-medium text-gray-900 mb-4 pb-2 border-b border-gray-200">
         Posts
       </h1>

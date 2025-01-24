@@ -34,8 +34,8 @@ const page = () => {
   };
   return (
     <>
-      <div className="bg-gradient-to-br from-gray-50 to-gray-100">
-        {renderComponent()};
+      <div className="bg-gradient-to-br from-gray-50 to-gray-100 h-[100%]">
+        {renderComponent()}
       </div>
     </>
   );
