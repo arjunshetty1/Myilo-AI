@@ -87,7 +87,7 @@ export function BarChartComponent() {
 
   return (
     <Card>
-      <CardHeader className="flex flex-col items-stretch space-y-4 border-b p-4 sm:flex-row sm:space-y-0 sm:items-center sm:justify-between">
+      <CardHeader className="flex max-w-full flex-col items-stretch space-y-4 border-b p-4 sm:flex-row sm:space-y-0 sm:items-center sm:justify-between">
         <div className="flex flex-1 flex-col justify-center gap-2">
           <CardTitle className="text-lg sm:text-xl font-semibold text-gray-800">
             Newsletter Subscribers
