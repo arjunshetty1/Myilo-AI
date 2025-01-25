@@ -1,10 +1,9 @@
 "use client";
-
-import React, { useState, useEffect } from "react";
-import { Calendar, User, Tag, MessageSquare, Link, Youtube } from "lucide-react";
+import { useState, useEffect } from "react";
 
 const MinimalOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
-  const [editabledataToTemplate, setEditabledataToTemplate] = useState(dataToTemplate);
+  const [editabledataToTemplate, setEditabledataToTemplate] =
+    useState(dataToTemplate);
 
   useEffect(() => {
     setEditabledataToTemplate(dataToTemplate);
@@ -19,7 +18,10 @@ const MinimalOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
   const handleArrayInputChange = (field, index, value) => {
     const updatedArray = [...editabledataToTemplate[field]];
     updatedArray[index] = value;
-    const updateddataToTemplate = { ...editabledataToTemplate, [field]: updatedArray };
+    const updateddataToTemplate = {
+      ...editabledataToTemplate,
+      [field]: updatedArray,
+    };
     setEditabledataToTemplate(updateddataToTemplate);
     onUpdate(updateddataToTemplate);
   };
@@ -28,14 +30,17 @@ const MinimalOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
     const updatedSections = editabledataToTemplate.sections.map((section, i) =>
       i === index ? { ...section, [field]: value } : section
     );
-    const updateddataToTemplate = { ...editabledataToTemplate, sections: updatedSections };
+    const updateddataToTemplate = {
+      ...editabledataToTemplate,
+      sections: updatedSections,
+    };
     setEditabledataToTemplate(updateddataToTemplate);
     onUpdate(updateddataToTemplate);
   };
 
   const adjustHeight = (e) => {
-    e.target.style.height = "auto"; // Reset height
-    e.target.style.height = `${e.target.scrollHeight}px`; // Set height to scroll height
+    e.target.style.height = "auto";
+    e.target.style.height = `${e.target.scrollHeight}px`;
   };
 
   const rendeblueitableText = (content, field, placeholder = "Edit text") => {
@@ -48,16 +53,17 @@ const MinimalOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
             adjustHeight(e);
           }}
           placeholder={placeholder}
-          className="w-full p-2 text-sm bg-white/50 border rounded-md focus:ring-2 focus:ring-blue-500 text-gray-800 resize-none "
-          style={{
-            minHeight: "100px",
-            overflow: "hidden",
-          }}
+          className="w-full p-2 text-sm md:text-base bg-white/50 border rounded-md focus:ring-2 focus:ring-blue-500 text-gray-800 resize-y min-h-[120px]"
           onInput={adjustHeight}
         />
       );
     }
-    return <div dangerouslySetInnerHTML={{ __html: content || "" }} />;
+    return (
+      <div
+        className="prose prose-sm max-w-none"
+        dangerouslySetInnerHTML={{ __html: content || "" }}
+      />
+    );
   };
 
   const rendeblueitableInput = (content, field, placeholder = "Edit text") => {
@@ -68,66 +74,72 @@ const MinimalOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
           value={content || ""}
           onChange={(e) => handleInputChange(field, e.target.value)}
           placeholder={placeholder}
-          className="w-full p-1 text-sm bg-transparent border-none focus:ring-2 focus:ring-blue-500 text-gray-800"
+          className="w-full p-1 text-sm md:text-base bg-transparent border-none focus:ring-2 focus:ring-blue-500 text-gray-800 placeholder-gray-400"
         />
       );
     }
-    return <span>{content}</span>;
+    return <span className="break-words">{content}</span>;
   };
 
   return (
-    <div className="font-sans text-sm bg-white min-h-screen p-4">
+    <div className="font-sans bg-white min-h-screen p-4 sm:p-6">
       <div className="mx-auto bg-white shadow-lg rounded-lg overflow-hidden max-w-4xl">
-        <div className="relative p-0">
-          <div className="w-full h-48 md:h-64 overflow-hidden">
+        <div className="relative">
+          <div className="w-full aspect-video md:aspect-[3/1] overflow-hidden">
             <img
               src={thumbnail}
               alt="Newsletter Thumbnail"
-              className="w-full h-full object-cover object-center blur-sm"
+              className="w-full h-full object-cover object-center"
             />
           </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-4">
-  <h1 className="text-2xl md:text-3xl font-bold mb-2 leading-tight">
-    {isEditing ? (
-      <input
-        type="text"
-        value={editabledataToTemplate.title || ""}
-        onChange={(e) => handleInputChange("title", e.target.value)}
-        placeholder="Edit title"
-        className="w-full p-1 px-4 text-2xl bg-transparent border-none focus:ring-2 focus:ring-blue-500 text-white"
-      />
-    ) : (
-      <span className="text-white">{editabledataToTemplate.title}</span>
-    )}
-  </h1>
-  <p className="text-lg">
-    {isEditing ? (
-      <input
-        type="text"
-        value={editabledataToTemplate.subtitle || ""}
-        onChange={(e) => handleInputChange("subtitle", e.target.value)}
-        placeholder="Edit subtitle"
-        className="w-full p-1  bg-transparent text-lg border-none focus:ring-2 focus:ring-blue-500 text-white"
-      />
-    ) : (
-      <span className="text-white">{editabledataToTemplate.subtitle}</span>
-    )}
-  </p>
-</div>
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-4 md:p-6">
+            <h1 className="text-2xl md:text-4xl font-bold mb-2 md:mb-3 text-white leading-tight">
+              {isEditing ? (
+                <input
+                  type="text"
+                  value={editabledataToTemplate.title || ""}
+                  onChange={(e) => handleInputChange("title", e.target.value)}
+                  placeholder="Edit title"
+                  className="w-full p-1 px-4 text-2xl md:text-4xl bg-transparent border-none focus:ring-2 focus:ring-blue-500 text-white placeholder-white/70"
+                />
+              ) : (
+                editabledataToTemplate.title
+              )}
+            </h1>
+            <p className="text-lg md:text-xl text-white/90">
+              {isEditing ? (
+                <input
+                  type="text"
+                  value={editabledataToTemplate.subtitle || ""}
+                  onChange={(e) =>
+                    handleInputChange("subtitle", e.target.value)
+                  }
+                  placeholder="Edit subtitle"
+                  className="w-full p-1 bg-transparent text-lg md:text-xl border-none focus:ring-2 focus:ring-blue-500 text-white placeholder-white/70"
+                />
+              ) : (
+                editabledataToTemplate.subtitle
+              )}
+            </p>
+          </div>
         </div>
 
-        <div className="p-4 md:p-6">
-
-          <div className="flex flex-wrap gap-2 mb-4">
+        <div className="p-4 md:p-6 lg:p-8">
+          <div className="flex flex-wrap gap-2 mb-4 md:mb-6">
             {editabledataToTemplate.tags &&
               editabledataToTemplate.tags.map((tag, index) => (
-                <span key={index} className="text-xs bg-gray-200 text-gray-700 px-2 py-1 rounded">
+                <span
+                  key={index}
+                  className="text-xs md:text-sm bg-gray-200 text-gray-700 px-2 py-1 rounded"
+                >
                   {isEditing ? (
                     <input
                       type="text"
                       value={tag || ""}
-                      onChange={(e) => handleArrayInputChange("tags", index, e.target.value)}
-                      className="w-20 p-0 text-xs bg-transparent border-none"
+                      onChange={(e) =>
+                        handleArrayInputChange("tags", index, e.target.value)
+                      }
+                      className="min-w-[80px] p-0 text-xs md:text-sm bg-transparent border-none"
                     />
                   ) : (
                     tag
@@ -136,60 +148,65 @@ const MinimalOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
               ))}
           </div>
 
-          <div className="text-sm text-gray-600 mb-6 leading-relaxed">
-            {rendeblueitableText(editabledataToTemplate.summary, "summary", "Edit summary")}
+          <div className="text-sm md:text-base text-gray-600 mb-6 leading-relaxed">
+            {rendeblueitableText(
+              editabledataToTemplate.summary,
+              "summary",
+              "Edit summary"
+            )}
           </div>
 
-          <div className="space-y-6 mb-6">
+          <div className="space-y-6 md:space-y-8 mb-6">
             {editabledataToTemplate.sections &&
               editabledataToTemplate.sections.map((section, index) => (
                 <div key={index}>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">
+                  <h3 className="text-lg md:text-xl font-semibold text-gray-900 mb-2 md:mb-3">
                     {isEditing ? (
                       <input
                         type="text"
                         value={section.title || ""}
-                        onChange={(e) => handleSectionChange(index, "title", e.target.value)}
-                        className="w-full p-1 text-lg bg-transparent border-none font-semibold"
+                        onChange={(e) =>
+                          handleSectionChange(index, "title", e.target.value)
+                        }
+                        className="w-full p-1 text-lg md:text-xl bg-transparent border-none font-semibold"
                       />
                     ) : (
                       section.title
                     )}
                   </h3>
-                  <div className="text-sm text-gray-600 leading-relaxed">
+                  <div className="text-sm md:text-base text-gray-600 leading-relaxed">
                     {isEditing ? (
                       <textarea
                         value={section.content || ""}
-                        onChange={(e) => handleSectionChange(index, "content", e.target.value)}
-                        className="w-full p-2 text-sm bg-white/50 border rounded-md focus:ring-2 focus:ring-blue-500 resize-none"
-                        style={{ minHeight: "100px", overflow: "hidden" }}
-                        onInput={(e) => {
-                          e.target.style.height = "auto";
-                          e.target.style.height = `${e.target.scrollHeight}px`;
-                        }}
+                        onChange={(e) =>
+                          handleSectionChange(index, "content", e.target.value)
+                        }
+                        className="w-full p-2 text-sm md:text-base bg-white/50 border rounded-md focus:ring-2 focus:ring-blue-500 resize-y min-h-[120px]"
+                        onInput={adjustHeight}
                       />
                     ) : (
-                      <div dangerouslySetInnerHTML={{ __html: section.content || "" }} />
+                      <div
+                        className="prose prose-sm max-w-none"
+                        dangerouslySetInnerHTML={{
+                          __html: section.content || "",
+                        }}
+                      />
                     )}
                   </div>
                 </div>
               ))}
           </div>
 
-          <div className="flex justify-center mb-6">
-            <button
-              className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition-colors"
-              onClick={() => editabledataToTemplate.youtubeLink && window.open(editabledataToTemplate.youtubeLink, "_blank")}
-            >
-              <Youtube size={20} />
-              Watch Full YouTube Video
-            </button>
-          </div>
+          <div className="flex justify-center mb-6 md:mb-8"></div>
         </div>
 
-        <div className="bg-gray-100 text-gray-600 p-4 text-center flex flex-col gap-2">
-          <p className="mb-1 text-sm w-full">
-            {rendeblueitableInput(editabledataToTemplate.footer, "footer", "Edit footer")}
+        <div className="bg-gray-100 text-gray-600 p-4 md:p-6 text-center">
+          <p className="text-sm md:text-base w-full">
+            {rendeblueitableInput(
+              editabledataToTemplate.footer,
+              "footer",
+              "Edit footer"
+            )}
           </p>
         </div>
       </div>

@@ -66,7 +66,7 @@ const AuthCard = () => {
               src="/logo.jpg"
               width={80}
               height={80}
-              alt="Myilo logo"
+              alt="ClipMailo logo"
             />
           </motion.div>
 
@@ -77,7 +77,7 @@ const AuthCard = () => {
             className="text-center"
           >
             <h2 className="text-2xl text-gray-600 mb-2">
-              Get started with Myilo AI
+              Get started with ClipMailo AI
             </h2>
             <p className="text-gray-600">
               Dive into the world of simple newsletter creation with AI.

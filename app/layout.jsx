@@ -8,7 +8,7 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Myilo AI",
+  title: "ClipMailo AI",
   description:
     "A tool for clueless folks to rake in a $hit ton of money 💰 while having no fu*king clue 🤷‍♂️ about creating & managing newsletters.",
 };

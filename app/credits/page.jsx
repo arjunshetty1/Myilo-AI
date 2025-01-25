@@ -264,7 +264,7 @@ export default function Cblueits() {
                 <p className="text-gray-600">
                   We are grateful to all the developers and organizations that
                   have contributed to these technologies and services, making
-                  Myilo AI possible. This project uses various open-source
+                  ClipMailo AI possible. This project uses various open-source
                   packages and third-party services - each playing a crucial
                   role in our application.
                 </p>

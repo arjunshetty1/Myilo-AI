@@ -38,28 +38,8 @@ export default function StoryDrivenOne({
     onUpdate(updatedData);
   };
 
-  const textAreaStyles = {
-    width: "100%",
-    padding: "8px",
-    fontSize: "16px",
-    border: "1px solid #ccc",
-    borderRadius: "4px",
-    backgroundColor: "white",
-    color: "#333",
-    resize: "none",
-    overflow: "hidden",
-    minHeight: "100px",
-  };
-
-  const inputStyles = {
-    width: "100%",
-    padding: "8px",
-    fontSize: "16px",
-    border: "1px solid #ccc",
-    borderRadius: "4px",
-    backgroundColor: "white",
-    color: "#333",
-  };
+  const textAreaStyles = "w-full p-2 text-base md:text-lg border rounded bg-white text-gray-700 resize-none overflow-hidden min-h-[100px]";
+  const inputStyles = "w-full p-2 text-base md:text-lg border rounded bg-white text-gray-700";
 
   const rendeblueitableText = (content, field, placeholder = "Edit text") => {
     return isEditing ? (
@@ -67,10 +47,10 @@ export default function StoryDrivenOne({
         value={content}
         onChange={(e) => handleInputChange(field, e.target.value)}
         placeholder={placeholder}
-        style={textAreaStyles}
+        className={textAreaStyles}
         onInput={(e) => {
-          e.target.style.height = 'auto'; // Reset height
-          e.target.style.height = `${e.target.scrollHeight}px`; // Set height to scrollHeight
+          e.target.style.height = 'auto';
+          e.target.style.height = `${e.target.scrollHeight}px`;
         }}
       />
     ) : (
@@ -85,7 +65,7 @@ export default function StoryDrivenOne({
         value={content}
         onChange={(e) => handleInputChange(field, e.target.value)}
         placeholder={placeholder}
-        style={inputStyles}
+        className={inputStyles}
       />
     ) : (
       <span>{content}</span>
@@ -97,53 +77,26 @@ export default function StoryDrivenOne({
   }
 
   return (
-    <div
-      style={{
-        fontFamily: "Georgia, serif",
-        fontSize: "18px",
-        lineHeight: "1.6",
-        color: "#333",
-        maxWidth: "800px",
-        margin: "0 auto",
-        padding: "20px",
-      }}
-    >
-      <header style={{ textAlign: "center", marginBottom: "40px" }}>
-        <h1
-          style={{
-            fontSize: "36px",
-            fontWeight: "bold",
-            color: "#2c3e50",
-            marginBottom: "10px",
-            fontFamily: "Playfair Display, serif",
-          }}
-        >
+    <div className="font-serif text-base md:text-lg leading-relaxed text-gray-700 max-w-screen-lg mx-auto p-4 md:p-6">
+      <header className="text-center mb-6 md:mb-10">
+        <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2 font-playfair">
           {rendeblueitableInput(editableData.title, "title", "Edit title")}
         </h1>
-        <p style={{ fontSize: "18px", color: "#7f8c8d", fontStyle: "italic" }}>
+        <p className="text-gray-600 italic">
           By {rendeblueitableInput(editableData.author, "author", "Edit author")}{" "}
           | {rendeblueitableInput(editableData.date, "date", "Edit date")}
         </p>
       </header>
 
-      <div style={{ marginBottom: "30px" }}>
+      <div className="mb-6 md:mb-10">
         <img
           src={thumbnail}
           alt="Story Thumbnail"
-          style={{ width: "100%", height: "auto", borderRadius: "8px" }}
+          className="w-full h-auto rounded-lg"
         />
       </div>
 
-      <div
-        style={{
-          fontSize: "20px",
-          color: "#34495e",
-          marginBottom: "30px",
-          fontStyle: "italic",
-          borderLeft: "4px solid #3498db",
-          paddingLeft: "20px",
-        }}
-      >
+      <div className="text-lg md:text-xl text-gray-700 mb-6 md:mb-10 italic border-l-4 border-blue-500 pl-4 md:pl-6">
         {rendeblueitableText(
           editableData.introduction,
           "introduction",
@@ -152,16 +105,8 @@ export default function StoryDrivenOne({
       </div>
 
       {editableData.sections.map((section, index) => (
-        <div key={index} style={{ marginBottom: "30px" }}>
-          <h2
-            style={{
-              fontSize: "28px",
-              fontWeight: "bold",
-              color: "#2c3e50",
-              marginBottom: "15px",
-              fontFamily: "Playfair Display, serif",
-            }}
-          >
+        <div key={index} className="mb-6 md:mb-10">
+          <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4 font-playfair">
             {isEditing ? (
               <input
                 type="text"
@@ -169,33 +114,23 @@ export default function StoryDrivenOne({
                 onChange={(e) =>
                   handleSectionChange(index, "title", e.target.value)
                 }
-                style={{
-                  width: "100%",
-                  padding: "8px",
-                  fontSize: "24px",
-                  border: "none",
-                  borderBottom: "2px solid #3498db",
-                  backgroundColor: "transparent",
-                  color: "#2c3e50",
-                  fontWeight: "bold",
-                  fontFamily: "Playfair Display, serif",
-                }}
+                className="w-full p-2 text-2xl md:text-3xl border-b-2 border-blue-500 bg-transparent text-gray-800 font-bold font-playfair"
               />
             ) : (
               section.title
             )}
           </h2>
-          <div style={{ fontSize: "18px", color: "#34495e" }}>
+          <div className="text-gray-700">
             {isEditing ? (
               <textarea
                 value={section.content}
                 onChange={(e) =>
                   handleSectionChange(index, "content", e.target.value)
                 }
-                style={textAreaStyles}
+                className={textAreaStyles}
                 onInput={(e) => {
-                  e.target.style.height = 'auto'; // Reset height
-                  e.target.style.height = `${e.target.scrollHeight}px`; // Set height to scrollHeight
+                  e.target.style.height = 'auto';
+                  e.target.style.height = `${e.target.scrollHeight}px`;
                 }}
               />
             ) : (
@@ -205,35 +140,13 @@ export default function StoryDrivenOne({
         </div>
       ))}
 
-      <div
-        style={{
-          backgroundColor: "#f0f0f0",
-          padding: "20px",
-          borderRadius: "8px",
-          marginBottom: "30px",
-        }}
-      >
-        <h3
-          style={{
-            fontSize: "24px",
-            fontWeight: "bold",
-            color: "#2c3e50",
-            marginBottom: "15px",
-            fontFamily: "Playfair Display, serif",
-          }}
-        >
+      <div className="bg-gray-100 p-4 md:p-6 rounded-lg mb-6 md:mb-10">
+        <h3 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4 font-playfair">
           Key Takeaways
         </h3>
-        <ul style={{ paddingLeft: "20px", marginBottom: "0" }}>
+        <ul className="pl-4 md:pl-6 space-y-2">
           {editableData.keyTakeaways.map((point, index) => (
-            <li
-              key={index}
-              style={{
-                marginBottom: "10px",
-                fontSize: "18px",
-                color: "#34495e",
-              }}
-            >
+            <li key={index} className="text-gray-700">
               {isEditing ? (
                 <input
                   type="text"
@@ -245,7 +158,7 @@ export default function StoryDrivenOne({
                       e.target.value
                     )
                   }
-                  style={inputStyles}
+                  className={inputStyles}
                 />
               ) : (
                 <span>{point}</span>
@@ -255,19 +168,11 @@ export default function StoryDrivenOne({
         </ul>
       </div>
 
-      <div style={{ marginBottom: "30px" }}>
-        <h3
-          style={{
-            fontSize: "24px",
-            fontWeight: "bold",
-            color: "#2c3e50",
-            marginBottom: "15px",
-            fontFamily: "Playfair Display, serif",
-          }}
-        >
+      <div className="mb-6 md:mb-10">
+        <h3 className="text-2xl md:text-3xl font-bold text-gray-800 mb-4 font-playfair">
           Conclusion
         </h3>
-        <div style={{ fontSize: "18px", color: "#34495e" }}>
+        <div className="text-gray-700">
           {rendeblueitableText(
             editableData.conclusion,
             "conclusion",
@@ -276,43 +181,18 @@ export default function StoryDrivenOne({
         </div>
       </div>
 
-      <div style={{ textAlign: "center", marginBottom: "30px" }}>
-        <a
-          href="#"
-          style={{
-            display: "inline-block",
-            padding: "12px 24px",
-            backgroundColor: "#3498db",
-            color: "white",
-            textDecoration: "none",
-            borderRadius: "5px",
-            fontWeight: "bold",
-            fontSize: "18px",
-            transition: "background-color 0.3s",
-          }}
-        >
-          Watch Full Video
-        </a>
-      </div>
+      
 
-      <footer
-        style={{
-          borderTop: "1px solid #bdc3c7",
-          paddingTop: "20px",
-          textAlign: "center",
-          fontSize: "16px",
-          color: "#7f8c8d",
-        }}
-      >
+      <footer className="border-t border-gray-300 pt-6 text-center text-gray-600">
         <p>
           {rendeblueitableInput(editableData.footer, "footer", "Edit footer")}
         </p>
-        <p style={{ marginTop: "10px" }}>
+        <p className="mt-2">
           <a
             href="https://www.clipmailo.com"
-            style={{ color: "#3498db", textDecoration: "none" }}
+            className="text-blue-500 hover:text-blue-600"
           >
-            Poweblue by clipmailo.com
+            Powered by clipmailo.com
           </a>
         </p>
       </footer>

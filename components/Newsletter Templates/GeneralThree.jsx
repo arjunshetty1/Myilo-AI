@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Input } from "@/components/UI/shadcn-ui/input";
 import { Textarea } from "@/components/UI/shadcn-ui/textarea";
@@ -32,10 +32,10 @@ const GeneralThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
         value={content}
         onChange={(e) => handleInputChange(field, e.target.value)}
         placeholder={placeholder}
-        className="w-full p-2 text-sm border rounded text-black"
+        className="w-full p-2 text-sm md:text-base border rounded text-black bg-white/90"
       />
     ) : (
-      <span>{content}</span>
+      <span className="break-words">{content}</span>
     );
   };
 
@@ -49,10 +49,10 @@ const GeneralThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
         value={content}
         onChange={(e) => handleInputChange(field, e.target.value)}
         placeholder={placeholder}
-        className="w-full p-2 text-sm border rounded"
+        className="w-full p-2 text-sm md:text-base border rounded resize-y min-h-[100px]"
       />
     ) : (
-      <p>{content}</p>
+      <p className="prose prose-sm max-w-none">{content}</p>
     );
   };
 
@@ -62,12 +62,12 @@ const GeneralThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
 
   return (
     <div className="font-sans bg-gray-100 min-h-screen">
-      <div className=" mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-        <header className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 sm:p-6">
-          <h1 className="text-xl sm:text-2xl font-bold mb-2">
+      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden my-4 md:my-8">
+        <header className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 sm:p-6 lg:p-8">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-2 md:mb-3 leading-tight">
             {rendeblueitableInput(editableData.title, "title", "Edit title")}
           </h1>
-          <p className="text-sm sm:text-base opacity-90">
+          <p className="text-sm sm:text-base md:text-lg opacity-90 leading-relaxed">
             {rendeblueitableInput(
               editableData.subtitle,
               "subtitle",
@@ -76,24 +76,24 @@ const GeneralThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
           </p>
         </header>
 
-        <main className="p-3 space-y-4">
-          <div className="flex flex-col ">
-            <div className="w-full">
+        <main className="p-4 md:p-6 lg:p-8 space-y-4 md:space-y-6">
+          <div className="flex flex-col gap-4 md:gap-6">
+            <div className="w-full aspect-video md:aspect-[3/1]">
               <img
                 src={thumbnail}
                 alt="AI Concept"
-                className="w-full h-32 sm:h-40 object-cover rounded-lg shadow-md blur-sm"
+                className="w-full h-full object-cover rounded-lg shadow-md"
               />
             </div>
-            <div className="w-full my-2">
-              <h2 className="text-lg sm:text-md font-bold text-gray-800 mb-2">
+            <div className="w-full space-y-2">
+              <h2 className="text-xl md:text-2xl font-bold text-gray-800 mb-2 leading-snug">
                 {rendeblueitableInput(
                   editableData.mainTitle,
                   "mainTitle",
                   "Edit main title"
                 )}
               </h2>
-              <p className="text-sm text-gray-600 ">
+              <p className="text-base md:text-lg text-gray-600 leading-relaxed">
                 {rendeblueitableInput(
                   editableData.mainSubtitle,
                   "mainSubtitle",
@@ -103,11 +103,11 @@ const GeneralThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
             </div>
           </div>
 
-          <div className="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
-            <h3 className="text-md sm:text-lg font-semibold text-blue-800 mb-2">
+          <div className="bg-blue-50 border-l-4 border-blue-500 p-4 md:p-6 rounded-lg">
+            <h3 className="text-lg md:text-xl font-semibold text-blue-800 mb-3">
               Executive Summary
             </h3>
-            <div className="text-sm text-gray-700">
+            <div className="text-base text-gray-700 leading-relaxed">
               {rendeblueitableTextarea(
                 editableData.executiveSummary,
                 "executiveSummary",
@@ -116,17 +116,17 @@ const GeneralThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
             </div>
           </div>
 
-          <div>
-            <h3 className="text-lg font-semibold text-blue-800 mb-3">
+          <div className="space-y-4 md:space-y-6">
+            <h3 className="text-xl md:text-2xl font-semibold text-blue-800 mb-3">
               Breakthrough Capabilities
             </h3>
-            <div className="md:grid md:grid-cols-1 gap-4 flex flex-col">
+            <div className="grid md:grid-cols-2 gap-4 md:gap-6">
               {editableData.features.map((feature, index) => (
                 <div
                   key={index}
-                  className="bg-white p-3 rounded-lg shadow border-l-4 border-blue-500"
+                  className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-blue-500 hover:shadow-md transition-shadow"
                 >
-                  <h4 className="font-semibold text-blue-700 mb-1">
+                  <h4 className="font-semibold text-blue-700 mb-2 md:mb-3">
                     {isEditing ? (
                       <Input
                         value={feature.title}
@@ -135,13 +135,13 @@ const GeneralThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
                             title: e.target.value,
                           })
                         }
-                        className="w-full p-1 text-sm bg-white"
+                        className="w-full p-1 text-sm md:text-base bg-white"
                       />
                     ) : (
                       feature.title
                     )}
                   </h4>
-                  <div className="text-sm text-gray-600">
+                  <div className="text-sm md:text-base text-gray-600 leading-relaxed">
                     {isEditing ? (
                       <Textarea
                         value={feature.desc}
@@ -150,10 +150,10 @@ const GeneralThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
                             desc: e.target.value,
                           })
                         }
-                        className="w-full p-1 text-sm bg-white"
+                        className="w-full p-1 text-sm md:text-base bg-white min-h-[80px]"
                       />
                     ) : (
-                      <p>{feature.desc}</p>
+                      <p className="prose prose-sm max-w-none">{feature.desc}</p>
                     )}
                   </div>
                 </div>
@@ -161,17 +161,17 @@ const GeneralThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
             </div>
           </div>
 
-          <div>
-            <h3 className="text-lg font-semibold text-purple-800 mb-3">
+          <div className="space-y-4 md:space-y-6">
+            <h3 className="text-xl md:text-2xl font-semibold text-purple-800 mb-3">
               Game-Changing Applications
             </h3>
-            <div className="md:grid md:grid-cols-1 gap-4 flex flex-col">
+            <div className="grid md:grid-cols-2 gap-4 md:gap-6">
               {editableData.applications.map((application, index) => (
                 <div
                   key={index}
-                  className="bg-white p-3 rounded-lg shadow border-l-4 border-purple-500"
+                  className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-purple-500 hover:shadow-md transition-shadow"
                 >
-                  <h4 className="font-semibold text-purple-700 mb-1">
+                  <h4 className="font-semibold text-purple-700 mb-2 md:mb-3">
                     {isEditing ? (
                       <Input
                         value={application.title}
@@ -180,13 +180,13 @@ const GeneralThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
                             title: e.target.value,
                           })
                         }
-                        className="w-full p-1 text-sm bg-white"
+                        className="w-full p-1 text-sm md:text-base bg-white"
                       />
                     ) : (
                       application.title
                     )}
                   </h4>
-                  <div className="text-sm text-gray-600">
+                  <div className="text-sm md:text-base text-gray-600 leading-relaxed">
                     {isEditing ? (
                       <Textarea
                         value={application.desc}
@@ -195,10 +195,10 @@ const GeneralThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
                             desc: e.target.value,
                           })
                         }
-                        className="w-full p-1 text-sm bg-white"
+                        className="w-full p-1 text-sm md:text-base bg-white min-h-[80px]"
                       />
                     ) : (
-                      <p>{application.desc}</p>
+                      <p className="prose prose-sm max-w-none">{application.desc}</p>
                     )}
                   </div>
                 </div>
@@ -206,14 +206,14 @@ const GeneralThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
             </div>
           </div>
 
-          <div>
-            <h3 className="text-lg font-semibold text-blue-800 mb-3">
+          <div className="space-y-4 md:space-y-6">
+            <h3 className="text-xl md:text-2xl font-semibold text-blue-800 mb-3">
               Future Implications
             </h3>
-            <ul className="space-y-2 w-full">
+            <ul className="space-y-3 md:space-y-4">
               {editableData.futureImplications.map((implication, index) => (
-                <li key={index} className="flex items-start w-full">
-                  <span className="text-blue-500 mr-2">•</span>
+                <li key={index} className="flex items-start">
+                  <span className="text-blue-500 mr-2 mt-1">•</span>
                   <div className="flex-1">
                     {isEditing ? (
                       <Input
@@ -225,10 +225,10 @@ const GeneralThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
                             e.target.value
                           )
                         }
-                        className="w-full p-1 text-sm bg-white"
+                        className="w-full p-1 text-sm md:text-base bg-white"
                       />
                     ) : (
-                      <p className="text-sm text-gray-600">{implication}</p>
+                      <p className="text-base text-gray-600 leading-relaxed">{implication}</p>
                     )}
                   </div>
                 </li>
@@ -236,11 +236,11 @@ const GeneralThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
             </ul>
           </div>
 
-          <div className="bg-gradient-to-r from-blue-50 to-purple-50 border-l-4 border-blue-500 p-4 rounded">
-            <h3 className="text-md sm:text-lg font-semibold text-blue-800 mb-2">
+          <div className="bg-gradient-to-r from-blue-50 to-purple-50 border-l-4 border-blue-500 p-4 md:p-6 rounded-lg">
+            <h3 className="text-lg md:text-xl font-semibold text-blue-800 mb-3">
               Bottom Line
             </h3>
-            <div className="text-sm text-gray-700">
+            <div className="text-base text-gray-700 leading-relaxed">
               {rendeblueitableTextarea(
                 editableData.bottomLine,
                 "bottomLine",
@@ -250,20 +250,20 @@ const GeneralThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
           </div>
         </main>
 
-        <footer className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 sm:p-6 text-center">
-          <a
+        <footer className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-4 md:p-6 text-center">
+          {/* <a
             href="#"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-sm font-semibold hover:text-yellow-300 transition block mb-2"
+            className="text-sm md:text-base font-semibold hover:text-yellow-300 transition-colors block mb-2 md:mb-3"
           >
             Watch the full video on Youtube
-          </a>
+          </a> */}
           <a
             href="https://clipmailo.com/"
-            className="text-xs opacity-75 hover:opacity-100"
+            className="text-xs md:text-sm opacity-75 hover:opacity-100 transition-opacity"
           >
-            Poweblue by clipmailo.com
+            Powered by clipmailo.com
           </a>
         </footer>
       </div>
