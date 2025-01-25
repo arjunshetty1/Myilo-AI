@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import { ChevronRight } from 'lucide-react';
+import { useEffect, useState } from "react";
+import { ChevronRight } from "lucide-react";
 
 const GeneralOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
   const [editableData, setEditableData] = useState(dataToTemplate);
@@ -41,11 +41,16 @@ const GeneralOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
           value={content}
           onChange={(e) => handleInputChange(field, e.target.value)}
           placeholder={placeholder}
-          className="w-full p-2 text-sm border rounded-md focus:ring-2 focus:ring-blue-500 bg-white text-gray-800 resize-y"
+          className="w-full p-2 text-sm md:text-base border rounded-md focus:ring-2 focus:ring-blue-500 bg-white text-gray-800 resize-y min-h-[100px] md:min-h-[120px]"
         />
       );
     }
-    return <div dangerouslySetInnerHTML={{ __html: content }} />;
+    return (
+      <div
+        dangerouslySetInnerHTML={{ __html: content }}
+        className="prose max-w-none"
+      />
+    );
   };
 
   const rendeblueitableInput = (content, field, placeholder = "Edit text") => {
@@ -56,11 +61,11 @@ const GeneralOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
           value={content}
           onChange={(e) => handleInputChange(field, e.target.value)}
           placeholder={placeholder}
-          className="w-full p-2 text-sm border rounded-md focus:ring-2 focus:ring-blue-500 bg-white text-gray-800"
+          className="w-full p-2 text-sm md:text-base border rounded-md focus:ring-2 focus:ring-blue-500 bg-white text-gray-800"
         />
       );
     }
-    return <span>{content}</span>;
+    return <span className="break-words">{content}</span>;
   };
 
   if (!editableData) {
@@ -68,25 +73,25 @@ const GeneralOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
   }
 
   return (
-    <div className="font-sans text-sm bg-gray-50 min-h-screen">
-      <div className="mx-auto bg-white shadow-lg rounded-lg overflow-hidden ">
+    <div className="font-sans text-sm bg-gray-50">
+      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="relative">
-          <div className="w-full h-64 md:h-52 overflow-hidden">
+          <div className="w-full aspect-video overflow-hidden">
             <img
               src={thumbnail}
               alt="Thumbnail"
-              className="w-full h-full object-cover object-center blur-sm"
+              className="w-full h-full object-cover object-center"
             />
           </div>
           <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent flex flex-col justify-end p-4 md:p-6">
-            <h1 className="text-2xl md:text-2xl font-semibold text-[#eae9e9] mb-2 leading-tight">
+            <h1 className="text-xl md:text-3xl font-semibold text-[#eae9e9] mb-2 leading-tight">
               {rendeblueitableInput(editableData.title, "title", "Edit title")}
             </h1>
           </div>
         </div>
 
-        <div className="p-4 md:p-6">
-          <h2 className="text-xl md:text-2xl font-semibold text-gray-800 mb-4">
+        <div className="p-4 md:p-6 space-y-4 md:space-y-6">
+          <h2 className="text-lg md:text-2xl font-semibold text-gray-800">
             {rendeblueitableInput(
               editableData.mainTitle,
               "mainTitle",
@@ -94,9 +99,12 @@ const GeneralOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
             )}
           </h2>
 
-          <div className="flex flex-wrap gap-2 mb-4">
+          <div className="flex flex-wrap gap-2">
             {editableData.tags.map((tag, index) => (
-              <span key={index} className="px-2 py-1 bg-gray-200 text-gray-700 rounded-full text-xs">
+              <span
+                key={index}
+                className="px-2 py-1 bg-gray-200 text-gray-700 rounded-full text-xs md:text-sm"
+              >
                 {isEditing ? (
                   <input
                     type="text"
@@ -104,7 +112,7 @@ const GeneralOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
                     onChange={(e) =>
                       handleArrayInputChange("tags", index, e.target.value)
                     }
-                    className="w-20 p-0 text-xs bg-transparent border-none"
+                    className="min-w-[80px] p-0 text-xs md:text-sm bg-transparent border-none"
                   />
                 ) : (
                   tag
@@ -113,7 +121,7 @@ const GeneralOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
             ))}
           </div>
 
-          <div className="text-sm text-gray-600 mb-6 leading-relaxed">
+          <div className="text-sm md:text-base text-gray-600 leading-relaxed">
             {rendeblueitableText(
               editableData.summary,
               "summary",
@@ -121,16 +129,16 @@ const GeneralOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
             )}
           </div>
 
-          <div className="bg-blue-50 p-4 rounded-lg mb-6">
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">
+          <div className="bg-blue-50 p-4 rounded-lg space-y-3">
+            <h3 className="text-base md:text-lg font-semibold text-gray-800">
               Key Highlights
             </h3>
-            <ul className="space-y-2 text-sm">
+            <ul className="space-y-2 md:space-y-3 text-sm md:text-base">
               {editableData.keyPoints.map((point, index) => (
                 <li key={index} className="flex items-start">
                   <ChevronRight
                     size={16}
-                    className="mr-2 text-blue-500 flex-shrink-0 mt-1"
+                    className="mr-1 md:mr-2 text-blue-500 flex-shrink-0 mt-1"
                   />
                   {isEditing ? (
                     <input
@@ -143,20 +151,20 @@ const GeneralOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
                           e.target.value
                         )
                       }
-                      className="w-full p-1 text-sm bg-white/50 border-none"
+                      className="w-full p-1 md:p-2 text-sm bg-white/50 border-none"
                     />
                   ) : (
-                    <span>{point}</span>
+                    <span className="break-words">{point}</span>
                   )}
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="space-y-6 mb-6">
+          <div className="space-y-4 md:space-y-6">
             {editableData.sections.map((section, index) => (
               <div key={index}>
-                <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                <h3 className="text-base md:text-lg font-semibold text-gray-800 mb-2">
                   {isEditing ? (
                     <input
                       type="text"
@@ -164,24 +172,25 @@ const GeneralOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
                       onChange={(e) =>
                         handleSectionChange(index, "title", e.target.value)
                       }
-                      className="w-full p-1 text-lg bg-transparent border-none font-semibold"
+                      className="w-full p-1 md:p-2 text-base md:text-lg bg-transparent border-none font-semibold"
                     />
                   ) : (
                     section.title
                   )}
                 </h3>
-                <div className="text-sm text-gray-600 leading-relaxed">
+                <div className="text-sm md:text-base text-gray-600 leading-relaxed">
                   {isEditing ? (
                     <textarea
                       value={section.content}
                       onChange={(e) =>
                         handleSectionChange(index, "content", e.target.value)
                       }
-                      className="w-full p-2 text-sm bg-white/50 border rounded-md resize-y"
+                      className="w-full p-2 text-sm border rounded-md resize-y min-h-[80px]"
                     />
                   ) : (
                     <div
                       dangerouslySetInnerHTML={{ __html: section.content }}
+                      className="prose max-w-none"
                     />
                   )}
                 </div>
@@ -189,11 +198,11 @@ const GeneralOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
             ))}
           </div>
 
-          <div className="bg-indigo-50 p-4 rounded-lg mb-6">
-            <h3 className="text-lg font-semibold text-gray-800 mb-2">
+          <div className="bg-indigo-50 p-4 rounded-lg space-y-3">
+            <h3 className="text-base md:text-lg font-semibold text-gray-800">
               Conclusion
             </h3>
-            <div className="text-sm text-gray-600 leading-relaxed">
+            <div className="text-sm md:text-base text-gray-600 leading-relaxed">
               {rendeblueitableText(
                 editableData.conclusion,
                 "conclusion",
@@ -201,28 +210,17 @@ const GeneralOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
               )}
             </div>
           </div>
-
-          <div className="flex justify-center">
-            <a
-              href="#"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center bg-gradient-to-r from-blue-500 to-indigo-600 text-white px-4 py-2 rounded-full hover:from-blue-600 hover:to-indigo-700 transition-colors duration-300 font-semibold text-sm shadow-md"
-            >
-              Watch Full Video
-            </a>
-          </div>
         </div>
 
-        <div className="bg-gray-800 text-white p-4 text-center flex flex-col gap-2">
-          <p className="mb-1 text-sm w-full">
+        <div className="bg-gray-800 text-white p-4 text-center space-y-1">
+          <p className="text-xs md:text-sm break-words px-2">
             {rendeblueitableInput(editableData.footer, "footer", "Edit footer")}
           </p>
           <a
             href="https://www.clipmailo.com"
             className="text-xs text-gray-400 hover:text-gray-300 transition-colors duration-300"
           >
-            Poweblue by clipmailo.com
+            Powered by clipmailo.com
           </a>
         </div>
       </div>
@@ -231,43 +229,44 @@ const GeneralOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
 };
 
 const SkeletonLoader = () => (
-  <div className="animate-pulse font-sans text-sm bg-gray-50 min-h-screen p-4 md:p-8">
+  <div className="animate-pulse font-sans text-sm bg-gray-50 p-4 md:p-8">
     <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
-      <div className="w-full h-64 md:h-80 bg-gray-300"></div>
-      <div className="p-4 md:p-6">
-        <div className="h-8 bg-gray-300 rounded mb-4 w-3/4"></div>
-        <div className="flex flex-wrap gap-2 mb-4">
-          <div className="h-6 bg-gray-300 rounded-full w-16"></div>
-          <div className="h-6 bg-gray-300 rounded-full w-20"></div>
-          <div className="h-6 bg-gray-300 rounded-full w-24"></div>
+      <div className="w-full aspect-video bg-gray-300"></div>
+      <div className="p-4 md:p-6 space-y-4 md:space-y-6">
+        <div className="h-6 md:h-8 bg-gray-300 rounded w-3/4"></div>
+        <div className="flex flex-wrap gap-2">
+          {[...Array(3)].map((_, i) => (
+            <div
+              key={i}
+              className="h-6 bg-gray-300 rounded-full w-16 md:w-20"
+            ></div>
+          ))}
         </div>
-        <div className="h-24 bg-gray-300 rounded mb-6"></div>
-        <div className="bg-blue-50 p-4 rounded-lg mb-6">
-          <div className="h-6 bg-gray-300 rounded mb-3 w-1/4"></div>
+        <div className="h-24 bg-gray-300 rounded"></div>
+        <div className="bg-blue-50 p-4 rounded-lg space-y-3">
+          <div className="h-6 bg-gray-300 rounded w-1/4"></div>
           <div className="space-y-2">
-            <div className="h-4 bg-gray-300 rounded"></div>
-            <div className="h-4 bg-gray-300 rounded"></div>
-            <div className="h-4 bg-gray-300 rounded"></div>
+            {[...Array(3)].map((_, i) => (
+              <div key={i} className="h-4 bg-gray-300 rounded"></div>
+            ))}
           </div>
         </div>
-        <div className="space-y-6 mb-6">
-          {[...Array(3)].map((_, index) => (
-            <div key={index}>
-              <div className="h-6 bg-gray-300 rounded mb-3 w-1/2"></div>
-              <div className="h-16 bg-gray-300 rounded"></div>
+        <div className="space-y-4 md:space-y-6">
+          {[...Array(3)].map((_, i) => (
+            <div key={i}>
+              <div className="h-6 bg-gray-300 rounded w-1/2"></div>
+              <div className="h-16 bg-gray-300 rounded mt-2"></div>
             </div>
           ))}
         </div>
-        <div className="bg-indigo-50 p-4 rounded-lg mb-6">
-          <div className="h-6 bg-gray-300 rounded mb-3 w-1/4"></div>
+        <div className="bg-indigo-50 p-4 rounded-lg space-y-3">
+          <div className="h-6 bg-gray-300 rounded w-1/4"></div>
           <div className="h-16 bg-gray-300 rounded"></div>
         </div>
-        <div className="flex justify-center">
-          <div className="h-10 bg-gray-300 rounded-full w-40"></div>
-        </div>
+        <div className="h-10 bg-gray-300 rounded-full w-40"></div>
       </div>
-      <div className="bg-gray-800 p-4">
-        <div className="h-4 bg-gray-600 rounded mb-2 w-3/4 mx-auto"></div>
+      <div className="bg-gray-800 p-4 space-y-1">
+        <div className="h-4 bg-gray-600 rounded w-3/4 mx-auto"></div>
         <div className="h-3 bg-gray-600 rounded w-1/3 mx-auto"></div>
       </div>
     </div>

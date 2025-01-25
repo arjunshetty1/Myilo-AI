@@ -1,7 +1,4 @@
 "use client";
-import PreviewMockupLaptop from "@/components/App Components/PreviewMockupLaptop";
-import PreviewMockupMobile from "@/components/App Components/PreviewMockupMobile";
-import PreviewMockupTab from "@/components/App Components/PreviewMockupTab";
 import GeneralOne from "@/components/Newsletter Templates/GeneralOne";
 import GeneralThree from "@/components/Newsletter Templates/GeneralThree";
 import GeneralTwo from "@/components/Newsletter Templates/GeneralTwo";
@@ -23,7 +20,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/UI/shadcn-ui/dialog";
 import {
   Tabs,
@@ -47,7 +43,6 @@ import {
 import { AnimatePresence, motion } from "framer-motion";
 import {
   EditIcon,
-  EyeIcon,
   LaptopIcon,
   Loader2Icon,
   RotateCcwIcon,
@@ -81,7 +76,7 @@ const LoadingOverlay = () => (
   </motion.div>
 );
 
-export default function ImprovedNewsletteblueitor() {
+export default function ImprovedNewsletterEditor() {
   const router = useRouter();
   const [isEditing, setIsEditing] = useState(false);
   const [previewDevice, setPreviewDevice] = useState("laptop");
@@ -93,7 +88,6 @@ export default function ImprovedNewsletteblueitor() {
   const [showPublishModal, setShowPublishModal] = useState(false);
   const [showTestMailModal, setShowTestMailModal] = useState(false);
   const [currentTab, setCurrentTab] = useState("edit");
-  const [previewScale, setPreviewScale] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
   const [isPublishing, setIsPublishing] = useState(false);
@@ -112,7 +106,6 @@ export default function ImprovedNewsletteblueitor() {
         title: "Uh oh! Something went wrong.",
         description: "Failed to generate newsletter. Please try again",
       });
-
       router.push("/Application");
     }
   }, [pathname]);
@@ -121,48 +114,13 @@ export default function ImprovedNewsletteblueitor() {
     fetchNewsletter();
   }, [id]);
 
-  useEffect(() => {
-    const handleResize = () => {
-      updatePreviewScale();
-    };
-
-    window.addEventListener("resize", handleResize);
-    updatePreviewScale();
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, [previewDevice]);
-
-  const updatePreviewScale = () => {
-    const containerHeight = window.innerHeight - 200;
-    let deviceHeight;
-
-    switch (previewDevice) {
-      case "mobile":
-        deviceHeight = 667;
-        break;
-      case "tablet":
-        deviceHeight = 1024;
-        break;
-      case "laptop":
-        deviceHeight = 768;
-        break;
-      default:
-        deviceHeight = 667;
-    }
-
-    const scale = Math.min(containerHeight / deviceHeight, 1);
-    setPreviewScale(scale);
-  };
-
   const fetchNewsletter = async () => {
     setIsLoading(true);
     try {
       const response = await GetNewsletterByID(id);
       setCurrentTemplate(response.templateId);
       setThumbnail(response.thumbnail);
-
       const Data = response.editedData;
-      console.log("editData is here", Data);
       setDataToTemplate(Data);
       setHistory([Data]);
       setHistoryIndex(0);
@@ -223,7 +181,7 @@ export default function ImprovedNewsletteblueitor() {
     if (!testEmail) {
       toast({
         variant: "destructive",
-        title: "Email requiblue",
+        title: "Email required",
         description: "Please enter an email address",
       });
       return;
@@ -248,7 +206,7 @@ export default function ImprovedNewsletteblueitor() {
     }
   }, [historyIndex, history]);
 
-  const blueo = useCallback(() => {
+  const redo = useCallback(() => {
     if (historyIndex < history.length - 1) {
       setHistoryIndex((prevIndex) => prevIndex + 1);
       setDataToTemplate(history[historyIndex + 1]);
@@ -266,7 +224,7 @@ export default function ImprovedNewsletteblueitor() {
     addToHistory(updatedData);
   };
 
-  const rendeblueitor = () => {
+  const renderEditor = () => {
     if (!dataToTemplate) return null;
 
     const templateProps = {
@@ -279,42 +237,28 @@ export default function ImprovedNewsletteblueitor() {
     switch (currentTemplate) {
       case 0:
         return <GeneralOne {...templateProps} />;
-        break;
       case 1:
         return <GeneralTwo {...templateProps} />;
-        break;
       case 2:
         return <GeneralThree {...templateProps} />;
-        break;
       case 3:
         return <MinimalOne {...templateProps} />;
-        break;
-      // case 4:
-      //   return <MinimalTwo {...templateProps} />;
       case 4:
         return <MinimalThree {...templateProps} />;
-        break;
       case 5:
         return <MinimalFour {...templateProps} />;
-        break;
       case 6:
         return <StoryDrivenOne {...templateProps} />;
-        break;
       case 7:
         return <StoryDrivenTwo {...templateProps} />;
-        break;
       case 8:
         return <DeepDiveOne {...templateProps} />;
-        break;
       case 9:
         return <DeepDiveTwo {...templateProps} />;
-        break;
       case 10:
         return <QuickReadOne {...templateProps} />;
-        break;
       case 11:
         return <QuickReadTwo {...templateProps} />;
-        break;
       default:
         return <GeneralOne {...templateProps} />;
     }
@@ -323,7 +267,6 @@ export default function ImprovedNewsletteblueitor() {
   const SaveEdited = async () => {
     try {
       const response = await UpdateNewsletter(dataToTemplate, id);
-      // Validate response has requiblue structure
       if (!response || typeof response !== "object") {
         throw new Error("Invalid response format");
       }
@@ -342,16 +285,7 @@ export default function ImprovedNewsletteblueitor() {
         fetchNewsletter();
 
         if (response) {
-          setDataToTemplate((prev) => {
-            const newData = {
-              ...prev,
-              ...response,
-            };
-            return newData;
-          });
-
-          await new Promise((resolve) => setTimeout(resolve, 0));
-
+          setDataToTemplate((prev) => ({ ...prev, ...response }));
           toast({
             variant: "outline",
             title: "Newsletter saved to draft!",
@@ -359,8 +293,6 @@ export default function ImprovedNewsletteblueitor() {
               "You can always head to drafts section then edit and publish the newsletter.",
             className: "bg-[white]",
           });
-
-          // Then toggle editing state
           setIsEditing(false);
         }
       } catch (error) {
@@ -369,7 +301,6 @@ export default function ImprovedNewsletteblueitor() {
           title: "Error saving newsletter",
           description: "Failed to save changes. Please try again.",
         });
-        return;
       } finally {
         setIsSaving(false);
       }
@@ -378,61 +309,41 @@ export default function ImprovedNewsletteblueitor() {
     }
   }, [isEditing, dataToTemplate]);
 
-  const renderPreview = () => {
-    let PreviewComponent;
-    let wrapperClass;
-
-    switch (previewDevice) {
-      case "tablet":
-        PreviewComponent = PreviewMockupTab;
-        wrapperClass = "w-[768px] h-[800px]";
-        break;
-      case "laptop":
-        PreviewComponent = PreviewMockupLaptop;
-        wrapperClass = "w-[1366px] h-[768px]";
-        break;
-      default:
-        PreviewComponent = PreviewMockupMobile;
-        wrapperClass = "w-full";
-    }
-
-    console.log("edit data", dataToTemplate);
-    return (
-      <div className="w-full flex justify-center items-center">
-        <div
-          className={`w-full overflow-hidden transform origin-top`}
-          // style={{ transform: `scale(${previewScale})` }}
-        >
-          <PreviewComponent
-            template={currentTemplate}
-            thumbnail={thumbnail}
-            dataToTemplate={dataToTemplate}
-          />
+  const renderPreview = () => (
+    <div className="w-full h-full flex justify-center items-center p-2 sm:p-4">
+      <div className="text-center p-8 max-w-md">
+        <div className="mb-4 animate-bounce">
+          <LaptopIcon className="w-12 h-12 text-gray-300 mx-auto" />
         </div>
+        <h3 className="text-xl font-semibold text-gray-700 mb-2">
+          Preview Unavailable
+        </h3>
+        <p className="text-gray-500 mb-4">
+          We're working hard to bring you live previews! In the meantime, you
+          can use the test email feature to see how your newsletter looks.
+        </p>
+        <Button
+          onClick={() => setShowTestMailModal(true)}
+          className="bg-blue-500 hover:bg-blue-600 text-white"
+        >
+          ✉️ Send Test Email
+        </Button>
       </div>
-    );
-  };
+    </div>
+  );
 
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <div className="flex items-center space-x-2">
-          <div
-            className="w-4 h-4 bg-blue-600 rounded-full animate-bounce"
-            style={{ animationDelay: "0s" }}
-          ></div>
-          <div
-            className="w-4 h-4 bg-blue-600 rounded-full animate-bounce"
-            style={{ animationDelay: "0.1s" }}
-          ></div>
-          <div
-            className="w-4 h-4 bg-blue-600 rounded-full animate-bounce"
-            style={{ animationDelay: "0.2s" }}
-          ></div>
-          <span className="text-gray-700 text-lg ml-3">
-            {" "}
-            Loading newsletter...
-          </span>
+        <div className="flex items-center gap-3">
+          {[...Array(3)].map((_, i) => (
+            <div
+              key={i}
+              className="w-4 h-4 bg-blue-600 rounded-full animate-bounce"
+              style={{ animationDelay: `${i * 0.1}s` }}
+            />
+          ))}
+          <span className="text-gray-700 text-lg">Loading newsletter...</span>
         </div>
       </div>
     );
@@ -440,81 +351,104 @@ export default function ImprovedNewsletteblueitor() {
 
   return (
     <div className="min-h-dvh p-2 sm:p-4 bg-gradient-to-br from-gray-50 to-gray-100">
-      <div className="mx-auto space-y-6  rounded-xl p-4 sm:p-8">
-        <Tabs
-          defaultValue="edit"
-          className="w-full"
-          onValueChange={(value) => setCurrentTab(value)}
-        >
-          <div className="flex flex-wrap justify-between items-center mb-6 gap-4">
-            <TabsList>
-              <TabsTrigger value="edit">Edit</TabsTrigger>
-              <TabsTrigger value="preview">Preview</TabsTrigger>
+      <div className="mx-auto space-y-6 rounded-xl p-4 sm:p-8 bg-white shadow-lg border border-gray-100">
+        <Tabs defaultValue="edit" onValueChange={setCurrentTab}>
+          <div className="flex flex-wrap justify-between items-center gap-4 mb-6">
+            <TabsList className="flex-nowrap bg-gray-100 p-1 rounded-lg">
+              <TabsTrigger
+                value="edit"
+                className="data-[state=active]:bg-blue-500 data-[state=active]:text-white px-4 py-2 rounded-md"
+              >
+                Edit
+              </TabsTrigger>
+              <TabsTrigger
+                value="preview"
+                className="data-[state=active]:bg-blue-500 data-[state=active]:text-white px-4 py-2 rounded-md"
+              >
+                Preview
+              </TabsTrigger>
             </TabsList>
+
             {currentTab === "edit" && (
               <div className="flex gap-2">
                 <TooltipProvider>
+                  {/* Undo Button */}
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Button
-                        variant="outline"
+                        variant="ghost"
                         size="icon"
                         onClick={undo}
-                        disabled={historyIndex === 0}
-                        className="border-gray-300 text-gray-700 hover:bg-gray-50"
+                        disabled={!isEditing || historyIndex === 0}
+                        className="rounded-full bg-gradient-to-b from-gray-50 to-gray-100 shadow-sm hover:shadow-md transition-shadow"
                       >
-                        <UndoIcon className="w-4 h-4" />
+                        <UndoIcon className="w-4 h-4 text-gray-600" />
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>Undo</p>
+                      {!isEditing
+                        ? "Enable editing to undo changes"
+                        : historyIndex === 0
+                        ? "No changes to undo"
+                        : `Undo last change (${historyIndex} left)`}
                     </TooltipContent>
                   </Tooltip>
-                </TooltipProvider>
-                <TooltipProvider>
+
+                  {/* Redo Button */}
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Button
-                        variant="outline"
+                        variant="ghost"
                         size="icon"
-                        onClick={blueo}
-                        disabled={historyIndex === history.length - 1}
-                        className="border-gray-300 text-gray-700 hover:bg-gray-50"
+                        onClick={redo}
+                        disabled={
+                          !isEditing || historyIndex === history.length - 1
+                        }
+                        className="rounded-full bg-gradient-to-b from-gray-50 to-gray-100 shadow-sm hover:shadow-md transition-shadow"
                       >
-                        <blueoIcon className="w-4 h-4" />
+                        <UndoIcon className="w-4 h-4 rotate-180 text-gray-600" />
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>blueo</p>
+                      {!isEditing
+                        ? "Enable editing to redo changes"
+                        : historyIndex === history.length - 1
+                        ? "No changes to redo"
+                        : `Redo next change (${
+                            history.length - historyIndex - 1
+                          } left)`}
                     </TooltipContent>
                   </Tooltip>
-                </TooltipProvider>
-                <TooltipProvider>
+
+                  {/* Reset Button */}
                   <Tooltip>
                     <TooltipTrigger asChild>
                       <Button
-                        variant="outline"
+                        variant="ghost"
                         size="icon"
                         onClick={reset}
-                        className="border-gray-300 text-gray-700 hover:bg-gray-50"
+                        disabled={!isEditing}
+                        className="rounded-full bg-gradient-to-b from-gray-50 to-gray-100 shadow-sm hover:shadow-md transition-shadow"
                       >
-                        <RotateCcwIcon className="w-4 h-4" />
+                        <RotateCcwIcon className="w-4 h-4 text-gray-600" />
                       </Button>
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p>Reset</p>
+                      {!isEditing
+                        ? "Enable editing to reset changes"
+                        : "Reset to last saved version"}
                     </TooltipContent>
                   </Tooltip>
                 </TooltipProvider>
               </div>
             )}
-            <div className="flex gap-2">
+
+            <div className="flex gap-2 flex-wrap">
               <Button
                 variant="outline"
-                size="sm"
                 onClick={() => setShowPublishModal(true)}
-                className="border-gray-300 text-gray-700 hover:bg-gray-50"
                 disabled={isPublishing}
+                className="bg-gradient-to-b from-green-50 to-green-100 border-green-200 text-green-700 hover:bg-green-100 hover:text-green-800"
               >
                 {isPublishing ? (
                   <>
@@ -522,32 +456,29 @@ export default function ImprovedNewsletteblueitor() {
                     Publishing...
                   </>
                 ) : (
-                  "Publish"
+                  <>Publish</>
                 )}
               </Button>
               <Button
                 variant="outline"
-                size="sm"
-                onClick={() => {
-                  setShowTestMailModal(true);
-                }}
-                className="border-gray-300 text-gray-700 hover:bg-gray-50"
+                onClick={() => setShowTestMailModal(true)}
+                className="bg-gradient-to-b from-blue-50 to-blue-100 border-blue-200 text-blue-700 hover:bg-blue-100 hover:text-blue-800"
               >
                 Send Test Mail
               </Button>
             </div>
           </div>
 
-          <TabsContent value="edit" className="mt-0">
-            <div className="flex flex-wrap gap-2 mb-4">
+          <TabsContent value="edit">
+            <div className="mb-4">
               <Button
-                variant="outline"
-                size="sm"
                 onClick={toggleEditing}
-                className={`border-gray-300 text-gray-700 hover:bg-gray-50 ${
-                  isEditing ? "bg-blue-500 text-white" : ""
-                }`}
                 disabled={isSaving}
+                className={`w-full sm:w-auto transition-all ${
+                  isEditing
+                    ? "bg-gradient-to-b from-green-600 to-green-700 text-white hover:from-green-700 hover:to-green-800 shadow-lg"
+                    : "bg-gradient-to-b from-blue-600 to-blue-700 text-white hover:from-blue-700 hover:to-blue-800 shadow-lg"
+                }`}
               >
                 {isSaving ? (
                   <>
@@ -557,176 +488,175 @@ export default function ImprovedNewsletteblueitor() {
                 ) : isEditing ? (
                   <>
                     <SaveIcon className="w-4 h-4 mr-1" />
-                    Save
+                    Save Changes
                   </>
                 ) : (
                   <>
                     <EditIcon className="w-4 h-4 mr-1" />
-                    Edit
+                    Enable Editing
                   </>
                 )}
               </Button>
+              {!isEditing && (
+                <p className="mt-2 text-sm text-gray-500 italic">
+                  {historyIndex > 0
+                    ? `You have ${historyIndex} unsaved changes`
+                    : "All changes saved"}
+                </p>
+              )}
             </div>
-            <div className="border rounded-lg lg:px-[21rem] md:px-[3rem] px-4  py-8 overflow-y-auto bg-white ">
-              {rendeblueitor()}
+
+            <div className="border rounded-lg p-4 sm:p-6 lg:p-8 bg-gradient-to-br from-gray-50 to-white overflow-y-auto shadow-inner">
+              <div className="max-w-4xl mx-auto">{renderEditor()}</div>
             </div>
           </TabsContent>
 
-          <TabsContent value="preview" className="mt-0">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-4 gap-4">
-              <div className="flex flex-wrap gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setPreviewDevice("mobile")}
-                  className={`border-gray-300 text-gray-700 hover:bg-gray-50 ${
-                    previewDevice === "mobile" ? "bg-blue-500 text-white" : ""
-                  }`}
-                >
-                  <SmartphoneIcon className="w-4 h-4 mr-1" /> Mobile
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setPreviewDevice("tablet")}
-                  className={`border-gray-300 text-gray-700 hover:bg-gray-50 ${
-                    previewDevice === "tablet" ? "bg-blue-500 text-white" : ""
-                  }`}
-                >
-                  <TabletIcon className="w-4 h-4 mr-1" /> Tablet
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setPreviewDevice("laptop")}
-                  className={`border-gray-300 text-gray-700 hover:bg-gray-50 ${
-                    previewDevice === "laptop" ? "bg-blue-500 text-white" : ""
-                  }`}
-                >
-                  <LaptopIcon className="w-4 h-4 mr-1" /> Laptop
-                </Button>
+          <TabsContent value="preview">
+            <div className="flex flex-col sm:flex-row justify-between gap-4 mb-4">
+              <div className="flex gap-2 flex-wrap">
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant="outline"
+                        disabled
+                        className="bg-gray-100 text-gray-400 cursor-not-allowed"
+                      >
+                        <SmartphoneIcon className="w-4 h-4 mr-1" /> Mobile
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>Preview coming soon!</TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant="outline"
+                        disabled
+                        className="bg-gray-100 text-gray-400 cursor-not-allowed"
+                      >
+                        <TabletIcon className="w-4 h-4 mr-1" /> Tablet
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>Preview coming soon!</TooltipContent>
+                  </Tooltip>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant="outline"
+                        disabled
+                        className="bg-gray-100 text-gray-400 cursor-not-allowed"
+                      >
+                        <LaptopIcon className="w-4 h-4 mr-1" /> Laptop
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent>Preview coming soon!</TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
               </div>
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="border-gray-300 text-gray-700 hover:bg-gray-50"
-                  >
-                    <EyeIcon className="w-4 h-4 mr-1" /> Full Preview
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="max-w-[90vw] max-h-[90vh] overflow-hidden">
-                  <DialogHeader>
-                    <DialogTitle>Newsletter Preview</DialogTitle>
-                    <DialogDescription>
-                      Here's how your newsletter will appear.
-                    </DialogDescription>
-                  </DialogHeader>
-                  <div className="mt-4 overflow-auto max-h-[calc(90vh-120px)]">
-                    {renderPreview()}
-                  </div>
-                </DialogContent>
-              </Dialog>
+
+              <TooltipProvider>
+                <Tooltip>
+                  <TooltipTrigger asChild>
+                    <Button
+                      variant="outline"
+                      disabled
+                      className="bg-gray-100 text-gray-400 cursor-not-allowed"
+                    >
+                      Full Preview
+                    </Button>
+                  </TooltipTrigger>
+                  <TooltipContent>Full preview coming soon!</TooltipContent>
+                </Tooltip>
+              </TooltipProvider>
             </div>
 
-            <div className="w-full min-h-[70dvh] border rounded-lg p-8 overflow-hidden flex justify-center items-center">
+            <div className="w-full h-[70dvh] border rounded-lg overflow-hidden bg-gray-50 flex items-center justify-center">
               {renderPreview()}
             </div>
           </TabsContent>
         </Tabs>
-      </div>
 
-      {/* Publish Confirmation Modal */}
-      <Dialog
-        open={showPublishModal}
-        onOpenChange={() => setShowPublishModal(false)}
-      >
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Publish Newsletter</DialogTitle>
-            <DialogDescription>
-              Are you sure you want to publish this newsletter? This action
-              cannot be undone.
-            </DialogDescription>
-          </DialogHeader>
-          <div className="flex gap-2 mt-4">
-            <Button
-              variant="outline"
-              onClick={handlePublish}
-              disabled={isPublishing}
-            >
-              {isPublishing ? (
-                <>
-                  <Loader2Icon className="w-4 h-4 mr-2 animate-spin" />
-                  Publishing...
-                </>
-              ) : (
-                "Publish"
-              )}
-            </Button>
-            <Button
-              variant="outline"
-              onClick={() => setShowPublishModal(false)}
-              disabled={isPublishing}
-            >
-              Cancel
-            </Button>
-          </div>
-        </DialogContent>
-      </Dialog>
-
-      {/* Test Mail Modal */}
-      <Dialog
-        open={showTestMailModal}
-        onOpenChange={(open) => {
-          setShowTestMailModal(open);
-          if (!open) setTestEmail("");
-        }}
-      >
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Send Test Mail</DialogTitle>
-            <DialogDescription>
-              Enter an email address to receive a preview of your newsletter.
-            </DialogDescription>
-          </DialogHeader>
-          <form onSubmit={handleTestEmailSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <label htmlFor="testEmail" className="text-sm font-medium">
-                Email Address
-              </label>
-              <Input
-                id="testEmail"
-                type="email"
-                placeholder="Enter email address"
-                value={testEmail}
-                onChange={(e) => setTestEmail(e.target.value)}
-                requiblue
-              />
-            </div>
-            <div className="flex gap-2">
-              <Button type="submit" variant="outline">
-                {isSendingTest ? (
+        {/* Modals */}
+        <Dialog open={showPublishModal} onOpenChange={setShowPublishModal}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Publish Newsletter</DialogTitle>
+              <DialogDescription>
+                Are you sure you want to publish this newsletter? This action
+                cannot be undone.
+              </DialogDescription>
+            </DialogHeader>
+            <div className="flex gap-2 mt-4">
+              <Button
+                variant="outline"
+                onClick={handlePublish}
+                disabled={isPublishing}
+              >
+                {isPublishing ? (
                   <>
                     <Loader2Icon className="w-4 h-4 mr-2 animate-spin" />
-                    Sending...
+                    Publishing...
                   </>
                 ) : (
-                  "Send Test Mail"
+                  "Publish Now"
                 )}
               </Button>
               <Button
-                type="button"
                 variant="outline"
-                onClick={() => setShowTestMailModal(false)}
+                onClick={() => setShowPublishModal(false)}
               >
                 Cancel
               </Button>
             </div>
-          </form>
-        </DialogContent>
-      </Dialog>
+          </DialogContent>
+        </Dialog>
+
+        <Dialog open={showTestMailModal} onOpenChange={setShowTestMailModal}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Send Test Email</DialogTitle>
+              <DialogDescription>
+                Enter an email address to send a preview of your newsletter.
+              </DialogDescription>
+            </DialogHeader>
+            <form onSubmit={handleTestEmailSubmit} className="space-y-4">
+              <div className="space-y-2">
+                <Input
+                  type="email"
+                  placeholder="Enter email address"
+                  value={testEmail}
+                  onChange={(e) => setTestEmail(e.target.value)}
+                  required
+                />
+              </div>
+              <div className="flex gap-2">
+                <Button
+                  type="submit"
+                  disabled={isSendingTest}
+                  variant="outline"
+                >
+                  {isSendingTest ? (
+                    <>
+                      <Loader2Icon className="w-4 h-4 mr-2 animate-spin" />
+                      Sending...
+                    </>
+                  ) : (
+                    "Send Test Email"
+                  )}
+                </Button>
+                <Button
+                  type="button"
+                  variant="outline"
+                  onClick={() => setShowTestMailModal(false)}
+                >
+                  Cancel
+                </Button>
+              </div>
+            </form>
+          </DialogContent>
+        </Dialog>
+      </div>
+
       <AnimatePresence>{isRouting && <LoadingOverlay />}</AnimatePresence>
     </div>
   );
