@@ -13,6 +13,17 @@ export const GetProfile = async () => {
   }
 };
 
+export const updateUserName = async (data) => {
+  try {
+    const response = await api.patch("profile",{data});
+    const result = response.data;
+    return result;
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};
+
 export const Logout = async () => {
   try {
     const { error } = await supabase.auth.signOut();
