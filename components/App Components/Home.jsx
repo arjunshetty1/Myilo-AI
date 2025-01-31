@@ -27,33 +27,32 @@ const calculatePercentageChange = (current, previous) => {
 }
 
 const StatCard = ({ title, value, change, icon: Icon }) => (
-  <Card className="overflow-hidden rounded-lg border-none shadow-sm transition-all duration-300 hover:shadow-md bg-white">
-    <CardHeader className="flex flex-row items-center justify-between pb-2">
-      <CardTitle className="text-sm font-medium text-gray-500">{title}</CardTitle>
-      <Icon className="h-5 w-5 text-gray-400" />
+  <Card className="overflow-hidden rounded-xl border bg-opacity-50 backdrop-blur-sm transition-all duration-300 hover:bg-white/90 bg-white/50 shadow-sm">
+    <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-3">
+      <CardTitle className="text-sm font-normal text-gray-600">{title}</CardTitle>
+      <div className="p-2 rounded-lg bg-gray-100/50">
+        <Icon className="h-5 w-5 text-gray-600" />
+      </div>
     </CardHeader>
-    <CardContent className="pt-0">
-      <div className="text-2xl font-bold text-gray-800">{value}</div>
-      <p className="text-xs text-gray-500 mt-1 flex items-center">
-        <span className={`${change >= 0 ? "text-green-500" : "text-blue-500"} font-medium flex items-center`}>
-          {change >= 0 ? (
-            <TrendingUp className="inline h-3 w-3 mr-1" />
-          ) : (
-            <TrendingDown className="inline h-3 w-3 mr-1" />
-          )}
-          {Math.abs(change).toFixed(1)}%
-        </span>
-        <span className="ml-1">from last month</span>
-      </p>
+    <CardContent>
+      <div className="text-3xl font-semibold text-gray-900 mb-1">{value}</div>
+      <div className={`text-sm flex items-center ${change >= 0 ? 'text-emerald-600' : 'text-rose-600'}`}>
+        {change >= 0 ? (
+          <TrendingUp className="h-4 w-4 mr-1" />
+        ) : (
+          <TrendingDown className="h-4 w-4 mr-1" />
+        )}
+        {Math.abs(change).toFixed(1)}%
+      </div>
     </CardContent>
   </Card>
 )
 
 const LoadingSkeleton = () => (
-  <div className="mx-auto px-4 py-8 animate-pulse">
+  <div className="mx-auto px-4 md:px-44 py-8 animate-pulse">
     <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
       {[...Array(4)].map((_, index) => (
-        <Card key={index} className="bg-white rounded-lg">
+        <Card key={index} className="bg-white/50 rounded-xl">
           <CardHeader className="space-y-0 pb-2">
             <div className="h-4 w-1/2 bg-gray-200 rounded"></div>
           </CardHeader>
@@ -65,7 +64,7 @@ const LoadingSkeleton = () => (
       ))}
     </div>
     <div className="mt-8">
-      <Card className="bg-white rounded-lg">
+      <Card className="bg-white/50 rounded-xl">
         <CardHeader>
           <div className="h-6 w-1/4 bg-gray-200 rounded mb-2"></div>
           <div className="h-4 w-1/2 bg-gray-200 rounded"></div>
@@ -160,7 +159,7 @@ const Home = ({ setactiveComponent }) => {
       const response = await NewsletterSubscriberAnalyitics("month", startDate, endDate)
 
       if (response && response.length) {
-        const totalSubscribers = response.blueuce((sum, item) => sum + item.count, 0)
+        const totalSubscribers = response.reduce((sum, item) => sum + item.count, 0)
         return (totalSubscribers / 7).toFixed(1)
       }
       return 0
@@ -224,13 +223,14 @@ const Home = ({ setactiveComponent }) => {
   }
 
   return (
-    <div className="mx-auto px-4 md:px-6 pb-8 pt-4 bg-gray-50">
-        <h1 className="text-2xl font-medium text-gray-900 mb-4 pb-2 border-b border-gray-200">Dashboard</h1>
+    <div className="mx-auto px-4 md:px-32 pb-8 pt-6 bg-gray-50/50">
+      <h1 className="text-2xl font-semibold text-gray-900 mb-6">Dashboard Overview</h1>
+      
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="grid gap-6 md:grid-cols-2 lg:grid-cols-4"
+        className="grid gap-5 md:grid-cols-2 lg:grid-cols-4"
       >
         <StatCard title="Total Newsletters" value={totalNewsletters} change={newsletterChange} icon={Mail} />
         <StatCard
@@ -249,167 +249,80 @@ const Home = ({ setactiveComponent }) => {
         transition={{ duration: 0.5, delay: 0.2 }}
         className="mt-8"
       >
-        <Card className="rounded-lg shadow-sm overflow-hidden border-none bg-white">
-          <CardHeader className="flex flex-row items-center justify-between pb-2 border-b">
-            <div>
-              <CardTitle className="text-lg font-medium text-gray-800">Recent Newsletters</CardTitle>
-              <p className="text-sm text-gray-500">Recently generated and sent newsletters</p>
+        <Card className="rounded-xl border bg-white/50 shadow-sm overflow-hidden">
+          <CardHeader className="border-b border-gray-200/50">
+            <div className="flex items-center justify-between">
+              <div>
+                <CardTitle className="text-lg font-semibold text-gray-900">Recent Newsletters</CardTitle>
+                <p className="text-sm text-gray-500 mt-1">Manage your latest content updates</p>
+              </div>
+              <div className="flex gap-2">
+                <Button
+                  onClick={() => setactiveComponent("Posts")}
+                  variant="ghost"
+                  className="text-gray-600 hover:bg-gray-100/50"
+                >
+                  View All
+                  <ChevronRight className="ml-1.5 h-4 w-4" />
+                </Button>
+              </div>
             </div>
-            <Button
-              onClick={() => setactiveComponent("Posts")}
-              size="sm"
-              variant="ghost"
-              className="text-blue-600 hover:text-blue-700 hover:bg-blue-50"
-            >
-              View All
-              <ChevronRight className="ml-1 h-4 w-4" />
-            </Button>
           </CardHeader>
           <CardContent className="p-0">
             {newsletters.length === 0 ? (
-              <div className="flex items-center justify-center h-[18rem] text-center text-gray-500">
-                <div>
-                  <p>No newsletters available.</p>
-                  <p className="mt-1">Create your first newsletter!</p>
+              <div className="flex items-center justify-center h-64 text-center">
+                <div className="space-y-2">
+                  <Mail className="h-8 w-8 text-gray-400 mx-auto" />
+                  <p className="text-gray-500">No newsletters created yet</p>
+                  <p className="text-sm text-gray-400">Start by creating your first newsletter</p>
                 </div>
               </div>
             ) : (
               <div className="overflow-x-auto">
                 <table className="w-full">
-                  <thead>
-                    <tr className="border-b border-gray-200">
-                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        Thumbnail
+                  <thead className="border-b border-gray-200/50">
+                    <tr>
+                      <th className="px-5 py-3.5 text-left text-sm font-medium text-gray-600">Title</th>
+                      <th className="px-5 py-3.5 text-left text-sm font-medium text-gray-600 hidden md:table-cell">
+                        Status
                       </th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <button className="flex items-center">
-                              Title
-                              <ChevronDown className="ml-1 h-4 w-4" />
-                            </button>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-48">
-                            <div className="flex flex-col space-y-2">
-                              <button
-                                onClick={() => requestSort("title")}
-                                className="text-left hover:bg-gray-100 px-2 py-1 rounded"
-                              >
-                                Sort A-Z
-                              </button>
-                              <button
-                                onClick={() => requestSort("title")}
-                                className="text-left hover:bg-gray-100 px-2 py-1 rounded"
-                              >
-                                Sort Z-A
-                              </button>
-                              <button
-                                onClick={() => requestSort("date")}
-                                className="text-left hover:bg-gray-100 px-2 py-1 rounded"
-                              >
-                                Newest First
-                              </button>
-                              <button
-                                onClick={() => requestSort("date")}
-                                className="text-left hover:bg-gray-100 px-2 py-1 rounded"
-                              >
-                                Oldest First
-                              </button>
-                            </div>
-                          </PopoverContent>
-                        </Popover>
-                      </th>
-                      <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider hidden md:table-cell">
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <button className="flex items-center">
-                              Status
-                              <Filter className="ml-1 h-4 w-4" />
-                            </button>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-48">
-                            <div className="flex flex-col space-y-2">
-                              <button
-                                onClick={() => setStatusFilter("all")}
-                                className="text-left hover:bg-gray-100 px-2 py-1 rounded"
-                              >
-                                All
-                              </button>
-                              <button
-                                onClick={() => setStatusFilter("published")}
-                                className="text-left hover:bg-gray-100 px-2 py-1 rounded"
-                              >
-                                Published
-                              </button>
-                              <button
-                                onClick={() => setStatusFilter("draft")}
-                                className="text-left hover:bg-gray-100 px-2 py-1 rounded"
-                              >
-                                Draft
-                              </button>
-                            </div>
-                          </PopoverContent>
-                        </Popover>
-                      </th>
-                      <th className="px-4 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">
-                        <Popover>
-                          <PopoverTrigger asChild>
-                            <button className="flex items-center justify-end w-full">
-                              Views
-                              <ChevronDown className="ml-1 h-4 w-4" />
-                            </button>
-                          </PopoverTrigger>
-                          <PopoverContent className="w-48">
-                            <div className="flex flex-col space-y-2">
-                              <button
-                                onClick={() => requestSort("views")}
-                                className="text-left hover:bg-gray-100 px-2 py-1 rounded"
-                              >
-                                Highest to Lowest
-                              </button>
-                              <button
-                                onClick={() => requestSort("views")}
-                                className="text-left hover:bg-gray-100 px-2 py-1 rounded"
-                              >
-                                Lowest to Highest
-                              </button>
-                            </div>
-                          </PopoverContent>
-                        </Popover>
-                      </th>
+                      <th className="px-5 py-3.5 text-right text-sm font-medium text-gray-600">Views</th>
                     </tr>
                   </thead>
-                  <tbody className="bg-white divide-y divide-gray-200">
+                  <tbody className="divide-y divide-gray-200/30">
                     {sortedNewsletters.map((item) => (
                       <tr
                         key={item.videoId}
                         onClick={() => handleRowClick(item)}
-                        className="cursor-pointer hover:bg-gray-50 transition-colors duration-150"
+                        className="cursor-pointer hover:bg-gray-50/30 transition-colors"
                       >
-                        <td className="px-4 py-4 whitespace-nowrap">
-                          <img
-                            src={item.thumbnail || "/placeholder.svg"}
-                            alt="Video Thumbnail"
-                            className="w-16 h-9 object-cover rounded-md"
-                          />
-                        </td>
-                        <td className="px-4 py-4 whitespace-nowrap">
-                          <div className="text-sm font-medium text-gray-900">
-                            {item.newsletterData.title || "Untitled"}
+                        <td className="px-5 py-4">
+                          <div className="flex items-center">
+                            <img
+                              src={item.thumbnail || "/placeholder.svg"}
+                              className="w-12 h-8 rounded-md object-cover mr-4 border"
+                              alt="Thumbnail"
+                            />
+                            <span className="font-medium text-gray-800">
+                              {item.newsletterData.title || "Untitled Newsletter"}
+                            </span>
                           </div>
                         </td>
-                        <td className="px-4 py-4 whitespace-nowrap hidden md:table-cell">
-                          <span
-                            className={`px-2 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${
-                              item.status === "published"
-                                ? "bg-green-100 text-green-800"
-                                : "bg-yellow-100 text-yellow-800"
-                            }`}
-                          >
+                        <td className="px-5 py-4 hidden md:table-cell">
+                          <div className={`inline-flex items-center px-2.5 py-1 rounded-full text-xs font-medium ${
+                            item.status === 'published' 
+                              ? 'bg-emerald-100/50 text-emerald-700'
+                              : 'bg-amber-100/50 text-amber-700'
+                          }`}>
                             {item.status.charAt(0).toUpperCase() + item.status.slice(1)}
-                          </span>
+                          </div>
                         </td>
-                        <td className="px-4 py-4 whitespace-nowrap text-right text-sm font-medium">{item.viewCount}</td>
+                        <td className="px-5 py-4 text-right">
+                          <div className="flex items-center justify-end">
+                            <span className="text-gray-700 mr-2">{item.viewCount}</span>
+                            <ChevronRight className="h-4 w-4 text-gray-400" />
+                          </div>
+                        </td>
                       </tr>
                     ))}
                   </tbody>
@@ -424,4 +337,3 @@ const Home = ({ setactiveComponent }) => {
 }
 
 export default Home
-

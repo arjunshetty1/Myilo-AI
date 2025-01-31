@@ -96,7 +96,7 @@ const Create = () => {
     if (industry && newsletterLength) {
       fetchRecommendations(industry, newsletterLength);
     }
-  }, [industry, newsletterLength]);
+  }, [industry]);
 
   useEffect(() => {
     calculateProgress();
