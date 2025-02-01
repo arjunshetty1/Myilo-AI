@@ -35,6 +35,8 @@ const industries = [
   "Healthcare",
   "Retail",
   "Education",
+  "Fitness",
+  "Relationship",
   "Manufacturing",
   "Real Estate",
   "Transportation",
@@ -93,10 +95,11 @@ const Create = () => {
 
   useEffect(() => {
     calculateProgress();
+    // Only fetch recommendations if both industry and newsletterLength are set
     if (industry && newsletterLength) {
       fetchRecommendations(industry, newsletterLength);
     }
-  }, [industry]);
+  }, [industry, newsletterLength]); // Depend on both industry and newsletterLength
 
   useEffect(() => {
     calculateProgress();
@@ -161,6 +164,8 @@ const Create = () => {
   };
 
   const fetchRecommendations = async (selectedIndustry, selectedLength) => {
+    console.log("Called",selectedIndustry)
+    
     setIsLoadingRecommendations(true);
     try {
       const response = await Reccomandations(selectedIndustry, selectedLength);
