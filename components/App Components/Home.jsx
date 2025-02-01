@@ -300,7 +300,7 @@ const Home = ({ setactiveComponent }) => {
                           <div className="flex items-center">
                             <img
                               src={item.thumbnail || "/placeholder.svg"}
-                              className="w-12 h-8 rounded-md object-cover mr-4 border"
+                              className="w-20 h-12 rounded-md object-cover mr-4 border"
                               alt="Thumbnail"
                             />
                             <span className="font-medium text-gray-800">
