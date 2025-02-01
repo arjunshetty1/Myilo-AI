@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import LoaderSecondary from "../App Components/LoaderSecondary";
+
 
 export default function DeepDiveTwo({
   thumbnail,
@@ -66,7 +68,7 @@ export default function DeepDiveTwo({
   };
 
   if (!editableData) {
-    return <div>Loading...</div>;
+    return <LoaderSecondary/>;
   }
 
   return (

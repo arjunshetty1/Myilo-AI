@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import LoaderSecondary from "../App Components/LoaderSecondary";
 
 export default function DeepDiveOne({
   thumbnail,
@@ -46,12 +47,12 @@ export default function DeepDiveOne({
         placeholder={placeholder}
         className="w-full p-2 text-sm md:text-base border rounded-md focus:ring-2 focus:ring-blue-500 bg-white text-gray-800 resize-y"
         style={{
-          height: 'auto',
-          overflow: 'hidden'
+          height: "auto",
+          overflow: "hidden",
         }}
         onInput={(e) => {
-          e.target.style.height = 'auto';
-          e.target.style.height = e.target.scrollHeight + 'px';
+          e.target.style.height = "auto";
+          e.target.style.height = e.target.scrollHeight + "px";
         }}
       />
     ) : (
@@ -74,7 +75,7 @@ export default function DeepDiveOne({
   };
 
   if (!editableData) {
-    return <div>Loading...</div>;
+    return <LoaderSecondary />;
   }
 
   return (
@@ -84,8 +85,9 @@ export default function DeepDiveOne({
           {rendeblueitableInput(editableData.title, "title", "Edit title")}
         </h1>
         <p className="text-xs md:text-sm text-gray-600">
-          By {rendeblueitableInput(editableData.author, "author", "Edit author")}{" "}
-          | {rendeblueitableInput(editableData.date, "date", "Edit date")}
+          By{" "}
+          {rendeblueitableInput(editableData.author, "author", "Edit author")} |{" "}
+          {rendeblueitableInput(editableData.date, "date", "Edit date")}
         </p>
       </div>
 
@@ -160,12 +162,12 @@ export default function DeepDiveOne({
                   }
                   className="w-full p-2 text-sm md:text-base border rounded-md focus:ring-2 focus:ring-blue-500 bg-white text-gray-800 resize-y"
                   style={{
-                    height: 'auto',
-                    overflow: 'hidden'
+                    height: "auto",
+                    overflow: "hidden",
                   }}
                   onInput={(e) => {
-                    e.target.style.height = 'auto';
-                    e.target.style.height = e.target.scrollHeight + 'px';
+                    e.target.style.height = "auto";
+                    e.target.style.height = e.target.scrollHeight + "px";
                   }}
                 />
               ) : (
@@ -188,8 +190,6 @@ export default function DeepDiveOne({
           )}
         </div>
       </div>
-
-      
 
       <div className="border-t border-gray-200 pt-4 md:pt-6 text-center text-xs md:text-sm text-gray-600">
         <p className="mb-2">

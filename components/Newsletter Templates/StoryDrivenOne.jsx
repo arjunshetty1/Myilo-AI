@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import LoaderSecondary from "../App Components/LoaderSecondary";
+
 
 export default function StoryDrivenOne({
   thumbnail,
@@ -73,7 +75,7 @@ export default function StoryDrivenOne({
   };
 
   if (!editableData) {
-    return <div>Loading...</div>;
+    return <LoaderSecondary/>;
   }
 
   return (

@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { Calendar, TrendingUp, ArrowRight } from 'lucide-react';
+import LoaderSecondary from '../App Components/LoaderSecondary';
+
 
 const MinimalFour = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
   const [editableData, setEditableData] = useState(dataToTemplate);
@@ -68,7 +70,7 @@ const MinimalFour = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
   };
 
   if (!editableData) {
-    return <div>Loading...</div>;
+    return <LoaderSecondary/>;
   }
 
   return (

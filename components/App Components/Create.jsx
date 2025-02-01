@@ -28,6 +28,7 @@ import { Separator } from "@/components/UI/shadcn-ui/separator";
 import { Reccomandations } from "@/services/Newsletter";
 import { CreateContextWrapper } from "@/context/global/GlobalContext";
 import { useRouter } from "next/navigation";
+import LoaderSecondary from "./LoaderSecondary";
 
 const industries = [
   "Technology",
@@ -83,13 +84,14 @@ const Create = () => {
   const [formErrors, setFormErrors] = useState({});
   const [isGenerating, setIsGenerating] = useState(false);
   const [recommendations, setRecommendations] = useState([]);
-  const [isLoadingRecommendations, setIsLoadingRecommendations] = useState(false);
+  const [isLoadingRecommendations, setIsLoadingRecommendations] =
+    useState(false);
   const { setChoosenNewsLetterInputs } = useContext(CreateContextWrapper);
   const [industrySearch, setIndustrySearch] = useState("");
   const [industryDropdownOpen, setIndustryDropdownOpen] = useState(false);
   const router = useRouter();
 
-  const filteredIndustries = industries.filter(industry =>
+  const filteredIndustries = industries.filter((industry) =>
     industry.toLowerCase().includes(industrySearch.toLowerCase())
   );
 
@@ -146,7 +148,7 @@ const Create = () => {
   };
 
   const handleTopicClick = (clickedTopic) => {
-    setSelectedTopic(prev => prev === clickedTopic ? "" : clickedTopic);
+    setSelectedTopic((prev) => (prev === clickedTopic ? "" : clickedTopic));
     setCustomTopic("");
   };
 
@@ -156,16 +158,18 @@ const Create = () => {
 
   const handleLengthChange = (length) => {
     setNewsletterLength(length);
-    setWordCount({
-      short: "300-500",
-      medium: "500-800",
-      long: "800+"
-    }[length]);
+    setWordCount(
+      {
+        short: "300-500",
+        medium: "500-800",
+        long: "800+",
+      }[length]
+    );
   };
 
   const fetchRecommendations = async (selectedIndustry, selectedLength) => {
-    console.log("Called",selectedIndustry)
-    
+    console.log("Called", selectedIndustry);
+
     setIsLoadingRecommendations(true);
     try {
       const response = await Reccomandations(selectedIndustry, selectedLength);
@@ -180,8 +184,10 @@ const Create = () => {
   const validateForm = () => {
     const errors = {};
     if (!industry) errors.industry = "Industry is required";
-    if (!newsletterLength) errors.newsletterLength = "Newsletter length is required";
-    if (!selectedTopic && !customTopic) errors.topics = "At least one topic is required";
+    if (!newsletterLength)
+      errors.newsletterLength = "Newsletter length is required";
+    if (!selectedTopic && !customTopic)
+      errors.topics = "At least one topic is required";
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
   };
@@ -209,7 +215,7 @@ const Create = () => {
     >
       {isGenerating ? (
         <>
-          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+          <LoaderSecondary />
           Generating...
         </>
       ) : (
@@ -250,19 +256,27 @@ const Create = () => {
                           </Label>
                           <div className="relative mt-2">
                             <button
-                              onClick={() => setIndustryDropdownOpen(!industryDropdownOpen)}
+                              onClick={() =>
+                                setIndustryDropdownOpen(!industryDropdownOpen)
+                              }
                               className="w-full h-10 flex items-center justify-between px-3 border rounded-md text-sm bg-popover text-popover-foreground"
                             >
                               {industry || "Select industry..."}
-                              <ChevronDown className={`h-4 w-4 transition-transform ${industryDropdownOpen ? "rotate-180" : ""}`} />
+                              <ChevronDown
+                                className={`h-4 w-4 transition-transform ${
+                                  industryDropdownOpen ? "rotate-180" : ""
+                                }`}
+                              />
                             </button>
-                            
+
                             {industryDropdownOpen && (
                               <div className="absolute z-10 w-full mt-1 bg-popover text-popover-foreground border rounded-md shadow-lg">
                                 <div className="p-2 border-b">
                                   <Input
                                     value={industrySearch}
-                                    onChange={(e) => setIndustrySearch(e.target.value)}
+                                    onChange={(e) =>
+                                      setIndustrySearch(e.target.value)
+                                    }
                                     placeholder="Search industries..."
                                     className="border-0 focus-visible:ring-0"
                                   />
@@ -271,7 +285,9 @@ const Create = () => {
                                   {filteredIndustries.map((industryName) => (
                                     <div
                                       key={industryName}
-                                      onClick={() => handleIndustrySelect(industryName)}
+                                      onClick={() =>
+                                        handleIndustrySelect(industryName)
+                                      }
                                       className="px-4 py-2 hover:bg-accent cursor-pointer text-sm"
                                     >
                                       {industryName}
@@ -282,26 +298,42 @@ const Create = () => {
                             )}
                           </div>
                           {formErrors.industry && (
-                            <p className="text-destructive text-sm mt-1">{formErrors.industry}</p>
+                            <p className="text-destructive text-sm mt-1">
+                              {formErrors.industry}
+                            </p>
                           )}
                         </div>
 
                         <div>
-                          <Label htmlFor="length" className="text-sm md:text-base font-medium">
+                          <Label
+                            htmlFor="length"
+                            className="text-sm md:text-base font-medium"
+                          >
                             Length *
                           </Label>
-                          <Select onValueChange={handleLengthChange} value={newsletterLength}>
+                          <Select
+                            onValueChange={handleLengthChange}
+                            value={newsletterLength}
+                          >
                             <SelectTrigger id="length" className="mt-2">
                               <SelectValue placeholder="Select length" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="short">Short (300-500 words)</SelectItem>
-                              <SelectItem value="medium">Medium (500-800 words)</SelectItem>
-                              <SelectItem value="long">Long (800+ words)</SelectItem>
+                              <SelectItem value="short">
+                                Short (300-500 words)
+                              </SelectItem>
+                              <SelectItem value="medium">
+                                Medium (500-800 words)
+                              </SelectItem>
+                              <SelectItem value="long">
+                                Long (800+ words)
+                              </SelectItem>
                             </SelectContent>
                           </Select>
                           {formErrors.newsletterLength && (
-                            <p className="text-destructive text-sm mt-1">{formErrors.newsletterLength}</p>
+                            <p className="text-destructive text-sm mt-1">
+                              {formErrors.newsletterLength}
+                            </p>
                           )}
                         </div>
                       </div>
@@ -313,15 +345,21 @@ const Create = () => {
                         <div className="flex gap-2">
                           <Input
                             value={customTopicInput}
-                            onChange={(e) => setCustomTopicInput(e.target.value)}
-                            onKeyDown={(e) => e.key === "Enter" && handleAddCustomTopic()}
+                            onChange={(e) =>
+                              setCustomTopicInput(e.target.value)
+                            }
+                            onKeyDown={(e) =>
+                              e.key === "Enter" && handleAddCustomTopic()
+                            }
                             placeholder="Enter custom topic"
                             disabled={Boolean(selectedTopic)}
                           />
                           <Button
-                          className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                            className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
                             onClick={handleAddCustomTopic}
-                            disabled={!customTopicInput.trim() || Boolean(selectedTopic)}
+                            disabled={
+                              !customTopicInput.trim() || Boolean(selectedTopic)
+                            }
                           >
                             Add
                           </Button>
@@ -350,7 +388,9 @@ const Create = () => {
                                 {recTopic}
                                 <svg
                                   className={`w-4 h-4 ${
-                                    selectedTopic === recTopic ? "text-yellow-300" : "text-yellow-400"
+                                    selectedTopic === recTopic
+                                      ? "text-yellow-300"
+                                      : "text-yellow-400"
                                   }`}
                                   fill="currentColor"
                                   viewBox="0 0 24 24"
@@ -383,7 +423,9 @@ const Create = () => {
                           </div>
                         )}
                         {formErrors.topics && (
-                          <p className="text-destructive text-sm mt-1">{formErrors.topics}</p>
+                          <p className="text-destructive text-sm mt-1">
+                            {formErrors.topics}
+                          </p>
                         )}
                       </div>
                     </div>
@@ -396,7 +438,10 @@ const Create = () => {
                       </h2>
                       <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                         <div>
-                          <Label htmlFor="audience" className="text-sm md:text-base font-medium">
+                          <Label
+                            htmlFor="audience"
+                            className="text-sm md:text-base font-medium"
+                          >
                             Target Audience
                           </Label>
                           <Select onValueChange={setAudience} value={audience}>
@@ -404,8 +449,12 @@ const Create = () => {
                               <SelectValue placeholder="Select audience" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="professionals">Professionals</SelectItem>
-                              <SelectItem value="beginners">Beginners</SelectItem>
+                              <SelectItem value="professionals">
+                                Professionals
+                              </SelectItem>
+                              <SelectItem value="beginners">
+                                Beginners
+                              </SelectItem>
                               <SelectItem value="experts">Experts</SelectItem>
                               <SelectItem value="students">Students</SelectItem>
                             </SelectContent>
@@ -413,7 +462,10 @@ const Create = () => {
                         </div>
 
                         <div>
-                          <Label htmlFor="tone" className="text-sm md:text-base font-medium">
+                          <Label
+                            htmlFor="tone"
+                            className="text-sm md:text-base font-medium"
+                          >
                             Tone
                           </Label>
                           <Select onValueChange={setTone} value={tone}>
@@ -421,7 +473,9 @@ const Create = () => {
                               <SelectValue placeholder="Select tone" />
                             </SelectTrigger>
                             <SelectContent>
-                              <SelectItem value="professional">Professional</SelectItem>
+                              <SelectItem value="professional">
+                                Professional
+                              </SelectItem>
                               <SelectItem value="casual">Casual</SelectItem>
                               <SelectItem value="friendly">Friendly</SelectItem>
                               <SelectItem value="formal">Formal</SelectItem>
@@ -442,7 +496,7 @@ const Create = () => {
                           )}
                           Advanced Options
                         </button>
-                        
+
                         <AnimatePresence>
                           {showAdvanced && (
                             <motion.div
@@ -453,7 +507,10 @@ const Create = () => {
                               className="space-y-4 md:space-y-6 mt-4 md:mt-6"
                             >
                               <div>
-                                <Label htmlFor="keyPoints" className="text-sm md:text-base font-medium">
+                                <Label
+                                  htmlFor="keyPoints"
+                                  className="text-sm md:text-base font-medium"
+                                >
                                   Key Points to Cover
                                 </Label>
                                 <Textarea
@@ -478,7 +535,9 @@ const Create = () => {
                                   className="mt-2"
                                   rows={4}
                                   value={brandGuidelines}
-                                  onChange={(e) => setBrandGuidelines(e.target.value)}
+                                  onChange={(e) =>
+                                    setBrandGuidelines(e.target.value)
+                                  }
                                 />
                               </div>
                             </motion.div>
@@ -522,7 +581,9 @@ const Create = () => {
                         <h3 className="font-medium text-gray-700 mb-2 text-sm md:text-base">
                           Expected Length
                         </h3>
-                        <p className="text-gray-600 text-sm">{wordCount} words</p>
+                        <p className="text-gray-600 text-sm">
+                          {wordCount} words
+                        </p>
                       </div>
                     )}
 
@@ -543,7 +604,8 @@ const Create = () => {
                         </li>
                         <li className="flex items-start">
                           <span className="mr-2">•</span>
-                          Select a relevant industry for accurate recommendations
+                          Select a relevant industry for accurate
+                          recommendations
                         </li>
                         <li className="flex items-start">
                           <span className="mr-2">•</span>
@@ -560,7 +622,10 @@ const Create = () => {
                         </h3>
                         <ul className="list-disc list-inside mt-2">
                           {Object.entries(formErrors).map(([key, value]) => (
-                            <li key={key} className="text-blue-600 text-xs md:text-sm">
+                            <li
+                              key={key}
+                              className="text-blue-600 text-xs md:text-sm"
+                            >
                               {value}
                             </li>
                           ))}
@@ -587,29 +652,7 @@ const Create = () => {
           <GenerateButton className="w-full bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 text-white py-4 text-base shadow-lg" />
         </div>
 
-        <AnimatePresence>
-          {isGenerating && (
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              className="fixed inset-0 bg-white bg-opacity-75 backdrop-blur-sm flex items-center justify-center z-50"
-            >
-              <motion.div
-                animate={{
-                  scale: [1, 1.2, 1],
-                  rotate: [0, 360],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut",
-                }}
-                className="w-16 h-16 border-4 border-indigo-500 border-t-transparent rounded-full"
-              />
-            </motion.div>
-          )}
-        </AnimatePresence>
+        <AnimatePresence>{isGenerating && <LoaderSecondary />}</AnimatePresence>
       </div>
     </TooltipProvider>
   );

@@ -40,7 +40,7 @@ import {
   SendTestMail,
   UpdateNewsletter,
 } from "@/services/Newsletter";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import {
   EditIcon,
   LaptopIcon,
@@ -53,28 +53,7 @@ import {
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useCallback, useEffect, useState } from "react";
-
-const LoadingOverlay = () => (
-  <motion.div
-    initial={{ opacity: 0 }}
-    animate={{ opacity: 1 }}
-    exit={{ opacity: 0 }}
-    className="fixed inset-0 bg-white bg-opacity-75 backdrop-blur-sm flex items-center justify-center z-50"
-  >
-    <motion.div
-      animate={{
-        scale: [1, 1.2, 1],
-        rotate: [0, 360],
-      }}
-      transition={{
-        duration: 2,
-        repeat: Infinity,
-        ease: "easeInOut",
-      }}
-      className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full"
-    />
-  </motion.div>
-);
+import LoaderSecondary from "@/components/App Components/LoaderSecondary";
 
 export default function ImprovedNewsletterEditor() {
   const router = useRouter();
@@ -482,7 +461,7 @@ export default function ImprovedNewsletterEditor() {
               >
                 {isSaving ? (
                   <>
-                    <Loader2Icon className="w-4 h-4 mr-2 animate-spin" />
+                    <LoaderSecondary />
                     Saving...
                   </>
                 ) : isEditing ? (
@@ -577,8 +556,9 @@ export default function ImprovedNewsletterEditor() {
         </Tabs>
 
         {/* Modals */}
+        {/* Modals */}
         <Dialog open={showPublishModal} onOpenChange={setShowPublishModal}>
-          <DialogContent>
+          <DialogContent className="max-w-sm w-full p-4 rounded-lg">
             <DialogHeader>
               <DialogTitle>Publish Newsletter</DialogTitle>
               <DialogDescription>
@@ -586,11 +566,12 @@ export default function ImprovedNewsletterEditor() {
                 cannot be undone.
               </DialogDescription>
             </DialogHeader>
-            <div className="flex gap-2 mt-4">
+            <div className="flex flex-wrap gap-2 mt-4">
               <Button
                 variant="outline"
                 onClick={handlePublish}
                 disabled={isPublishing}
+                className="w-full sm:w-auto"
               >
                 {isPublishing ? (
                   <>
@@ -604,6 +585,7 @@ export default function ImprovedNewsletterEditor() {
               <Button
                 variant="outline"
                 onClick={() => setShowPublishModal(false)}
+                className="w-full sm:w-auto"
               >
                 Cancel
               </Button>
@@ -612,7 +594,7 @@ export default function ImprovedNewsletterEditor() {
         </Dialog>
 
         <Dialog open={showTestMailModal} onOpenChange={setShowTestMailModal}>
-          <DialogContent>
+          <DialogContent className="max-w-sm w-full p-4 rounded-lg">
             <DialogHeader>
               <DialogTitle>Send Test Email</DialogTitle>
               <DialogDescription>
@@ -627,13 +609,15 @@ export default function ImprovedNewsletterEditor() {
                   value={testEmail}
                   onChange={(e) => setTestEmail(e.target.value)}
                   required
+                  className="w-full"
                 />
               </div>
-              <div className="flex gap-2">
+              <div className="flex flex-wrap gap-2">
                 <Button
                   type="submit"
                   disabled={isSendingTest}
                   variant="outline"
+                  className="w-full sm:w-auto"
                 >
                   {isSendingTest ? (
                     <>
@@ -648,6 +632,7 @@ export default function ImprovedNewsletterEditor() {
                   type="button"
                   variant="outline"
                   onClick={() => setShowTestMailModal(false)}
+                  className="w-full sm:w-auto"
                 >
                   Cancel
                 </Button>
@@ -657,7 +642,7 @@ export default function ImprovedNewsletterEditor() {
         </Dialog>
       </div>
 
-      <AnimatePresence>{isRouting && <LoadingOverlay />}</AnimatePresence>
+      <AnimatePresence>{isRouting && <LoaderSecondary />}</AnimatePresence>
     </div>
   );
 }

@@ -1,5 +1,5 @@
 "use client";
-import { useState, useContext, useEffect } from "react";
+import { useState, useContext } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
@@ -18,6 +18,7 @@ import {
 } from "@/components/UI/shadcn-ui/tooltip";
 
 import { useToast } from "@/hooks/use-toast";
+import { Loader } from "@/components/App Components/Loader";
 
 const templates = [
   { id: "0", name: "General 1", category: "General", image: "/t1.png" },
@@ -95,47 +96,6 @@ const categories = [
   "Story-Driven",
 ];
 
-const LoadingOverlay = ({ tips }) => {
-  const [currentTip, setCurrentTip] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTip((prev) => (prev + 1) % tips.length);
-    }, 2500);
-
-    return () => clearInterval(interval);
-  }, [tips.length]);
-
-  return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      className="fixed inset-0  bg-opacity-80 dark:bg-gray-900 dark:bg-opacity-80 backdrop-blur-sm flex items-center justify-center p-4 z-50"
-    >
-      <Card className="w-full max-w-md bg-white dark:bg-gray-800 shadow-xl">
-        <CardContent className="p-6">
-          <div className="flex justify-center mb-6">
-            <div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-blue-500"></div>
-          </div>
-          <h3 className="text-xl font-semibold text-center mb-4">
-            Generating Your Newsletter
-          </h3>
-          <motion.p
-            key={currentTip}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="text-center text-gray-600 dark:text-gray-300"
-          >
-            {tips[currentTip]}
-          </motion.p>
-        </CardContent>
-      </Card>
-    </motion.div>
-  );
-};
-
 const TemplateCard = ({ template, onClick, isSelected }) => (
   <motion.div whileHover={{ y: -5 }} whileTap={{ scale: 0.98 }}>
     <Card
@@ -168,6 +128,7 @@ export default function NewsletterTemplates() {
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
+  const [generating, setGenerating] = useState(false)
   const { toast } = useToast();
 
   const filteblueTemplates = templates.filter(
@@ -179,23 +140,11 @@ export default function NewsletterTemplates() {
     setSelectedTemplate(template);
   };
 
-  const tips = [
-    "Newsletters help build a direct connection with your YouTube audience.",
-    "Share behind-the-scenes content to keep subscribers engaged between videos.",
-    "Use newsletters to announce upcoming videos and collaborations.",
-    "Offer exclusive content to newsletter subscribers to boost sign-ups.",
-    "Consistency in your newsletter schedule can lead to higher engagement rates.",
-    "Use your newsletter to gather feedback and ideas for future videos.",
-    "Cross-promote your newsletter in your YouTube video descriptions and end screens.",
-    "Segment your newsletter audience to provide more personalized content.",
-    "Use eye-catching subject lines to improve open rates.",
-    "Include clear calls-to-action in your newsletters to drive views and engagement.",
-  ];
-
   const GenerateNewsletter = async () => {
     if (!selectedTemplate) return;
 
     setIsLoading(true);
+    setGenerating(true);
 
     const params = {
       templateId: selectedTemplate.id,
@@ -283,7 +232,7 @@ export default function NewsletterTemplates() {
           </AnimatePresence>
 
           <AnimatePresence>
-            {selectedTemplate && (
+            {selectedTemplate && !generating && (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -334,9 +283,7 @@ export default function NewsletterTemplates() {
             )}
           </AnimatePresence>
 
-          <AnimatePresence>
-            {isLoading && <LoadingOverlay tips={tips} />}
-          </AnimatePresence>
+          <AnimatePresence>{isLoading && <Loader />}</AnimatePresence>
         </div>
       </TooltipProvider>
     </div>

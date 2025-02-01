@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from "react";
 import { Clock, Tag, ChevronRight } from "lucide-react";
+import LoaderSecondary from "../App Components/LoaderSecondary";
+
 
 const QuickReadOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
   const [editableData, setEditableData] = useState(dataToTemplate);
@@ -60,7 +62,7 @@ const QuickReadOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
   };
 
   if (!editableData) {
-    return <div>Loading...</div>;
+    return <LoaderSecondary/>;
   }
 
   return (

@@ -3,6 +3,8 @@
 import { Input } from "@/components/UI/shadcn-ui/input";
 import { Textarea } from "@/components/UI/shadcn-ui/textarea";
 import { useEffect, useState } from "react";
+import LoaderSecondary from "../App Components/LoaderSecondary";
+
 
 const GeneralThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
   const [editableData, setEditableData] = useState(dataToTemplate);
@@ -57,7 +59,7 @@ const GeneralThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
   };
 
   if (!editableData) {
-    return <div>Loading...</div>;
+    return <LoaderSecondary/>;
   }
 
   return (

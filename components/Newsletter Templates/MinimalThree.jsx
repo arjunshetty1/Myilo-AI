@@ -2,6 +2,8 @@
 
 import React, { useState, useEffect } from 'react';
 import { TrendingUp, AlertCircle, CheckCircle } from 'lucide-react';
+import LoaderSecondary from '../App Components/LoaderSecondary';
+
 
 const MinimalThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
   const [editableData, setEditableData] = useState(dataToTemplate);
@@ -63,7 +65,7 @@ const MinimalThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
   };
 
   if (!editableData) {
-    return <div>Loading...</div>;
+    return <LoaderSecondary/>;
   }
 
   return (
