@@ -3,10 +3,10 @@ import { Button } from "@/components/UI/shadcn-ui/button";
 import { useEffect } from "react";
 import { supabase } from "@/utils/supabaseConfig";
 import { AnimatePresence, motion } from "framer-motion";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { FcGoogle } from "react-icons/fc";
+import Logo from "./Logo";
 
 const AuthCard = () => {
   const router = useRouter();
@@ -47,27 +47,21 @@ const AuthCard = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen md:w-1/2 w-full bg-gradient-to-br from-gray-50 to-gray-100 flex justify-center items-center p-4"
+      className="min-h-screen md:w-1/2 w-full bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 flex justify-center items-center p-6"
     >
       <motion.div
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.5 }}
-        className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-md"
+        className="bg-white dark:bg-gray-900 rounded-3xl shadow-sm p-10 w-full max-w-md border border-gray-200 dark:border-gray-700"
       >
-        <div className="flex flex-col items-center gap-6">
+        <div className="flex flex-col items-center gap-8">
           <motion.div
             initial={{ scale: 0 }}
             animate={{ scale: 1 }}
             transition={{ type: "spring", stiffness: 260, damping: 20 }}
           >
-            <Image
-              className="w-20 h-20 "
-              src="/logo.jpg"
-              width={80}
-              height={80}
-              alt="ClipMailo logo"
-            />
+            <Logo />
           </motion.div>
 
           <motion.div
@@ -76,10 +70,10 @@ const AuthCard = () => {
             transition={{ delay: 0.3, duration: 0.5 }}
             className="text-center"
           >
-            <h2 className="text-2xl text-gray-600 mb-2">
+            <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-300 mb-2">
               Get started with ClipMailo AI
             </h2>
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-gray-400">
               Dive into the world of simple newsletter creation with AI.
             </p>
           </motion.div>
@@ -91,7 +85,7 @@ const AuthCard = () => {
           >
             <Button
               onClick={() => !isLoading && handleGoogleLogin()}
-              className="w-full py-3 bg-white text-gray-700 border border-gray-300 hover:bg-gray-50 hover:border-gray-400 transition-all duration-300 flex items-center justify-center gap-2 text-base font-medium rounded-lg shadow-sm "
+              className="w-full py-3 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-300 flex items-center justify-center gap-2 text-base font-medium rounded-xl"
               disabled={isLoading}
             >
               <AnimatePresence mode="wait" initial={false}>
@@ -122,7 +116,7 @@ const AuthCard = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.5 }}
-            className="text-gray-500 text-sm text-center max-w-xs"
+            className="text-gray-500 dark:text-gray-400 text-sm text-center max-w-xs"
           >
             Your details will be synced automatically upon login.
           </motion.p>

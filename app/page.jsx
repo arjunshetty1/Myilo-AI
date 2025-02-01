@@ -20,6 +20,7 @@ import {
   Sun,
   Moon,
 } from "lucide-react";
+import Logo from "@/components/App Components/Logo";
 
 const cn = (...classes) => classes.filter(Boolean).join(" ");
 
@@ -42,9 +43,7 @@ const Navigation = ({ theme, toggleTheme }) => {
       animate={{ y: 0, opacity: 1 }}
       transition={{ type: "spring", stiffness: 60, damping: 15 }}
       className={`fixed inset-x-0 mx-auto w-[70%] z-50 transition-all duration-300 rounded-full my-3 ${
-        isScrolled
-          ? "backdrop-blur-2xl shadow-sm"
-          : "bg-transparent"
+        isScrolled ? "backdrop-blur-2xl shadow-sm" : "bg-transparent"
       }`}
     >
       <div className="max-w-7xl mx-auto px-8 sm:px-6 lg:px-8">
@@ -61,15 +60,27 @@ const Navigation = ({ theme, toggleTheme }) => {
     </motion.header>
   );
 };
+//   <Link
+//     href="/"
+//     // className="text-2xl font-bold bg-clip-text dark:text-[white] text-black"
+//   >
+//     <div class="flex items-center space-x-4">
 
-const Logo = () => (
-  <Link
-    href="/"
-    className="text-2xl font-bold bg-clip-text dark:text-[white] text-black"
-  >
-    ClipMailo
-  </Link>
-);
+//   <div class="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-full shadow-lg transition-transform duration-300 hover:scale-110">
+//     <span class="text-white font-extrabold text-xl tracking-tight">CM</span>
+//   </div>
+
+//   <div class="flex flex-col">
+//     <span class="text-xl font-bold text-gray-900 dark:text-white tracking-wide">
+//       ClipMailo
+//     </span>
+//     <span class="text-sm font-light text-gray-500 dark:text-gray-400">
+//       AI Newsletter Builder
+//     </span>
+//   </div>
+// </div>
+//   </Link>
+// );
 
 const NavigationComponent = ({ isOpen, setIsOpen, theme, toggleTheme }) => {
   const linkClassnames =
@@ -101,7 +112,7 @@ const NavigationComponent = ({ isOpen, setIsOpen, theme, toggleTheme }) => {
       </div>
       <div className="hidden md:flex items-center space-x-4 ml-8">
         <Link
-          href="/earlyaccess"
+          href="/Login"
           className="px-8 py-2 text-purple-600 dark:text-purple-400 border border-purple-600 dark:border-purple-400 rounded-full hover:bg-purple-600 hover:text-white dark:hover:bg-purple-400 dark:hover:text-gray-900 transition-colors duration-300"
         >
           Start Free
@@ -216,7 +227,7 @@ const MobileMenu = ({ isOpen, setIsOpen, scrollToSection }) => {
               ))}
               <div className="mt-8 space-y-4">
                 <Link
-                  href="/earlyaccess"
+                  href="/Login"
                   className="w-full px-8 py-2 text-purple-600 dark:text-purple-400 border border-purple-600 dark:border-purple-400 rounded-full hover:bg-purple-600 hover:text-white dark:hover:bg-purple-400 dark:hover:text-gray-900 transition-colors duration-300 text-center block"
                 >
                   Start Free
@@ -287,7 +298,7 @@ const PricingCard = ({ name, price, features, isActive }) => (
     </ul>
 
     {isActive ? (
-      <Link href="/earlyaccess">
+      <Link href="/Login">
         <button
           className={`w-full mt-8 py-3 px-6 rounded-xl font-semibold transition-all duration-300 ${
             isActive
@@ -422,7 +433,7 @@ export default function LandingPage() {
               transition={{ duration: 0.8, delay: 0.6 }}
               className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4"
             >
-              <Link href="/earlyaccess">
+              <Link href="/Login">
                 <button className="group bg-gradient-to-r from-purple-400 to-pink-400 text-white text-lg px-8 py-3 rounded-full hover:from-purple-500 hover:to-pink-500 transition-all duration-300 transform hover:scale-105 flex items-center">
                   Start Your Free Trial
                   <ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform duration-300" />
@@ -624,8 +635,8 @@ export default function LandingPage() {
               price="0"
               features={[
                 "Up to 500 subscribers",
-                "5 AI-generated newsletters/month",
-                "Basic templates",
+                "8 AI-generated newsletters/month",
+                "All templates",
                 "Email support",
                 "Full Analytics",
               ]}
@@ -635,9 +646,9 @@ export default function LandingPage() {
               name="Growth"
               price="19"
               features={[
-                "Up to 5,000 subscribers",
-                "20 AI-generated newsletters/month",
-                "Advanced templates",
+                "Up to 25,000 subscribers",
+                "30 AI-generated newsletters/month",
+                "All templates",
                 "Priority support",
                 "Full Analytics",
               ]}
@@ -649,8 +660,8 @@ export default function LandingPage() {
               features={[
                 "Unlimited subscribers",
                 "Unlimited AI-generated newsletters",
-                "Premium templates",
-                "24/7 support",
+                "All templates",
+                "Priority support",
                 "Full analytics",
               ]}
               isActive={false}
@@ -742,7 +753,7 @@ export default function LandingPage() {
               Join thousands of beginners who are building audiences and making
               their first dollars with AI-powered newsletters.
             </p>
-            <Link href="/earlyaccess">
+            <Link href="/Login">
               <button className="bg-white text-purple-600 text-lg px-8 py-3 rounded-full hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
                 Start Your Free Trial
               </button>
@@ -760,7 +771,7 @@ export default function LandingPage() {
         <div className=" px-8">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="text-sm mb-4 md:mb-0">
-              © 2024 ClipMailo AI. All rights reserved.
+              © 2024 ClipMailo. All rights reserved.
             </div>
             <div className="flex space-x-6">
               <Link
