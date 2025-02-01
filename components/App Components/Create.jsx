@@ -319,7 +319,7 @@ const Create = () => {
                             disabled={Boolean(selectedTopic)}
                           />
                           <Button
-                          className="bg-[blue]"
+                          className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
                             onClick={handleAddCustomTopic}
                             disabled={!customTopicInput.trim() || Boolean(selectedTopic)}
                           >

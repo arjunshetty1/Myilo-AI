@@ -117,20 +117,20 @@ const NavigationComponent = ({ isOpen, setIsOpen, theme, toggleTheme }) => {
         >
           Start Free
         </Link>
-        <button
+        {/* <button
           onClick={toggleTheme}
           className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white"
         >
           {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
-        </button>
+        </button> */}
       </div>
       <div className="md:hidden flex items-center space-x-4">
-        <button
+        {/* <button
           onClick={toggleTheme}
           className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white"
         >
           {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
-        </button>
+        </button> */}
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="text-gray-800 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-300"
@@ -361,15 +361,15 @@ const TestimonialCard = ({ quote, author, role, image }) => (
 );
 
 export default function LandingPage() {
-  const [theme, setTheme] = useState("dark");
+  const [theme, setTheme] = useState("light");
 
   useEffect(() => {
-    document.documentElement.classList.add("dark");
+    document.documentElement.classList.add("light");
 
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme === "light") {
       setTheme("light");
-      document.documentElement.classList.remove("dark");
+      document.documentElement.classList.remove("light");
     }
   }, []);
 

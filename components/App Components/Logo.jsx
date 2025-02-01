@@ -25,7 +25,7 @@ const Logo = () => {
           initial={{ scale: 0.95, rotate: 0 }}
           animate={{ scale: [1, 1.05, 1], rotate: [-2, 2, -2] }}
           transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-          className="flex items-center justify-center w-12 h-12 bg-gradient-to-r from-blue-700 via-blue-500 to-blue-400 rounded-full shadow-sm transition-transform duration-300 hover:scale-105 animate-gradient"
+          className="flex items-center justify-center w-12 h-12 bg-gradient-to-r from-purple-600 via-pink-600 to-red-500 rounded-full shadow-sm transition-transform duration-300 hover:scale-105 animate-gradient"
         >
           <span className="text-white font-bold text-xl tracking-tight">
             CM
