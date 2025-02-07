@@ -17,6 +17,7 @@ export function withAuth(WrappedComponent) {
         "/earlyaccess",
         "/terms-of-service",
         "/contact-us",
+        "/select-template"
       ];
       const publicPatterns = [{ pattern: /^\/s\/.+/ }];
 

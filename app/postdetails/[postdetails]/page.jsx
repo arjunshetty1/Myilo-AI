@@ -1,4 +1,4 @@
-"use client";
+"use client";;
 import { GetNewsletterByID } from "@/services/Newsletter";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -22,11 +22,10 @@ import { Skeleton } from "@/components/UI/shadcn-ui/skeleton";
 import { GetIndividualNewsletterData } from "@/services/Analytics";
 import { motion } from "framer-motion";
 import { Area, AreaChart, XAxis, YAxis } from "recharts";
-import TemplateOne from "@/components/Newsletter Templates/GeneralOne";
-import TemplateTwo from "@/components/Newsletter Templates/GeneralTwo";
-import TemplateThree from "@/components/Newsletter Templates/GeneralThree";
+import GeneralOne from "@/components/Newsletter Templates/GeneralOne";
+import GeneralTwo from "@/components/Newsletter Templates/GeneralTwo";
+import GeneralThree from "@/components/Newsletter Templates/GeneralThree";
 import MinimalOne from "@/components/Newsletter Templates/MinimalOne";
-import MinimalTwo from "@/components/Newsletter Templates/MiinimalTwo";
 import MinimalThree from "@/components/Newsletter Templates/MinimalThree";
 import MinimalFour from "@/components/Newsletter Templates/MinimalFour";
 import StoryDrivenOne from "@/components/Newsletter Templates/StoryDrivenOne";
@@ -95,6 +94,7 @@ const Page = () => {
       const response = await GetNewsletterByID(id);
       setNewsletterData(response);
       setCurrentTemplate(response.templateId);
+      console.log("template ID is:",response.templateId)
       setthumbnail(response.thumbnail);
       const str = response.editedData;
       setdataToTemplate(str);
@@ -136,21 +136,21 @@ const Page = () => {
       switch (currentTemplate) {
         case 0:
           return (
-            <TemplateOne
+            <GeneralOne
               dataToTemplate={dataToTemplate}
               thumbnail={thumbnail}
             />
           );
         case 1:
           return (
-            <TemplateTwo
+            <GeneralTwo
               dataToTemplate={dataToTemplate}
               thumbnail={thumbnail}
             />
           );
         case 2:
           return (
-            <TemplateThree
+            <GeneralThree
               dataToTemplate={dataToTemplate}
               thumbnail={thumbnail}
             />
@@ -161,65 +161,57 @@ const Page = () => {
           );
         case 4:
           return (
-            <MinimalTwo dataToTemplate={dataToTemplate} thumbnail={thumbnail} />
+            <MinimalThree dataToTemplate={dataToTemplate} thumbnail={thumbnail} />
           );
         case 5:
-          return (
-            <MinimalThree
-              dataToTemplate={dataToTemplate}
-              thumbnail={thumbnail}
-            />
-          );
-        case 6:
           return (
             <MinimalFour
               dataToTemplate={dataToTemplate}
               thumbnail={thumbnail}
             />
           );
-        case 7:
+        case 6:
           return (
             <StoryDrivenOne
               dataToTemplate={dataToTemplate}
               thumbnail={thumbnail}
             />
           );
-        case 8:
+        case 7:
           return (
             <StoryDrivenTwo
               dataToTemplate={dataToTemplate}
               thumbnail={thumbnail}
             />
           );
-        case 9:
+        case 8:
           return (
             <DeepDiveOne
               dataToTemplate={dataToTemplate}
               thumbnail={thumbnail}
             />
           );
-        case 10:
+        case 9:
           return (
             <DeepDiveTwo
               dataToTemplate={dataToTemplate}
               thumbnail={thumbnail}
             />
           );
-        case 11:
+        case 10:
           return (
             <QuickReadOne
               dataToTemplate={dataToTemplate}
               thumbnail={thumbnail}
             />
           );
-        case 12:
+        case 11:
           return (
             <QuickReadTwo
               dataToTemplate={dataToTemplate}
               thumbnail={thumbnail}
             />
           );
-
         default:
           return null;
       }

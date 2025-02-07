@@ -385,90 +385,81 @@ export default function LandingPage() {
       <Navigation theme={theme} toggleTheme={toggleTheme} />
 
       {/* Hero Section */}
-      <section className="relative pb-14 pt-20 md-py-8  flex items-center justify-center overflow-hidden bg-gradient-to-br from-gray-100 to-white dark:from-gray-900 dark:via-purple-900 dark:to-pink-900">
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(255,0,255,0.1),rgba(255,0,255,0))]" />
-          <div className="absolute w-full h-full bg-[radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.1),rgba(255,255,255,0))]" />
-        </div>
+      <section className="relative py-16 md:py-24 lg:py-32 overflow-hidden bg-gradient-to-br from-gray-100 to-white dark:from-gray-900 dark:via-purple-900 dark:to-pink-900">
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(255,0,255,0.1),rgba(255,0,255,0))]" />
+        <div className="absolute w-full h-full bg-[radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.1),rgba(255,255,255,0))]" />
+      </div>
 
-        <div className="px-8 z-10">
-          <div className="max-w-4xl mx-auto text-center lg:pt-[5rem] lg:pb-[12rem] pt-0 pb-0">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="mb-6 mt-5"
-            >
-              <span className="md:inline-block hidden px-8 py-2 rounded-full bg-purple-100 dark:bg-white/10 backdrop-blur-sm text-purple-800 dark:text-purple-300 text-sm font-medium mb-6">
-                🚀 Empowering 10,000+ Newsletter Creators
-              </span>
-            </motion.div>
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            className="mb-6"
+          >
+            <span className="inline-block px-4 py-2 rounded-full bg-purple-100 dark:bg-white/10 backdrop-blur-sm text-purple-800 dark:text-purple-300 text-sm font-medium">
+              🚀 Empowering 10,000+ Newsletter Creators
+            </span>
+          </motion.div>
 
-            <motion.h1
-              className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-6 text-gray-900 dark:text-white leading-tight"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              Create Stunning Newsletters with{" "}
-              <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400">
-                AI
-              </span>
-            </motion.h1>
+          <motion.h1
+            className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-gray-900 dark:text-white leading-tight"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            Create Stunning Newsletters with{" "}
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400">AI</span>
+          </motion.h1>
 
-            <motion.p
-              className="text-md sm:text-xl md:text-2xl mb-10 text-gray-600 dark:text-gray-300 max-w-4xl mx-auto"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              Whether you're new to writing or an expert, ClipMailo AI makes it
-              effortless to craft engaging newsletters. Build your audience,
-              save time, and turn your passion into profit in just minutes.
-            </motion.p>
+          <motion.p
+            className="text-lg sm:text-xl md:text-2xl mb-10 text-gray-600 dark:text-gray-300"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
+            Whether you're new to writing or an expert, ClipMailo AI makes it effortless to craft engaging newsletters.
+            Build your audience, save time, and turn your passion into profit in just minutes.
+          </motion.p>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.6 }}
-              className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4"
-            >
-              <Link href="/Login">
-                <button className="group bg-gradient-to-r from-purple-400 to-pink-400 text-white text-lg px-8 py-3 rounded-full hover:from-purple-500 hover:to-pink-500 transition-all duration-300 transform hover:scale-105 flex items-center">
-                  Start Your Free Trial
-                  <ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-                </button>
-              </Link>
-              <button className="group bg-white dark:bg-white/10 text-gray-900 dark:text-white text-lg px-8 py-3 rounded-full hover:bg-gray-100 dark:hover:bg-white/20 transition-all duration-300 flex items-center">
-                <Play className="mr-2 w-5 h-5" />
-                Watch Demo
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4"
+          >
+            <Link href="/Login">
+              <button className="w-full sm:w-auto group bg-gradient-to-r from-purple-400 to-pink-400 text-white text-lg px-8 py-3 rounded-full hover:from-purple-500 hover:to-pink-500 transition-all duration-300 transform hover:scale-105 flex items-center justify-center">
+                Start Your Free Trial
+                <ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform duration-300" />
               </button>
-            </motion.div>
+            </Link>
+            <button className="w-full sm:w-auto group bg-white dark:bg-white/10 text-gray-900 dark:text-white text-lg px-8 py-3 rounded-full hover:bg-gray-100 dark:hover:bg-white/20 transition-all duration-300 flex items-center justify-center">
+              <Play className="mr-2 w-5 h-5" />
+              Watch Demo
+            </button>
+          </motion.div>
 
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.8 }}
-              className="mt-12 flex justify-center items-center space-x-8"
-            >
-              <div className="flex -space-x-2">
-                {[...Array(4)].map((_, i) => (
-                  <div
-                    key={i}
-                    className="w-8 h-8 rounded-full bg-gray-300 border-2 border-white dark:border-gray-800"
-                  />
-                ))}
-              </div>
-              <p className="text-gray-600 dark:text-gray-300">
-                <span className="font-semibold text-gray-900 dark:text-white">
-                  Rated 4.9/5
-                </span>{" "}
-                by 5-6+ creators like you
-              </p>
-            </motion.div>
-          </div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.8 }}
+            className="mt-12 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8"
+          >
+            <div className="flex -space-x-2">
+              {[...Array(4)].map((_, i) => (
+                <div key={i} className="w-8 h-8 rounded-full bg-gray-300 border-2 border-white dark:border-gray-800" />
+              ))}
+            </div>
+            <p className="text-gray-600 dark:text-gray-300 text-center sm:text-left">
+              <span className="font-semibold text-gray-900 dark:text-white">Rated 4.9/5</span> by 5-6+ creators like you
+            </p>
+          </motion.div>
         </div>
-      </section>
+      </div>
+    </section>
 
       {/* Features Section */}
       <section
