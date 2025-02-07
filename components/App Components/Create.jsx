@@ -161,8 +161,8 @@ const Create = () => {
     setWordCount(
       {
         short: "300-500",
-        medium: "500-800",
-        long: "800+",
+        medium: "500-1000",
+        long: "1200+",
       }[length]
     );
   };
