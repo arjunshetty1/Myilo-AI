@@ -47,13 +47,13 @@ const AuthCard = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="min-h-screen md:w-1/2 w-full bg-gradient-to-br from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900 flex justify-center items-center p-6"
+      className="min-h-screen md:w-1/2 w-full bg-[white] dark:from-gray-800 dark:to-gray-900 flex justify-center items-center p-6"
     >
       <motion.div
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.2, duration: 0.5 }}
-        className="bg-white dark:bg-gray-900 rounded-3xl shadow-sm p-10 w-full max-w-md border border-gray-200 dark:border-gray-700"
+        className="bg-white dark:bg-gray-900 rounded-3xl shadow-sm p-10 w-full max-w-md border dark:border-gray-700"
       >
         <div className="flex flex-col items-center gap-8">
           <motion.div
