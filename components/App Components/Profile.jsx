@@ -29,7 +29,7 @@ const Account = () => {
       try {
         const res = await GetProfile();
         setUserData(res);
-        setEditedUserName(res.username); // Set editedUserName initially
+        setEditedUserName(res.userName); // Set editedUserName initially
       } catch (error) {
         console.error("Error fetching profile data:", error);
       } finally {
@@ -49,18 +49,22 @@ const Account = () => {
     }
   }
 
-  const handleSaveClick = async () => {
-    setIsLoading(true)
-    try {
-      await updateUserName(editedUserName)
-      setUserData({ ...userData, userName: editedUserName })
-      setIsEditing(false)
-    } catch (error) {
-      console.error("Failed to update username:", error)
-    } finally {
-      setIsLoading(false)
-    }
+const handleSaveClick = async () => {
+  setIsLoading(true);
+  try {
+    await updateUserName(editedUserName);
+    
+    // Re-fetch user data to get updated username
+    const updatedProfile = await GetProfile();
+    
+    setUserData(updatedProfile);
+    setIsEditing(false);
+  } catch (error) {
+    console.error("Failed to update username:", error);
+  } finally {
+    setIsLoading(false);
   }
+}
 
   const handleLogout = async () => {
     const error = await Logout()
@@ -105,9 +109,9 @@ const Account = () => {
                 <CardTitle className="text-2xl font-bold">
   {userData.username || "Loading..."}
 </CardTitle>
-                <Button onClick={handleEditClick} size="sm" variant="ghost">
+                {/* <Button onClick={handleEditClick} size="sm" variant="ghost">
                   <Edit2 className="h-4 w-4" />
-                </Button>
+                </Button> */}
               </div>
             )}
           </div>
