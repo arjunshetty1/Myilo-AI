@@ -229,7 +229,7 @@ const Create = () => {
 
   return (
     <TooltipProvider>
-      <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 p-4 md:p-8">
+      <div className="min-h-screen  p-4 md:p-8">
         <div className="max-w-7xl mx-auto">
           <div className="mb-6 md:mb-8">
             <h1 className="text-2xl font-medium text-gray-900 mb-4 pb-4 border-b border-gray-200">
