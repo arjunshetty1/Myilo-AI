@@ -4,35 +4,33 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import {
-  Menu,
-  X,
-  ChevronRight,
-  CheckCircle2,
-  Play,
-  Star,
-  Users,
-  Zap,
-  Mail,
-  Palette,
-  BarChart3,
-  DollarSign,
-  Sun,
-  Moon,
-} from "lucide-react";
-import Logo from "@/components/App Components/Logo";
+import { Menu, X, ChevronRight, CheckCircle2, Play, Star, ArrowUpRight } from "lucide-react";
 
-const cn = (...classes) => classes.filter(Boolean).join(" ");
 
-const Navigation = ({ theme, toggleTheme }) => {
+const testimonials = [
+  {
+    name: "John Doe",
+    role: "CEO, Acme Corp",
+    text: "This product has completely transformed our workflow. Highly recommend!"
+  },
+  {
+    name: "Jane Smith",
+    role: "Marketing Director, TechWave",
+    text: "Amazing experience! The team is fantastic and always willing to help."
+  },
+  {
+    name: "Alex Johnson",
+    role: "CTO, InnovateX",
+    text: "Our productivity has skyrocketed since using this. It's a game-changer!"
+  }
+];
+
+const Navigation = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-
+    const handleScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -41,758 +39,544 @@ const Navigation = ({ theme, toggleTheme }) => {
     <motion.header
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ type: "spring", stiffness: 60, damping: 15 }}
-      className={`fixed inset-x-0 mx-auto w-[70%] z-50 transition-all duration-300 rounded-full my-3 ${
-        isScrolled ? "backdrop-blur-2xl shadow-sm" : "bg-transparent"
+      transition={{ type: "spring", stiffness: 120 }}
+      className={`fixed w-full top-0 z-50 transition-all duration-300 ${
+        isScrolled ? "bg-white/90 backdrop-blur-lg shadow-sm" : ""
       }`}
     >
-      <div className="max-w-7xl mx-auto px-8 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center py-4">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center h-16 sm:h-20">
           <Logo />
-          <NavigationComponent
-            isOpen={isOpen}
-            setIsOpen={setIsOpen}
-            theme={theme}
-            toggleTheme={toggleTheme}
-          />
+          {/* <NavContent isOpen={isOpen} setIsOpen={setIsOpen} /> */}
         </div>
       </div>
     </motion.header>
   );
 };
-//   <Link
-//     href="/"
-//     // className="text-2xl font-bold bg-clip-text dark:text-[white] text-black"
-//   >
-//     <div class="flex items-center space-x-4">
 
-//   <div class="flex items-center justify-center w-12 h-12 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-full shadow-lg transition-transform duration-300 hover:scale-110">
-//     <span class="text-white font-extrabold text-xl tracking-tight">CM</span>
-//   </div>
+const Logo = () => (
+  <Link href="/" className="flex items-center space-x-3 group">
+    <div className="w-10 h-10 bg-gradient-to-br from-purple-600 to-pink-600 rounded-full flex items-center justify-center transition-transform group-hover:rotate-[360deg] duration-500">
+      <span className="text-white font-bold text-xl">CM</span>
+    </div>
+    <span className="text-xl font-bold text-gray-900 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+      ClipMailo
+    </span>
+  </Link>
+);
 
-//   <div class="flex flex-col">
-//     <span class="text-xl font-bold text-gray-900 dark:text-white tracking-wide">
-//       ClipMailo
-//     </span>
-//     <span class="text-sm font-light text-gray-500 dark:text-gray-400">
-//       AI Newsletter Builder
-//     </span>
-//   </div>
-// </div>
-//   </Link>
-// );
+const HeroSection = () => (
+  <section className="min-h-screen flex items-center justify-center bg-gradient-to-b from-white to-indigo-50 relative overflow-hidden isolate pt-20 md:pt-0">
+    {/* Dynamic background - optimized for mobile */}
+    <div className="absolute inset-0 opacity-10 md:opacity-15 [mask-image:radial-gradient(ellipse_at_center,white,transparent_80%)]">
+      <div className="absolute inset-0 animate-gradient-pan bg-[linear-gradient(120deg,rgba(165,180,252,0.15)_25%,transparent_50%,rgba(165,180,252,0.15)_75%)] bg-[length:400%_400%]"></div>
+    </div>
 
-const NavigationComponent = ({ isOpen, setIsOpen, theme, toggleTheme }) => {
-  const linkClassnames =
-    "text-gray-800 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-all duration-300";
+    {/* Floating particles - reduced count for mobile */}
+    <div className="absolute inset-0 opacity-20 md:opacity-30 pointer-events-none">
+      {[...Array(30)].map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute w-0.5 h-12 bg-gradient-to-b from-indigo-400 to-transparent"
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ 
+            opacity: [0, 1, 0],
+            y: `calc(100vh + ${Math.random() * 100}px)`,
+            x: Math.random() * 100 - 50 + 'vw'
+          }}
+          transition={{
+            duration: 5 + Math.random() * 10,
+            repeat: Infinity,
+            delay: Math.random() * 5
+          }}
+        />
+      ))}
+    </div>
 
-  const scrollToSection = (sectionId) => {
-    const section = document.getElementById(sectionId);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth" });
-    }
-    setIsOpen(false);
-  };
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div className="text-center">
+        {/* Animated badge - mobile adjustments */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="inline-block mb-6 md:mb-8 px-4 py-2 md:px-6 md:py-2.5 bg-white/90 backdrop-blur-lg rounded-full shadow-sm border border-gray-100 hover:shadow-md transition-shadow text-sm md:text-base"
+        >
+          <span className="bg-gradient-to-r from-indigo-600 to-pink-500 bg-clip-text text-transparent font-medium">
+            {/* <Sparkles className="inline-block w-4 h-4 md:w-5 md:h-5 mr-1 md:mr-2 -mt-0.5 text-indigo-500" /> */}
+            15,000+ Newsletters Launched
+          </span>
+        </motion.div>
 
-  return (
-    <nav className="flex items-center">
-      <div className="hidden md:flex space-x-8">
-        {["Features", "How It Works", "Pricing", "Testimonials"].map((item) => (
+        {/* Main headline - mobile font sizes */}
+        <motion.div 
+          className="relative max-w-4xl mx-auto"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2 }}
+        >
+          <h1 className="text-5xl sm:text-5xl md:text-6xl lg:text-8xl font-bold mb-6 md:mb-8 leading-tight text-gray-900 px-2">
+            <span className="block">Elevate Your</span>
+            <span className="relative inline-block mt-2 md:mt-0">
+              <span className="relative z-10 bg-gradient-to-r from-indigo-600 to-pink-500 bg-clip-text text-transparent">
+                Content Game
+              </span>
+              <motion.div 
+                className="absolute inset-x-0 -bottom-2 md:-bottom-4 h-4 md:h-8 bg-gradient-to-r from-indigo-400/30 to-pink-400/30 blur-2xl"
+                animate={{ opacity: [0.4, 0.6, 0.4] }}
+                transition={{ duration: 3, repeat: Infinity }}
+              />
+            </span>
+          </h1>
+        </motion.div>
+
+        {/* Subtext - mobile adjustments */}
+        <motion.p
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.4 }}
+          className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto mb-8 md:mb-12 font-medium px-4"
+        >
+          Transform ideas into stunning newsletters with AI-enhanced design intelligence.
+        </motion.p>
+
+        {/* CTA buttons - mobile stacking */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6 }}
+          className="flex flex-col sm:flex-row justify-center items-center gap-3 md:gap-4 px-4"
+        >
           <Link
-            key={item}
-            href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
-            onClick={() =>
-              scrollToSection(item.toLowerCase().replace(/\s+/g, "-"))
-            }
-            className={linkClassnames}
+            href="/Login"
+            className="group relative px-6 py-3 md:px-8 md:py-4 bg-gradient-to-r from-indigo-600 to-pink-500 text-white rounded-[2rem] font-medium hover:shadow-2xl transition-all duration-300 flex items-center gap-2 overflow-hidden text-sm md:text-base"
           >
-            {item}
+            <span className="relative z-10">Start Building Free</span>
+            <ChevronRight className="w-4 h-4 md:w-5 md:h-5 relative z-10 transition-transform group-hover:translate-x-1" />
+            <div className="absolute inset-0 bg-gradient-to-r from-indigo-700 to-pink-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           </Link>
-        ))}
-      </div>
-      <div className="hidden md:flex items-center space-x-4 ml-8">
-        <Link
-          href="/Login"
-          className="px-8 py-2 text-purple-600 dark:text-purple-400 border border-purple-600 dark:border-purple-400 rounded-full hover:bg-purple-600 hover:text-white dark:hover:bg-purple-400 dark:hover:text-gray-900 transition-colors duration-300"
-        >
-          Start Free
-        </Link>
-        {/* <button
-          onClick={toggleTheme}
-          className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white"
-        >
-          {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
-        </button> */}
-      </div>
-      <div className="md:hidden flex items-center space-x-4">
-        {/* <button
-          onClick={toggleTheme}
-          className="p-2 rounded-full bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-white"
-        >
-          {theme === "light" ? <Moon size={20} /> : <Sun size={20} />}
-        </button> */}
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="text-gray-800 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-300"
-        >
-          {isOpen ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </div>
-      <MobileMenu
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        scrollToSection={scrollToSection}
-      />
-    </nav>
-  );
-};
+          
+          <button className="group px-6 py-3 md:px-8 md:py-4 bg-white/90 backdrop-blur-lg border-2 border-gray-200 rounded-[2rem] font-medium hover:border-indigo-100 hover:bg-indigo-50/50 transition-all flex items-center gap-2 shadow-sm hover:shadow-md text-sm md:text-base">
+            <Play className="w-4 h-4 md:w-5 md:h-5 text-indigo-600 transition-transform group-hover:scale-110" />
+            <span className="bg-gradient-to-r from-indigo-600 to-pink-500 bg-clip-text text-transparent">
+              Watch Demo
+            </span>
+          </button>
+        </motion.div>
 
-const MobileMenu = ({ isOpen, setIsOpen, scrollToSection }) => {
-  const menuItems = ["Features", "How It Works", "Pricing", "Testimonials"];
-
-  const menuVariants = {
-    closed: {
-      x: "100%",
-      transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 40,
-      },
-    },
-    open: {
-      x: "0%",
-      transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 40,
-      },
-    },
-  };
-
-  const linkVariants = {
-    closed: { opacity: 0, x: 20 },
-    open: (i) => ({
-      opacity: 1,
-      x: 0,
-      transition: {
-        delay: i * 0.1,
-      },
-    }),
-  };
-
-  return (
-    <AnimatePresence>
-      {isOpen && (
-        <>
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={() => setIsOpen(false)}
-            className="fixed inset-0 bg-black bg-opacity-50 z-40 md:hidden"
-          />
-          <motion.div
-            initial="closed"
-            animate="open"
-            exit="closed"
-            variants={menuVariants}
-            className="fixed top-0 right-0 h-full w-64 bg-white dark:bg-gray-800 shadow-lg z-50 md:hidden"
-          >
-            <button
-              onClick={() => setIsOpen(false)}
-              className="absolute top-4 right-4 text-gray-800 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 transition-colors duration-300"
-            >
-              <X size={24} />
-            </button>
-            <nav className="flex flex-col p-8 mt-16">
-              {menuItems.map((item, i) => (
+        {/* Social proof - mobile adjustments */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.8 }}
+          className="mt-12 md:mt-16 flex flex-col items-center gap-6 md:gap-8"
+        >
+          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6">
+            <div className="flex -space-x-4 md:-space-x-5">
+              {[...Array(5)].map((_, i) => (
                 <motion.div
-                  key={item}
-                  custom={i}
-                  variants={linkVariants}
-                  initial="closed"
-                  animate="open"
+                  key={i}
+                  whileHover={{ y: -8 }}
+                  className="relative w-10 h-10 md:w-14 md:h-14 rounded-full border-4 border-white bg-gradient-to-br from-indigo-100 to-pink-100 shadow-lg overflow-hidden hover:z-10 hover:shadow-xl transition-all"
                 >
-                  <Link
-                    href={`#${item.toLowerCase().replace(/\s+/g, "-")}`}
-                    onClick={() => {
-                      scrollToSection(item.toLowerCase().replace(/\s+/g, "-"));
-                      setIsOpen(false);
-                    }}
-                    className="text-gray-800 dark:text-white hover:text-purple-600 dark:hover:text-purple-400 py-3 block transition-colors duration-300 text-lg"
-                  >
-                    {item}
-                  </Link>
+                  <img
+                    src={`https://i.pravatar.cc/100?u=${i}`}
+                    alt="User"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/20" />
                 </motion.div>
               ))}
-              <div className="mt-8 space-y-4">
-                <Link
-                  href="/Login"
-                  className="w-full px-8 py-2 text-purple-600 dark:text-purple-400 border border-purple-600 dark:border-purple-400 rounded-full hover:bg-purple-600 hover:text-white dark:hover:bg-purple-400 dark:hover:text-gray-900 transition-colors duration-300 text-center block"
-                >
-                  Start Free
-                </Link>
-              </div>
-            </nav>
-          </motion.div>
-        </>
-      )}
-    </AnimatePresence>
-  );
-};
-
-const FeatureCard = ({ icon: Icon, title, description }) => (
-  <motion.div
-    className="relative bg-white dark:bg-gray-800 rounded-2xl p-6 hover:shadow-lg transition-all duration-300 border border-gray-200 dark:border-gray-700"
-    whileHover={{ y: -5, scale: 1.02 }}
-    transition={{ duration: 0.3 }}
-  >
-    <div className="absolute -top-3 -left-3 w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-400 rounded-xl flex items-center justify-center shadow-lg">
-      <Icon className="w-6 h-6 text-white" />
-    </div>
-    <div className="ml-6 mt-6">
-      <h3 className="text-xl font-semibold mb-3 text-gray-900 dark:text-white">
-        {title}
-      </h3>
-      <p className="text-gray-600 dark:text-gray-300">{description}</p>
-    </div>
-  </motion.div>
-);
-
-const PriceTag = ({ price }) => (
-  <div className="flex items-baseline justify-center">
-    <span className="text-3xl font-semibold">$</span>
-    <span className="text-5xl font-bold">{price}</span>
-    <span className="text-xl text-gray-500 dark:text-gray-400">/mo</span>
-  </div>
-);
-
-const PricingCard = ({ name, price, features, isActive }) => (
-  <motion.div
-    className={`relative bg-white dark:bg-gray-800 rounded-2xl p-8 ${
-      isActive ? "ring-2 ring-purple-400" : ""
-    } shadow-lg border border-gray-200 dark:border-gray-700`}
-    whileHover={{ y: -10, scale: 1.02 }}
-    transition={{ duration: 0.3 }}
-  >
-    <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
-      {name}
-    </h3>
-    {isActive ? (
-      <PriceTag price={price} />
-    ) : (
-      <div className="text-2xl font-bold text-gray-500 dark:text-gray-400 mb-4">
-        <PriceTag price={price} />
-      </div>
-    )}
-    <ul className="mt-8 space-y-4">
-      {features.map((feature, index) => (
-        <li
-          key={index}
-          className="flex items-center text-gray-600 dark:text-gray-300"
-        >
-          <CheckCircle2 className="w-5 h-5 mr-3 text-purple-400" />
-          {feature}
-        </li>
-      ))}
-    </ul>
-
-    {isActive ? (
-      <Link href="/Login">
-        <button
-          className={`w-full mt-8 py-3 px-6 rounded-xl font-semibold transition-all duration-300 ${
-            isActive
-              ? "bg-gradient-to-r from-purple-400 to-pink-400 hover:from-purple-500 hover:to-pink-500 text-white"
-              : "bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed"
-          }`}
-          disabled={!isActive}
-        >
-          {isActive ? "Start Free Trial" : "Coming Soon"}
-        </button>
-      </Link>
-    ) : (
-      <button
-        className={`w-full mt-8 py-3 px-6 rounded-xl font-semibold transition-all duration-300 ${
-          isActive
-            ? "bg-gradient-to-r from-purple-400 to-pink-400 hover:from-purple-500 hover:to-pink-500 text-white"
-            : "bg-gray-200 dark:bg-gray-700 text-gray-500 dark:text-gray-400 cursor-not-allowed"
-        }`}
-        disabled={!isActive}
-      >
-        {isActive ? "Start Free Trial" : "Coming Soon"}
-      </button>
-    )}
-  </motion.div>
-);
-
-const TestimonialCard = ({ quote, author, role, image }) => (
-  <motion.div
-    className="bg-white dark:bg-gray-800 rounded-2xl p-6 hover:shadow-lg transition-all duration-300 border border-gray-200 dark:border-gray-700"
-    whileHover={{ scale: 1.02 }}
-    transition={{ duration: 0.3 }}
-  >
-    <div className="flex items-center mb-6">
-      <div className="flex-shrink-0">
-        <Image
-          src={image || "/placeholder.svg"}
-          alt={author}
-          width={48}
-          height={48}
-          className="rounded-full"
-        />
-      </div>
-      <div className="ml-4">
-        <h4 className="text-lg font-semibold text-gray-900 dark:text-white">
-          {author}
-        </h4>
-        <p className="text-gray-500 dark:text-gray-400">{role}</p>
-      </div>
-    </div>
-    <div className="mb-4">
-      {[1, 2, 3, 4, 5].map((star) => (
-        <Star
-          key={star}
-          className="inline w-5 h-5 text-yellow-400 fill-yellow-400"
-        />
-      ))}
-    </div>
-    <p className="text-gray-600 dark:text-gray-300 italic">"{quote}"</p>
-  </motion.div>
-);
-
-export default function LandingPage() {
-  const [theme, setTheme] = useState("light");
-
-  useEffect(() => {
-    document.documentElement.classList.add("light");
-
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme === "light") {
-      setTheme("light");
-      document.documentElement.classList.remove("light");
-    }
-  }, []);
-
-  const toggleTheme = () => {
-    const newTheme = theme === "light" ? "dark" : "light";
-    setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
-    document.documentElement.classList.toggle("dark");
-  };
-
-  return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 text-gray-900 dark:text-white">
-      <Navigation theme={theme} toggleTheme={toggleTheme} />
-
-      {/* Hero Section */}
-      <section className="relative py-16 md:py-24 lg:py-32 overflow-hidden bg-gradient-to-br from-gray-100 to-white dark:from-gray-900 dark:via-purple-900 dark:to-pink-900">
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute w-full h-full bg-[radial-gradient(circle_at_50%_50%,rgba(255,0,255,0.1),rgba(255,0,255,0))]" />
-        <div className="absolute w-full h-full bg-[radial-gradient(circle_at_80%_20%,rgba(255,255,255,0.1),rgba(255,255,255,0))]" />
-      </div>
-
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="mb-6"
-          >
-            <span className="inline-block px-4 py-2 rounded-full bg-purple-100 dark:bg-white/10 backdrop-blur-sm text-purple-800 dark:text-purple-300 text-sm font-medium">
-              🚀 Empowering 10,000+ Newsletter Creators
-            </span>
-          </motion.div>
-
-          <motion.h1
-            className="text-4xl sm:text-5xl md:text-6xl font-bold mb-6 text-gray-900 dark:text-white leading-tight"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-          >
-            Create Stunning Newsletters with{" "}
-            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-400 to-pink-400">AI</span>
-          </motion.h1>
-
-          <motion.p
-            className="text-lg sm:text-xl md:text-2xl mb-10 text-gray-600 dark:text-gray-300"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-          >
-            Whether you're new to writing or an expert, ClipMailo AI makes it effortless to craft engaging newsletters.
-            Build your audience, save time, and turn your passion into profit in just minutes.
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-4"
-          >
-            <Link href="/Login">
-              <button className="w-full sm:w-auto group bg-gradient-to-r from-purple-400 to-pink-400 text-white text-lg px-8 py-3 rounded-full hover:from-purple-500 hover:to-pink-500 transition-all duration-300 transform hover:scale-105 flex items-center justify-center">
-                Start Your Free Trial
-                <ChevronRight className="ml-2 group-hover:translate-x-1 transition-transform duration-300" />
-              </button>
-            </Link>
-            <button className="w-full sm:w-auto group bg-white dark:bg-white/10 text-gray-900 dark:text-white text-lg px-8 py-3 rounded-full hover:bg-gray-100 dark:hover:bg-white/20 transition-all duration-300 flex items-center justify-center">
-              <Play className="mr-2 w-5 h-5" />
-              Watch Demo
-            </button>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.8 }}
-            className="mt-12 flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8"
-          >
-            <div className="flex -space-x-2">
-              {[...Array(4)].map((_, i) => (
-                <div key={i} className="w-8 h-8 rounded-full bg-gray-300 border-2 border-white dark:border-gray-800" />
-              ))}
             </div>
-            <p className="text-gray-600 dark:text-gray-300 text-center sm:text-left">
-              <span className="font-semibold text-gray-900 dark:text-white">Rated 4.9/5</span> by 5-6+ creators like you
-            </p>
-          </motion.div>
-        </div>
-      </div>
-    </section>
-
-      {/* Features Section */}
-      <section
-        id="features"
-        className="py-20 px-8 sm:px-6 lg:px-14 bg-gray-50 dark:bg-gray-800"
-      >
-        <div className="">
-          <div className="text-center mb-16">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white"
-            >
-              Beginner-Friendly Features
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-            >
-              Everything you need to create stunning newsletters.
-            </motion.p>
+            <div className="text-center md:text-left">
+              <div className="flex items-center justify-center md:justify-start gap-2 mb-1 md:mb-2">
+                <div className="flex">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 md:w-6 md:h-6 text-amber-400 fill-amber-400" />
+                  ))}
+                </div>
+                <span className="text-gray-600 font-medium text-sm md:text-base">4.98/5</span>
+              </div>
+              <p className="text-gray-600 text-sm md:text-lg">
+                Trusted by <span className="font-semibold text-gray-900">8,000+</span> creators
+              </p>
+            </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            <FeatureCard
-              icon={Zap}
-              title="AI-Powered Content Creation"
-              description="Let our AI transform your ideas into engaging newsletters in minutes. Create professional content without writing experience."
-            />
-            <FeatureCard
-              icon={Palette}
-              title="Premium Newsletter Templates"
-              description="Choose from our professionally designed templates. Our built-in editor makes customization effortless."
-            />
-            <FeatureCard
-              icon={Mail}
-              title="One-Click Publishing"
-              description="Publish your newsletters in just three clicks. We handle the technical details while you focus on your readers."
-            />
-            <FeatureCard
-              icon={Users}
-              title="Smart Audience Growth Suite"
-              description="Grow your subscriber base faster with our comprehensive toolkit designed for organic community building."
-            />
-            <FeatureCard
-              icon={BarChart3}
-              title="Visual Analytics Dashboard"
-              description="Track your newsletter's performance with beautiful, easy-to-understand analytics. Make data-driven decisions effortlessly."
-            />
-            <FeatureCard
-              icon={DollarSign}
-              title="Expert Support & Resources"
-              description="Get instant access to guides, tutorials, and responsive support to help you succeed."
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works Section */}
-      <section
-        id="how-it-works"
-        className="py-20 px-8 sm:px-6 lg:px-14 bg-white dark:bg-gray-900"
-      >
-        <div className="">
-          <div className="text-center mb-16">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white"
-            >
-              How It Works
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-            >
-              Create your first newsletter in just three easy steps, no
-              experience required
-            </motion.p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {[
-              {
-                step: 1,
-                title: "Share Your Idea",
-                description:
-                  "Write/Pick your topic, industry, and audience preferences",
-                icon: "🎯",
-              },
-              {
-                step: 2,
-                title: "Choose Your Style",
-                description:
-                  "Select from our curated templates and let AI craft your content",
-                icon: "✍️",
-              },
-              {
-                step: 3,
-                title: "Review & Send",
-                description:
-                  "Quick edit if needed, then share with your subscribers with the help of our In-built email service",
-                icon: "📤",
-              },
-            ].map((item, index) => (
+          {/* Client logos - mobile grid */}
+          <div className="grid grid-cols-2 md:flex flex-wrap justify-center gap-4 md:gap-8 opacity-70 mt-4 md:mt-6 px-4">
+            {['Forbes', 'HubSpot', 'Substack', 'ConvertKit'].map((logo) => (
               <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.2 }}
-                className="relative bg-white dark:bg-gray-800 rounded-2xl p-8 text-center shadow-lg border border-gray-200 dark:border-gray-700"
+                key={logo}
+                whileHover={{ scale: 1.1 }}
+                className="text-lg md:text-2xl font-bold text-gray-700 opacity-80 hover:opacity-100 transition-opacity text-center"
               >
-                <div className="absolute -top-6 left-1/2 transform -translate-x-1/2">
-                  <div className="w-12 h-12 bg-gradient-to-br from-purple-400 to-pink-400 rounded-full flex items-center justify-center text-2xl">
-                    {item.icon}
-                  </div>
-                </div>
-                <div className="mt-8">
-                  <h3 className="text-xl font-semibold mb-4 text-gray-900 dark:text-white">
-                    {item.title}
-                  </h3>
-                  <p className="text-gray-600 dark:text-gray-400">
-                    {item.description}
-                  </p>
-                </div>
+                {logo}
               </motion.div>
             ))}
           </div>
+        </motion.div>
+      </div>
+    </div>
+
+    {/* Floating demo preview - mobile hidden */}
+    {/* <motion.div
+      initial={{ opacity: 0, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 1.2, type: 'spring' }}
+      className="hidden md:block absolute bottom-20 left-1/2 -translate-x-1/2 w-full max-w-[800px] aspect-video bg-white/5 backdrop-blur-lg rounded-3xl shadow-2xl border border-gray-100 overflow-hidden"
+    >
+      <div className="absolute inset-0 bg-gradient-to-br from-white to-indigo-50 opacity-50" />
+      <div className="relative z-10 p-4 md:p-8 h-full">
+        <div className="w-full h-full rounded-2xl overflow-hidden shadow-xl border border-gray-100">
+          <img
+            src="/demo-preview.jpg"
+            alt="Demo preview"
+            className="w-full h-full object-cover animate-pan-right"
+          />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-white/30" />
         </div>
-      </section>
+      </div>
+    </motion.div> */}
+  </section>
+);
+const FeatureSection = () => {
+  const features = [
+    {
+      icon: '🤖', // Consider using @heroicons/react for actual icons
+      title: "AI-Powered Writing",
+      description: "Generate high-quality content in seconds with our GPT-4 powered engine",
+      gradient: "from-purple-500 to-pink-500"
+    },
+    {
+      icon: '🎯',
+      title: "Smart Templates",
+      description: "100+ professionally designed templates with auto-layouts",
+      gradient: "from-blue-500 to-cyan-400"
+    },
+    {
+      icon: '🚀',
+      title: "3-Click Publishing",
+      description: "Publish to web, email, and social media simultaneously",
+      gradient: "from-orange-400 to-rose-500"
+    }
+  ];
 
-      {/* Pricing Section */}
-      <section id="pricing" className="py-20 bg-gray-50 dark:bg-gray-800">
-        <div className=" px-8 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white"
-            >
-              Affordable Pricing for Beginners
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-            >
-              Start for free, upgrade as you grow
-            </motion.p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-            <PricingCard
-              name="Starter"
-              price="0"
-              features={[
-                "Up to 500 subscribers",
-                "8 AI-generated newsletters/month",
-                "All templates",
-                "Email support",
-                "Full Analytics",
-              ]}
-              isActive={true}
-            />
-            <PricingCard
-              name="Growth"
-              price="19"
-              features={[
-                "Up to 25,000 subscribers",
-                "30 AI-generated newsletters/month",
-                "All templates",
-                "Priority support",
-                "Full Analytics",
-              ]}
-              isActive={false}
-            />
-            <PricingCard
-              name="Pro"
-              price="49"
-              features={[
-                "Unlimited subscribers",
-                "Unlimited AI-generated newsletters",
-                "All templates",
-                "Priority support",
-                "Full analytics",
-              ]}
-              isActive={false}
-            />
-          </div>
+  return (
+    <section className="py-24 bg-gradient-to-b from-white to-white-50">
+      <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+      <div className="text-center mb-20">
+          <h2 className="text-5xl font-bold text-gray-900 mb-6">
+            Supercharged
+            <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400">
+              Features
+            </span>
+          </h2>
+          <p className="text-gray-600 text-xl">Everything you need to create stunning newsletters</p>
         </div>
-      </section>
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="grid grid-cols-1 lg:grid-cols-3 gap-8"
+        >
+          {features.map((feature, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ delay: index * 0.15, type: 'spring' }}
+              className="group relative bg-white p-8 rounded-[2rem] shadow-sm hover:shadow-md transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)] border border-gray-100 hover:border-transparent"
+            >
+              {/* Animated gradient border */}
+              <div className={`absolute -inset-[2px] rounded-[2rem] bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-20 transition-opacity duration-300 -z-10`} />
+              
+              <div className="relative z-10 space-y-6">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br shadow-lg mb-4"
+                  style={{ backgroundImage: `linear-gradient(to bottom right, ${feature.gradient.replace('from-', '').replace('to-', '').replace(/\d+/g, m => `${m}`)})` }}>
+                  <span className="text-3xl">{feature.icon}</span>
+                </div>
+                
+                <h3 className="text-2xl text-[#242424] font-bold bg-gradient-to-r bg-clip-text text-transparent"
+                  style={{ backgroundImage: `linear-gradient(to right, ${feature.gradient.replace('from-', '').replace('to-', '').replace(/\d+/g, m => `${m}`)})` }}>
+                  {feature.title}
+                </h3>
+                
+                <p className="text-gray-600 text-lg leading-relaxed font-medium">
+                  {feature.description}
+                </p>
+              </div>
 
-      {/* Testimonials Section */}
-      {/* <section
-        id="testimonials"
-        className="py-20 px-8 sm:px-6 lg:px-14 bg-white dark:bg-gray-900"
+              {/* Hover effect line */}
+              <div className="absolute bottom-0 left-1/2 w-0 h-1 bg-gradient-to-r from-transparent via-current to-transparent group-hover:w-4/5 group-hover:transition-all duration-300 transform -translate-x-1/2" />
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+
+
+
+const HowItWorks = () => (
+  <section id="how-it-works" className="py-28 bg-gradient-to-b from-white to-indigo-50">
+    <div className="max-w-7xl mx-auto px-5 sm:px-6 lg:px-8">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 0.6 }}
+        className="text-center mb-24"
       >
-        <div className="">
-          <div className="text-center mb-16">
-            <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-3xl sm:text-4xl md:text-5xl font-bold mb-4 text-gray-900 dark:text-white"
-            >
-              Beginner Testimonials
-            </motion.h2>
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-lg sm:text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto"
-            >
-              See how complete beginners have built thriving newsletters from
-              scratch
-            </motion.p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <TestimonialCard
-              quote="I used to struggle with writing consistently, but ClipMailo AI turned it into a smooth process. I started a fitness tips newsletter, and within four months, I've built a loyal audience of 12,000 subscribers. The AI suggestions feel natural and save me hours every week!"
-              author="Sarah Johnson"
-              role="Fitness Coach"
-              image="/placeholder.svg?height=100&width=100"
-            />
-            <TestimonialCard
-              quote="I've always been passionate about technology, but I didn't know how to share my insights effectively. ClipMailo AI helped me organize my ideas and write professional-sounding content. I'm now at 3,500 subscribers in just three months, and a local company even sponsored one of my posts!"
-              author="Rohan Gupta"
-              role="Tech Blogger"
-              image="/placeholder.svg?height=100&width=100"
-            />
-            <TestimonialCard
-              quote="Balancing work and family makes it hard to find time for writing, but ClipMailo AI made it simple to create a parenting newsletter. I share small tips and stories once a week, and now I have 6,000 engaged readers who actually look forward to my updates. It's been such a rewarding experience."
-              author="Emily Rodriguez"
-              role="Stay-at-Home Mom"
-              image="/placeholder.svg?height=100&width=100"
-            />
-            <TestimonialCard
-              quote="As someone with zero experience in writing, I was hesitant to even try starting a newsletter. ClipMailo AI not only helped me get started but guided me every step of the way. Six months later, I've grown to 1,500 subscribers and even started earning some sponsorship income. Couldn't have done it without this tool!"
-              author="Aman Verma"
-              role="Digital Marketing Student"
-              image="/placeholder.svg?height=100&width=100"
-            />
-            <TestimonialCard
-              quote="I've always wanted to write about books, but I had no idea how to structure a newsletter. ClipMailo AI's templates and suggestions made it super easy. I now send out a monthly newsletter with book recommendations, and I've grown to 700 subscribers in five months. The feedback has been amazing!"
-              author="Claire Thompson"
-              role="Book Enthusiast"
-              image="/placeholder.svg?height=100&width=100"
-            />
-            <TestimonialCard
-              quote="Coming from a small town, I didn't think anyone would read what I had to say. But ClipMailo AI helped me build my confidence and write newsletters about local culture. Today, I have 23,000 subscribers, and my newsletter has become a way to connect with people across India and beyond."
-              author="Priya Nair"
-              role="Travel & Culture Blogger"
-              image="/placeholder.svg?height=100&width=100"
-            />
-          </div>
+        <div className="mb-8">
+          <span className="bg-gray-100 text-gray-600 px-4 py-2 rounded-full text-sm font-medium">
+            Streamlined Process
+          </span>
         </div>
-      </section> */}
+        <h2 className="text-5xl font-bold mb-6 text-gray-900">
+          Craft Perfect Newsletters
+          <br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400">
+            in Three Simple Steps
+          </span>
+        </h2>
+      </motion.div>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-br from-purple-600 to-pink-600">
-        <div className=" px-8 text-center">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {[
+          { title: "Share Your Vision", text: "Describe your core message and audience needs", icon: "💡", color: "from-blue-500 to-cyan-400" },
+          { title: "AI-Powered Design", text: "Select from intelligent layout suggestions", icon: "✨", color: "from-purple-500 to-pink-400" },
+          { title: "Launch & Optimize", text: "Publish and refine with real-time analytics", icon: "📈", color: "from-orange-400 to-rose-500" }
+        ].map((step, index) => (
           <motion.div
+            key={index}
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: index * 0.1 }}
+            className="group relative bg-white p-8 rounded-2xl hover:bg-gray-50 transition-all duration-300 border border-gray-100"
+          >
+            <div className="flex flex-col h-full">
+              <div className={`mb-8 w-16 h-16 rounded-2xl bg-gradient-to-br ${step.color} flex items-center justify-center text-3xl backdrop-blur-lg`}>
+                {step.icon}
+              </div>
+              
+              <div className="flex-1">
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="text-gray-400 font-mono text-lg">0{index + 1}</span>
+                  <h3 className="text-2xl font-semibold text-gray-900">{step.title}</h3>
+                </div>
+                <p className="text-gray-600 leading-relaxed">{step.text}</p>
+              </div>
+
+              <div className="mt-8 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="w-10 h-10 rounded-full bg-white border border-gray-200 flex items-center justify-center ml-auto">
+                  {/* <ArrowRight className="w-5 h-5 text-gray-600" /> */}
+                </div>
+              </div>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+const PricingSection = () => {
+  const plans = [
+    {
+      name: "Starter",
+      price: 0,
+      features: ["1K subscribers", "5 campaigns/month", "Basic analytics", "Community support"],
+      border: "border-gray-200"
+    },
+    {
+      name: "Professional",
+      price: 29,
+      features: ["10K subscribers", "Unlimited campaigns", "Advanced analytics", "Priority support", "A/B Testing"],
+      border: "border-blue-500",
+      popular: true
+    },
+    {
+      name: "Enterprise",
+      price: 99,
+      features: ["Unlimited subscribers", "Unlimited campaigns", "Dedicated support", "Custom domains", "Team members"],
+      border: "border-gray-200"
+    }
+  ];
+
+  return (
+    <section className="py-24 bg-gradient-to-b from-white to-white-50">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="text-center mb-20">
+          <h2 className="text-5xl font-bold text-gray-900 mb-6">
+            Simple Pricing,
+            <br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400">
+              Scalable Results
+            </span>
+          </h2>
+          <p className="text-gray-600 text-xl">Start free and upgrade as you grow</p>
+        </div>
+
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          {plans.map((plan, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className={`bg-white p-8 rounded-2xl border-2 ${plan.border} ${plan.popular ? "shadow-xl" : "shadow-sm"}`}
+            >
+              {plan.popular && (
+                <div className="mb-6 -mt-4 text-center">
+                  <span className="inline-block bg-blue-500 text-white px-4 py-1 rounded-full text-sm font-medium">
+                    Most Popular
+                  </span>
+                </div>
+              )}
+              
+              <h3 className="text-2xl font-semibold text-gray-900 mb-4">{plan.name}</h3>
+              <div className="mb-8">
+                <span className="text-5xl font-bold text-gray-900">${plan.price}</span>
+                <span className="text-gray-600">/month</span>
+              </div>
+              
+              <ul className="space-y-4 mb-8">
+                {plan.features.map((feature, i) => (
+                  <li key={i} className="flex items-center">
+                    <CheckCircle2 className="w-5 h-5 text-blue-500 mr-3" />
+                    <span className="text-gray-600">{feature}</span>
+                  </li>
+                ))}
+              </ul>
+              
+              <Link
+                href="/signup"
+                className={`w-full block text-center py-3 px-6 rounded-lg font-medium transition-all ${
+                  plan.popular 
+                    ? "bg-blue-500 text-white hover:bg-blue-600"
+                    : "bg-gray-100 text-gray-900 hover:bg-gray-200"
+                }`}
+              >
+                Get Started
+              </Link>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+const Testimonials = () => (
+  <section className="py-24 bg-gradient-to-b from-white to-indigo-50">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="text-center mb-20">
+        <h2 className="text-5xl font-bold text-gray-900 mb-6">
+          Trusted by
+          <br />
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-cyan-400">
+            Amazing Teams
+          </span>
+        </h2>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        {testimonials.map((testimonial, index) => (
+          <motion.div
+            key={index}
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="max-w-3xl mx-auto"
+            transition={{ delay: index * 0.1 }}
+            className="bg-white p-8 rounded-xl border border-gray-100"
           >
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-white">
-              Ready to Start Your Newsletter Adventure?
-            </h2>
-            <p className="text-lg sm:text-xl text-purple-100 mb-8">
-              Join thousands of beginners who are building audiences and making
-              their first dollars with AI-powered newsletters.
-            </p>
-            <Link href="/Login">
-              <button className="bg-white text-purple-600 text-lg px-8 py-3 rounded-full hover:bg-gray-100 transition-all duration-300 transform hover:scale-105">
-                Start Your Free Trial
-              </button>
-            </Link>
-            <p className="mt-4 text-purple-200">No credit card required</p>
+            <div className="flex items-center gap-4 mb-6">
+              <div className="w-12 h-12 bg-blue-100 rounded-xl flex items-center justify-center">
+                {/* <User className="w-6 h-6 text-blue-500" /> */}
+              </div>
+              <div>
+                <h4 className="font-semibold text-gray-900">{testimonial.name}</h4>
+                <p className="text-gray-600 text-sm">{testimonial.role}</p>
+              </div>
+            </div>
+            <p className="text-gray-600 mb-6">"{testimonial.text}"</p>
+            <div className="flex items-center gap-1 text-amber-400">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} className="w-5 h-5 fill-current" />
+              ))}
+            </div>
           </motion.div>
-        </div>
-      </section>
+        ))}
+      </div>
+    </div>
+  </section>
+);
 
-      {/* Footer */}
-      <footer
-        id="footer"
-        className="bg-gray-100 dark:bg-gray-900 text-gray-600 dark:text-gray-400 py-12"
+const CTA = () => (
+  <section className="py-20 bg-gradient-to-r from-purple-600 to-pink-600">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 className="text-3xl sm:text-4xl font-bold mb-6 text-white">Ready to Transform Your Newsletter?</h2>
+      <p className="text-lg text-purple-100 mb-8 max-w-xl mx-auto">Join thousands of creators already growing their audience with ClipMailo</p>
+      <Link
+        href="/Login"
+        className="inline-block px-8 py-4 bg-white text-purple-600 rounded-full font-semibold hover:bg-gray-100 transition-all shadow-lg"
       >
-        <div className=" px-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <div className="text-sm mb-4 md:mb-0">
-              © 2024 ClipMailo. All rights reserved.
-            </div>
-            <div className="flex space-x-6">
-              <Link
-                href="/credits"
-                className="hover:text-gray-900 dark:hover:text-white transition-colors"
-              >
-                Credits
-              </Link>
-              <Link
-                href="/privacy-policy"
-                className="hover:text-gray-900 dark:hover:text-white transition-colors"
-              >
-                Privacy Policy
-              </Link>
-              <Link
-                href="/terms-of-service"
-                className="hover:text-gray-900 dark:hover:text-white transition-colors"
-              >
-                Terms of Service
-              </Link>
-              <Link
-                href="/contact-us"
-                className="hover:text-gray-900 dark:hover:text-white transition-colors"
-              >
-                Contact Us
-              </Link>
-            </div>
-          </div>
+        Start Your Free Trial
+      </Link>
+      <p className="mt-4 text-purple-200 text-sm">No credit card required</p>
+    </div>
+  </section>
+);
+
+const Footer = () => (
+  <footer className=" bg-gradient-to-b from-white to-white-50 pt-20 pb-12">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="flex flex-col md:flex-row justify-between items-center gap-8 mb-12">
+        <Logo />
+        
+        <div className="flex flex-wrap justify-center gap-6 md:gap-12">
+          <Link href="/contact" className="text-gray-600 hover:text-purple-600 transition-colors">
+            Contact Us
+          </Link>
+          <Link href="/credits" className="text-gray-600 hover:text-purple-600 transition-colors">
+            Credits
+          </Link>
+          <Link href="/privacy" className="text-gray-600 hover:text-purple-600 transition-colors">
+            Privacy Policy
+          </Link>
+          <Link href="/terms" className="text-gray-600 hover:text-purple-600 transition-colors">
+            Terms of Service
+          </Link>
         </div>
-      </footer>
+      </div>
+
+      <div className="border-t border-gray-200 pt-8 text-center">
+        <p className="text-gray-600 text-sm">
+          © {new Date().getFullYear()} ClipMailo. All rights reserved.<br />
+          Crafted with ❤️ by newsletter enthusiasts
+        </p>
+      </div>
+    </div>
+  </footer>
+);
+
+export default function LandingPage() {
+  return (
+    <div className="min-h-screen bg-white">
+      <Navigation />
+      <HeroSection />
+      <FeatureSection />
+      <HowItWorks />
+      <PricingSection /> 
+      <Testimonials /> 
+      <CTA /> 
+      <Footer />
     </div>
   );
 }
