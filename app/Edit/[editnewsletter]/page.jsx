@@ -390,20 +390,7 @@ export default function ImprovedNewsletterEditor() {
   );
 
   if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <div className="flex items-center gap-3">
-          {[...Array(3)].map((_, i) => (
-            <div
-              key={i}
-              className="w-4 h-4 bg-blue-600 rounded-full animate-bounce"
-              style={{ animationDelay: `${i * 0.1}s` }}
-            />
-          ))}
-          <span className="text-gray-700 text-lg">Loading newsletter...</span>
-        </div>
-      </div>
-    );
+    return <LoaderSecondary />;
   }
 
   return (
