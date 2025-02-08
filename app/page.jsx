@@ -456,7 +456,7 @@ const PricingSection = () => {
               </ul>
               
               <Link
-                href="/signup"
+                href="/Login"
                 className={`w-full block text-center py-3 px-6 rounded-lg font-medium transition-all ${
                   plan.popular 
                     ? "bg-blue-500 text-white hover:bg-blue-600"
@@ -541,16 +541,16 @@ const Footer = () => (
         <Logo />
         
         <div className="flex flex-wrap justify-center gap-6 md:gap-12">
-          <Link href="/contact" className="text-gray-600 hover:text-purple-600 transition-colors">
+          <Link href="/contact-us" className="text-gray-600 hover:text-purple-600 transition-colors">
             Contact Us
           </Link>
           <Link href="/credits" className="text-gray-600 hover:text-purple-600 transition-colors">
             Credits
           </Link>
-          <Link href="/privacy" className="text-gray-600 hover:text-purple-600 transition-colors">
+          <Link href="/privacy-policy" className="text-gray-600 hover:text-purple-600 transition-colors">
             Privacy Policy
           </Link>
-          <Link href="/terms" className="text-gray-600 hover:text-purple-600 transition-colors">
+          <Link href="/terms-of-service" className="text-gray-600 hover:text-purple-600 transition-colors">
             Terms of Service
           </Link>
         </div>
