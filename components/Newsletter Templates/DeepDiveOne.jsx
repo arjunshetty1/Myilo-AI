@@ -84,11 +84,11 @@ export default function DeepDiveOne({
         <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
           {rendeblueitableInput(editableData.title, "title", "Edit title")}
         </h1>
-        <p className="text-xs md:text-sm text-gray-600">
+        {/* <p className="text-xs md:text-sm text-gray-600">
           By{" "}
           {rendeblueitableInput(editableData.author, "author", "Edit author")} |{" "}
           {rendeblueitableInput(editableData.date, "date", "Edit date")}
-        </p>
+        </p> */}
       </div>
 
       <div className="mb-6 md:mb-8 shadow-lg rounded-lg overflow-hidden">

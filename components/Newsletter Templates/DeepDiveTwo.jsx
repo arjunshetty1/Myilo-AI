@@ -77,10 +77,10 @@ export default function DeepDiveTwo({
         <h1 className="text-2xl md:text-4xl font-bold text-gray-900 mb-2 md:mb-4">
           {rendeblueitableInput(editableData.title, "title", "Edit title")}
         </h1>
-        <p className="text-xs md:text-sm text-gray-600">
+        {/* <p className="text-xs md:text-sm text-gray-600">
           By {rendeblueitableInput(editableData.author, "author", "Edit author")}{" "}
           | {rendeblueitableInput(editableData.date, "date", "Edit date")}
-        </p>
+        </p> */}
       </header>
 
       <div className="flex flex-col md:flex-row gap-6 md:gap-8 mb-8 md:mb-10">

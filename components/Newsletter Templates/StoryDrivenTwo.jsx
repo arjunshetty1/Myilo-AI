@@ -82,14 +82,14 @@ export default function StoryDrivenTwo({
   return (
     <div className="font-sans text-gray-800 max-w-4xl mx-auto p-4 md:p-6 lg:p-8 bg-white">
       <header className="mb-8 md:mb-12">
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 font-playfair">
+        {/* <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 font-playfair">
           {rendeblueitableInput(editableData.title, "title", "Edit title")}
         </h1>
         <p className="text-base md:text-lg text-gray-600 mb-4 md:mb-6">
           By{" "}
           {rendeblueitableInput(editableData.author, "author", "Edit author")} |{" "}
           {rendeblueitableInput(editableData.date, "date", "Edit date")}
-        </p>
+        </p> */}
         <div className="relative aspect-video overflow-hidden rounded-lg shadow-md">
           <img
             src={thumbnail}

@@ -80,7 +80,7 @@ export default function StoryDrivenOne({
 
   return (
     <div className="font-serif text-base md:text-lg leading-relaxed text-gray-700 max-w-screen-lg mx-auto p-4 md:p-6">
-      <header className="text-center mb-6 md:mb-10">
+      {/* <header className="text-center mb-6 md:mb-10">
         <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2 font-playfair">
           {rendeblueitableInput(editableData.title, "title", "Edit title")}
         </h1>
@@ -88,7 +88,7 @@ export default function StoryDrivenOne({
           By {rendeblueitableInput(editableData.author, "author", "Edit author")}{" "}
           | {rendeblueitableInput(editableData.date, "date", "Edit date")}
         </p>
-      </header>
+      </header> */}
 
       <div className="mb-6 md:mb-10">
         <img

@@ -78,10 +78,10 @@ const QuickReadOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
             <h1 className="text-xl md:text-2xl font-bold">
               {rendeblueitableInput(editableData.title, "title", "Edit title")}
             </h1>
-            <div className="flex items-center space-x-2 text-xs md:text-sm">
+            {/* <div className="flex items-center space-x-2 text-xs md:text-sm">
               <Clock size={16} className="flex-shrink-0" />
               <span>{editableData.date}</span>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

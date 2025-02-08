@@ -78,10 +78,10 @@ const QuickReadTwo = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
               />
               <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/80 to-purple-500/80">
                 <div className="absolute bottom-4 left-4 text-white">
-                  <div className="flex items-center space-x-2 text-sm md:text-base">
+                  {/* <div className="flex items-center space-x-2 text-sm md:text-base">
                     <Clock size={18} className="flex-shrink-0" />
                     <span>{editableData.date}</span>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
