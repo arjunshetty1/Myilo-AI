@@ -37,10 +37,11 @@ const SkeletonTable = () => (
 const SkeletonInput = () => <div className="animate-pulse bg-gray-200 h-10 rounded-full w-64 mb-6"></div>
 
 const SkeletonIcon = () => <div className="animate-pulse bg-gray-200 h-8 w-8 rounded-full"></div>
+const SkeletonInviteLink = () => <div className="animate-pulse bg-gray-200 h-9 w-40 rounded-full"></div>
 
 const SkeletonContainer = () => (
   <div className="animate-pulse flex space-x-4">
-    <SkeletonIcon />
+    <SkeletonInviteLink />
     <SkeletonIcon />
     <SkeletonIcon />
     <SkeletonIcon />
