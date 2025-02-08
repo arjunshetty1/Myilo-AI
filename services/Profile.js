@@ -13,9 +13,9 @@ export const GetProfile = async () => {
   }
 };
 
-export const updateUserName = async (data) => {
+export const updateUserName = async (username) => {
   try {
-    const response = await api.patch("profile",{data});
+    const response = await api.patch("profile",{username});
     const result = response.data;
     return result;
   } catch (error) {

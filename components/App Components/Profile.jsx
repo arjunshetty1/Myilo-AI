@@ -1,72 +1,110 @@
-"use client";
+"use client"
 
-import { useState, useEffect } from "react";
+import { useState, useEffect } from "react"
+import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/UI/shadcn-ui/card"
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/UI/shadcn-ui/avatar"
+import { Button } from "@/components/UI/shadcn-ui/button"
+import { Input } from "@/components/UI/shadcn-ui/input"
+import { LogOut, Edit2, Check, Loader2, User } from "lucide-react"
+import { GetProfile, Logout, updateUserName } from "@/services/Profile"
+import { useRouter } from "next/navigation"
+import { Skeleton } from "@/components/UI/shadcn-ui/skeleton"
 
-import {
-  Card,
-  CardContent,
-  CardHeader,
-  CardTitle,
-  CardFooter,
-} from "@/components/UI/shadcn-ui/card";
-import { Avatar, AvatarImage } from "@/components/UI/shadcn-ui/avatar";
-import { Button } from "@/components/UI/shadcn-ui/button";
-import { Input } from "@/components/UI/shadcn-ui/input";
-import { LogOut, Edit2, Check } from "lucide-react";
-import { GetProfile, Logout, updateUserName } from "@/services/Profile";
-import { useRouter } from "next/navigation";
-
-const Account = ({}) => {
-  const [userData, setuserData] = useState([]);
+const Account = () => {
+  const [userData, setUserData] = useState({
+    userName: "",
+    email: "",
+    imgUrl: "",
+    usage: { newslettersDelivered: 0, newslettersGenerated: 0 },
+  })
+  const [isEditing, setIsEditing] = useState(false)
+  const [editedUserName, setEditedUserName] = useState("")
+  const [isLoading, setIsLoading] = useState(false)
+  const [isInitialLoading, setIsInitialLoading] = useState(true)
+  const router = useRouter()
 
   useEffect(() => {
-    const prifleData = async () => {
-      const res = await GetProfile();
-      setuserData(res);
-      console.log("user info", res);
+    const fetchProfileData = async () => {
+      setIsInitialLoading(true);
+      try {
+        const res = await GetProfile();
+        setUserData(res);
+        setEditedUserName(res.username); // Set editedUserName initially
+      } catch (error) {
+        console.error("Error fetching profile data:", error);
+      } finally {
+        setIsInitialLoading(false);
+      }
     };
+  
+    fetchProfileData();
+  }, [])
 
-    prifleData();
-  }, []);
-  const [userName, setUserName] = useState(userData.username);
-  const [isEditing, setIsEditing] = useState(false);
-  const handleEditClick = async () => {
-    await updateUserName(userName);
-  };
-  const memberSince = 23;
-  const plan = "Free Trail";
+  const handleEditClick = () => {
+    if (isEditing) {
+      handleSaveClick()
+    } else {
+      setIsEditing(true)
+      setEditedUserName(userData.username)
+    }
+  }
 
-  const router = useRouter();
+  const handleSaveClick = async () => {
+    setIsLoading(true)
+    try {
+      await updateUserName(editedUserName)
+      setUserData({ ...userData, userName: editedUserName })
+      setIsEditing(false)
+    } catch (error) {
+      console.error("Failed to update username:", error)
+    } finally {
+      setIsLoading(false)
+    }
+  }
 
   const handleLogout = async () => {
-    const error = await Logout();
+    const error = await Logout()
     if (!error) {
-      router.push("/Login");
+      router.push("/Login")
     }
-  };
+  }
+
+  const plan = "Free Trial"
 
   return (
     <Card className="w-full max-w-2xl mx-auto shadow-sm rounded-lg overflow-hidden">
       <CardHeader className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
         <div className="flex items-center space-x-4">
           <Avatar className="h-20 w-20 ring-2 ring-white dark:ring-gray-800">
-            <AvatarImage src={userData.imgUrl} alt={userData.userName} />
+            {isInitialLoading ? (
+              <Skeleton className="h-full w-full rounded-full" />
+            ) : userData.imgUrl ? (
+              <AvatarImage src={userData.imgUrl} alt={userData.username} />
+            ) : (
+              <AvatarFallback>
+                <User className="h-10 w-10" />
+              </AvatarFallback>
+            )}
           </Avatar>
           <div className="space-y-1">
-            {isEditing ? (
+            {isInitialLoading ? (
+              <Skeleton className="h-8 w-40" />
+            ) : isEditing ? (
               <div className="flex items-center space-x-2">
                 <Input
-                  value={userData.userName}
-                  onChange={(e) => setUserName(e.target.value)}
+                  value={editedUserName}
+                  onChange={(e) => setEditedUserName(e.target.value)}
                   className="max-w-[200px]"
                 />
-                <Button onClick={handleEditClick} size="sm" variant="ghost">
-                  <Check className="h-4 w-4" />
+                <Button onClick={handleSaveClick} size="sm" variant="ghost" disabled={isLoading}>
+                  {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Check className="h-4 w-4" />}
                 </Button>
               </div>
             ) : (
               <div className="flex items-center space-x-2">
-                <CardTitle className="text-2xl font-bold">{userData.userName}</CardTitle>
+                <CardTitle className="text-2xl font-bold">
+  {userData.username || "Loading..."}
+</CardTitle>
                 <Button onClick={handleEditClick} size="sm" variant="ghost">
                   <Edit2 className="h-4 w-4" />
                 </Button>
@@ -77,15 +115,17 @@ const Account = ({}) => {
       </CardHeader>
       <CardContent className="p-6 space-y-6">
         <div className="grid grid-cols-2 gap-4">
-          <InfoItem label="Email" value={userData.email} />
-          <InfoItem label="Current Plan" value={plan} />
+          <InfoItem label="Email" value={userData.email} isLoading={isInitialLoading} />
+          <InfoItem label="Current Plan" value={plan} isLoading={isInitialLoading} />
           <InfoItem
             label="Newsletters Delivered"
-            value={userData?.usage?.newslettersDelivered}
+            value={userData.usage.newslettersDelivered}
+            isLoading={isInitialLoading}
           />
           <InfoItem
             label="Newsletters Received"
-            value={userData?.usage?.newslettersGenerated}
+            value={userData.usage.newslettersGenerated}
+            isLoading={isInitialLoading}
           />
         </div>
       </CardContent>
@@ -103,14 +143,15 @@ const Account = ({}) => {
         </p>
       </CardFooter>
     </Card>
-  );
-};
+  )
+}
 
-const InfoItem = ({ label, value }) => (
+const InfoItem = ({ label, value, isLoading }) => (
   <div className="flex flex-col space-y-1">
     <span className="text-sm text-muted-foreground">{label}</span>
-    <span className="font-medium">{value}</span>
+    {isLoading ? <Skeleton className="h-5 w-20" /> : <span className="font-medium">{value}</span>}
   </div>
-);
+)
 
-export default Account;
+export default Account
+
