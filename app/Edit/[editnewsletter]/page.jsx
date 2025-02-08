@@ -55,6 +55,7 @@ import { useCallback, useEffect, useState } from "react";
 import LoaderSecondary from "@/components/App Components/LoaderSecondary";
 import { TourProvider, useTour } from "@reactour/tour";
 import { ChevronRight, X } from "lucide-react";
+import { NewsletterSubscriberAnalyitics } from "@/services/Analytics";
 
 const steps = [
   {
@@ -136,7 +137,7 @@ export default function ImprovedNewsletterEditor() {
   const [isRouting, setIsRouting] = useState(false);
   const [testEmail, setTestEmail] = useState("");
   const [isSendingTest, setIsSendingTest] = useState(false);
-  const [showTour, setShowTour] = useState(true);
+  const [showTour, setShowTour] = useState(null);
 
   const pathname = usePathname();
   const { toast } = useToast();
@@ -155,8 +156,21 @@ export default function ImprovedNewsletterEditor() {
 
   useEffect(() => {
     fetchNewsletter();
-  }, []); // Removed unnecessary dependency 'id'
+    checkSubscribers();
+  }, []);
 
+  const checkSubscribers = async () => {
+    const res = await NewsletterSubscriberAnalyitics();
+
+    try {
+      const NumberOfSubscribers = res[1].count;
+      if (NumberOfSubscribers <= 3) {
+        setShowTour(true);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const fetchNewsletter = async () => {
     setIsLoading(true);
     try {
