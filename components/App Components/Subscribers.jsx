@@ -260,13 +260,13 @@ export default function Subscribers() {
   }
 
   return (
-    <div className="mx-auto px-4 md:px-6 lg:px-8 py-8">
+    <div className="mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
       <div className="grid gap-8 lg:grid-cols-3">
         <div className="lg:col-span-2 space-y-8 flex flex-col">
           <div className="bg-white rounded-2xl shadow-sm p-6 flex-grow flex flex-col">
-            <div className="flex flex-col md:flex-row justify-between items-center mb-6 space-y-4 md:space-y-0">
-              <h2 className="text-2xl font-semibold">Subscribers</h2>
-              <div className="flex items-center space-x-2">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 space-y-4 sm:space-y-0">
+              <h2 className="text-xl sm:text-2xl font-semibold">Subscribers</h2>
+              <div className="flex flex-wrap items-center gap-2">
                 {loading ? (
                   <SkeletonContainer />
                 ) : (
@@ -351,15 +351,20 @@ export default function Subscribers() {
             {loading ? (
               <SkeletonInput />
             ) : (
-              <div className="flex items-center gap-4 mb-6">
+              <div className="flex flex-col sm:flex-row items-center gap-4 mb-6">
                 <Input
                   type="email"
                   placeholder="Search by email"
-                  className="flex-grow rounded-full"
+                  className="w-full sm:w-auto flex-grow rounded-full"
                   value={emailSearch}
                   onChange={(e) => setEmailSearch(e.target.value)}
                 />
-                <InputWithButton newEmail={newEmail} setNewEmail={setNewEmail} addEmailUser={handleAddEmail} />
+                <InputWithButton
+                  newEmail={newEmail}
+                  setNewEmail={setNewEmail}
+                  addEmailUser={handleAddEmail}
+                  className="w-full sm:w-auto"
+                />
               </div>
             )}
             <div className="flex-grow overflow-hidden rounded-xl ">
@@ -382,7 +387,7 @@ export default function Subscribers() {
                 </div>
               )}
             </div>
-            <Pagination className="mt-6">
+            <Pagination className="mt-6 flex justify-center sm:justify-start">
               <PaginationContent>
                 <PaginationItem>
                   <PaginationPrevious
@@ -406,19 +411,25 @@ export default function Subscribers() {
           </div>
         </div>
         <div className="space-y-8 flex flex-col">
-          <Card>
+          <Card className="w-full">
             <CardContent>
-              <h3 className="text-lg font-semibold mb-4">Subscriber Overview</h3>
-              {chartLoading ? <SkeletonChart /> : <RiadialChartShape totalSubscribers={totalSubscribers} />}
-            </CardContent>
-          </Card>
-          <Card>
-            <CardContent>
-              <h3 className="text-lg font-semibold mb-4">Growth Trend</h3>
+              <h3 className="text-lg font-semibold mb-4 pt-3">Subscriber Overview</h3>
               {chartLoading ? (
                 <SkeletonChart />
               ) : (
-                <div className="h-full">
+                <div className="w-full max-w-xs mx-auto">
+                  <RiadialChartShape totalSubscribers={totalSubscribers} />
+                </div>
+              )}
+            </CardContent>
+          </Card>
+          <Card className="w-full">
+            <CardContent>
+              <h3 className="text-lg font-semibold mb-4 pt-3">Growth Trend</h3>
+              {chartLoading ? (
+                <SkeletonChart />
+              ) : (
+                <div className="w-full h-64 sm:h-full">
                   <Radarchart chartData={chartData} />
                 </div>
               )}
