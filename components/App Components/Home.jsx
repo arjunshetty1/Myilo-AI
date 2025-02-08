@@ -303,7 +303,7 @@ const Home = ({ setactiveComponent }) => {
                               className="w-20 h-12 rounded-md object-cover mr-4 border"
                               alt="Thumbnail"
                             />
-                            <span className="font-medium text-gray-800">
+                            <span className="font-medium text-gray-800 text-sm md:text-base">
                               {item.newsletterData.title || "Untitled Newsletter"}
                             </span>
                           </div>
