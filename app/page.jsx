@@ -30,7 +30,7 @@ const TestimonialCard = ({ name, role, content, image }) => (
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5 }}
     viewport={{ once: true }}
-    className="p-6 rounded-2xl bg-white shadow-lg border border-gray-100"
+    className="p-6 rounded-2xl bg-white shadow-md border border-gray-100"
   >
     <p className="text-gray-700 mb-6">{content}</p>
     <div className="flex items-center gap-4">
@@ -382,7 +382,7 @@ export default function LandingPage() {
                 transition={{ delay: index * 0.2 }}
                 viewport={{ once: true }}
                 className={`p-8 rounded-2xl ${
-                  plan.featured ? "bg-blue-600 text-white shadow-lg scale-105" : "bg-white shadow-md"
+                  plan.featured ? "bg-blue-600 text-white shadow-md scale-105" : "bg-white shadow-md"
                 }`}
               >
                 <h3 className="text-2xl font-bold mb-4">{plan.title}</h3>
