@@ -85,7 +85,7 @@ const GeneralOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
             />
           </div>
           <div className="p-4 md:p-6">
-            <h1 className="text-xl md:text-3xl font-semibold text-[#333] mb-2 leading-tight">
+            <h1 className="text-xl md:text-3xl font-semibold text-[#333] leading-tight">
               {rendeblueitableInput(editableData.title, "title", "Edit title")}
             </h1>
           </div>
