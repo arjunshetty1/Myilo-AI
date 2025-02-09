@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { ChevronRight } from "lucide-react";
 import LoaderSecondary from "../App Components/LoaderSecondary";
 
-
 const GeneralOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
   const [editableData, setEditableData] = useState(dataToTemplate);
 
@@ -71,7 +70,7 @@ const GeneralOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
   };
 
   if (!editableData) {
-    return <LoaderSecondary/>;
+    return <LoaderSecondary />;
   }
 
   return (
@@ -85,8 +84,8 @@ const GeneralOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
               className="w-full h-full object-cover object-center"
             />
           </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/70 to-transparent flex flex-col justify-end p-4 md:p-6">
-            <h1 className="text-xl md:text-3xl font-semibold text-[#eae9e9] mb-2 leading-tight">
+          <div className="p-4 md:p-6">
+            <h1 className="text-xl md:text-3xl font-semibold text-[#333] mb-2 leading-tight">
               {rendeblueitableInput(editableData.title, "title", "Edit title")}
             </h1>
           </div>
@@ -229,7 +228,5 @@ const GeneralOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
     </div>
   );
 };
-
-
 
 export default GeneralOne;
