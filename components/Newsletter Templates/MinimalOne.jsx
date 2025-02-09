@@ -82,47 +82,46 @@ const MinimalOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
   };
 
   return (
-    <div className="font-sans bg-white min-h-screen p-4 sm:p-6">
+    <div className="font-sans min-h-screen p-4 sm:p-6">
       <div className="mx-auto bg-white shadow-lg rounded-lg overflow-hidden max-w-4xl">
-        <div className="relative">
-          <div className="w-full aspect-video md:aspect-[3/1] overflow-hidden">
-            <img
-              src={thumbnail}
-              alt="Newsletter Thumbnail"
-              className="w-full h-full object-cover object-center"
-            />
-          </div>
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent flex flex-col justify-end p-4 md:p-6">
-            <h1 className="text-2xl md:text-4xl font-bold mb-2 md:mb-3 text-white leading-tight">
-              {isEditing ? (
-                <input
-                  type="text"
-                  value={editabledataToTemplate.title || ""}
-                  onChange={(e) => handleInputChange("title", e.target.value)}
-                  placeholder="Edit title"
-                  className="w-full p-1 px-4 text-2xl md:text-4xl bg-transparent border-none focus:ring-2 focus:ring-blue-500 text-white placeholder-white/70"
-                />
-              ) : (
-                editabledataToTemplate.title
-              )}
-            </h1>
-            <p className="text-lg md:text-xl text-white/90">
-              {isEditing ? (
-                <input
-                  type="text"
-                  value={editabledataToTemplate.subtitle || ""}
-                  onChange={(e) =>
-                    handleInputChange("subtitle", e.target.value)
-                  }
-                  placeholder="Edit subtitle"
-                  className="w-full p-1 bg-transparent text-lg md:text-xl border-none focus:ring-2 focus:ring-blue-500 text-white placeholder-white/70"
-                />
-              ) : (
-                editabledataToTemplate.subtitle
-              )}
-            </p>
-          </div>
-        </div>
+      <div className="relative">
+  <div className="w-full aspect-video md:aspect-[3/1] overflow-hidden">
+    <img
+      src={thumbnail}
+      alt="Newsletter Thumbnail"
+      className="w-full h-full object-cover object-center"
+    />
+  </div>
+  <div className="p-4 md:p-6">
+    <h1 className="text-2xl md:text-4xl font-bold mb-2 md:mb-3 text-gray-900 leading-tight">
+      {isEditing ? (
+        <input
+          type="text"
+          value={editabledataToTemplate.title || ""}
+          onChange={(e) => handleInputChange("title", e.target.value)}
+          placeholder="Edit title"
+          className="w-full p-1 px-4 text-2xl md:text-4xl border border-gray-300 focus:ring-2 focus:ring-blue-500 text-gray-900 placeholder-gray-500"
+        />
+      ) : (
+        editabledataToTemplate.title
+      )}
+    </h1>
+    <p className="text-lg md:text-xl text-gray-700">
+      {isEditing ? (
+        <input
+          type="text"
+          value={editabledataToTemplate.subtitle || ""}
+          onChange={(e) => handleInputChange("subtitle", e.target.value)}
+          placeholder="Edit subtitle"
+          className="w-full p-1 border border-gray-300 focus:ring-2 focus:ring-blue-500 text-gray-700 placeholder-gray-500"
+        />
+      ) : (
+        editabledataToTemplate.subtitle
+      )}
+    </p>
+  </div>
+</div>
+
 
         <div className="p-4 md:p-6 lg:p-8">
           <div className="flex flex-wrap gap-2 mb-4 md:mb-6">
