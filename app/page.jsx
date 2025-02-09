@@ -1,334 +1,474 @@
-import { InteractiveGrid } from "@/components/UI/custom-ui/interactive-grid";
-import { ShineBorder } from "@/components/UI/custom-ui/shine-border";
-import { Button } from "@/components/UI/shadcn-ui/button";
-import { Play, Check, Star, ArrowRight } from "lucide-react";
-import Link from "next/link";
+"use client"
+
+import { useEffect, useState } from "react"
+import { motion, useScroll, useTransform } from "framer-motion"
+import Link from "next/link"
+import { Button } from "@/components/UI/shadcn-ui/button"
+import { Pen, Layout, Send, Mail, Users, BarChart } from "lucide-react"
+import Logo from "@/components/App Components/Logo"
+
+
+const GradientText = ({ children, className = "" }) => (
+  <span className={`bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 ${className}`}>
+    {children}
+  </span>
+)
+
+const FloatingElement = ({ children }) => (
+  <motion.div
+    initial={{ y: 0 }}
+    animate={{ y: [-10, 10, -10] }}
+    transition={{ duration: 6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+  >
+    {children}
+  </motion.div>
+)
+
+const TestimonialCard = ({ name, role, content, image }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5 }}
+    viewport={{ once: true }}
+    className="p-6 rounded-2xl bg-white shadow-xl border border-gray-100"
+  >
+    <p className="text-gray-700 mb-6">{content}</p>
+    <div className="flex items-center gap-4">
+      {/* <img src={image || "/placeholder.svg"} alt={name} className="w-12 h-12 rounded-full" /> */}
+      <div>
+        <h4 className="font-semibold text-gray-900">{name}</h4>
+        <p className="text-sm text-gray-600">{role}</p>
+      </div>
+    </div>
+  </motion.div>
+)
 
 export default function LandingPage() {
-  return (
-    <div className="bg-gradient-to-br from-[#1e40af] via-purple-800/90 to-[#be185d] backdrop-blur-sm text-[white]">
-      {/* Hero Section */}
-      <section className="relative min-h-screen pt-4 md:pt-32 pb-16 overflow-hidden p-3">
-        <InteractiveGrid
-          containerClassName="absolute inset-0"
-          className="opacity-30"
-          points={40}
-        />
+  const [scrolled, setScrolled] = useState(false)
+  const { scrollYProgress } = useScroll()
+  const opacity = useTransform(scrollYProgress, [0, 0.05], [1, 0])
 
-        <ShineBorder
-          className="relative z-10 max-w-6xl mx-auto md:px-6 p-11"
-          borderClassName="border border-[white]/10 rounded-xl"
+  useEffect(() => {
+    const handleScroll = () => setScrolled(window.scrollY > 50)
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
+
+  return (
+    <div className="min-h-screen bg-white text-gray-900">
+      {/* Navbar */}
+      <nav
+        className={`fixed w-full z-50 transition-all duration-300 ${
+          scrolled ? "bg-white/80 backdrop-blur-lg shadow-sm" : ""
+        }`}
+      >
+        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+          {/* <span className="text-2xl text-blue-600 font-bold">ClipMailo</span>
+           */}
+           <Logo/>
+          <Link href="/Login">
+            <Button className="bg-blue-600 hover:bg-blue-700 text-white">Sign In</Button>
+          </Link>
+        </div>
+      </nav>
+
+      {/* Hero Section */}
+      <section className="relative min-h-screen pt-32 pb-20 overflow-hidden">
+        <motion.div
+          className="absolute inset-0 z-0"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.5 }}
         >
-          <div className="text-center mb-16 px-4">
-            <div className="mb-8 flex items-center justify-center gap-2 bg-[white]/5 rounded-full py-1 px-4 w-fit mx-auto">
-              <Star className="w-4 h-4 text-[white]" />
-              <span className="text-sm whitespace-nowrap">Rated 4.9/5 by 5,000+ creators</span>
-            </div>
-            <h1 className="text-3xl md:text-6xl md:font-bold font-semibold mb-6 tracking-tight md:px-20 px-1">
-              Build Newsletters That Converts with AI
+          <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-purple-100 opacity-30"></div>
+          <div className="absolute inset-0 bg-[url('/noise.png')] opacity-5 mix-blend-overlay"></div>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="relative z-10 max-w-7xl mx-auto px-6"
+        >
+          <div className="text-center max-w-4xl mx-auto">
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ delay: 0.2 }}
+              className="mb-8 inline-flex items-center gap-2 bg-white rounded-full py-2 px-4 shadow-md"
+            >
+              <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-sm">New</span>
+              <span className="text-sm text-gray-600">AI-Powered Newsletter Platform</span>
+            </motion.div>
+
+            <h1 className="text-5xl md:text-7xl font-bold mb-8 tracking-tight">
+              Create <GradientText>Stunning</GradientText> Newsletters with AI
             </h1>
-            <p className="text-gray-200 text-lg mb-8 max-w-2xl mx-auto">
-              Create Stunning Newsletters with AI - Build your audience, save
-              time, and turn your passion into profit in just minutes.
+
+            <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+              Transform your ideas into professional newsletters in minutes. Built for creators who value design and
+              efficiency.
             </p>
-            <div className="flex gap-4 justify-center flex-wrap">
+
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Link href="/Login">
-                <Button className="gap-2 bg-blue-600 hover:bg-blue-700 transform hover:scale-105 transition-all duration-200">
-                  Start Free Trial
+                <Button className="w-full sm:w-auto px-8 py-6 bg-blue-600 hover:bg-blue-700 text-white text-lg font-medium rounded-xl">
+                  Start Creating
                 </Button>
               </Link>
-              <Link href="/Login">
-                <Button
-                  variant="outline"
-                  className="gap-2 border-[white]/10 bg-[white]/5 hover:bg-[white]/10 hover:text-[white] transform hover:scale-105 transition-all duration-200"
-                >
-                  <Play className="w-4 h-4" />
-                  Watch Demo
-                </Button>
-              </Link>
+              <Button
+                variant="outline"
+                className="w-full sm:w-auto px-8 py-6 border-gray-200 hover:bg-gray-50 text-lg font-medium rounded-xl"
+              >
+                Watch Demo
+              </Button>
             </div>
           </div>
 
-          <ShineBorder
-            className="mx-auto"
-            borderClassName="border border-[white]/10 rounded-xl"
+          <FloatingElement>
+            <div className="mt-20 relative">
+              <iframe
+                className="w-full rounded-xl shadow-xl md:h-[43.5rem] h-[12.85rem]"
+                src="https://www.youtube.com/embed/3ykJw8TDYds"
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              />
+            </div>
+          </FloatingElement>
+        </motion.div>
+        <motion.div className="absolute bottom-0 left-0 right-0" style={{ opacity }}>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="w-full h-auto">
+            <path
+              fill="currentColor"
+              fillOpacity="1"
+              d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,122.7C960,117,1056,171,1152,197.3C1248,224,1344,224,1392,224L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+            ></path>
+          </svg>
+        </motion.div>
+      </section>
+
+      {/* Features Grid */}
+      <section className="py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-20"
           >
-            <img
-              src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Hero%20image.jpg-mE5vAT4d864MlVhdkcrk1Vn2WcNONq.jpeg"
-              alt="Newsletter Preview"
-              width={1920}
-              height={1080}
-              className="w-full h-auto rounded-lg"
-              priority
-            />
-          </ShineBorder>
-        </ShineBorder>
-      </section>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Crafted for <GradientText>Professional</GradientText> Creators
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Everything you need to create, manage, and grow your newsletter audience.
+            </p>
+          </motion.div>
 
-      {/* Features Section */}
-      <section className="relative py-20 overflow-hidden">
-        <InteractiveGrid
-          containerClassName="absolute inset-0"
-          className="opacity-30"
-          points={40}
-        />
-
-        <div className="max-w-6xl mx-auto px-6">
-          <ShineBorder borderClassName="border border-[white]/10 rounded-xl">
-            <div className="p-12 text-center">
-              <h2 className="text-3xl md:text-4xl font-bold mb-12">
-                Everything You Need to Get Started
-              </h2>
-
-              <div className="grid md:grid-cols-3 gap-8">
-                {[
-                  {
-                    title: "AI-Powered Content",
-                    desc: "Transform ideas into engaging newsletters in minutes",
-                  },
-                  {
-                    title: "Premium Templates",
-                    desc: "Professionally designed templates with easy customization",
-                  },
-                  {
-                    title: "One-Click Publishing",
-                    desc: "Publish in three clicks with built-in email service",
-                  },
-                  {
-                    title: "Built-in Email Service",
-                    desc: "Send newsletters directly from our platform with no third-party tools, using your username as the sender email",
-                  },
-                  {
-                    title: "Subscriber Management",
-                    desc: "Easily manage subscribers, add/remove them, and share an invite link for onboarding",
-                  },
-                  {
-                    title: "Visual Analytics",
-                    desc: "Beautiful dashboards for data-driven decisions",
-                  },
-                ].map((feature, i) => (
-                  <div
-                    key={i}
-                    className="p-6 border border-[white]/10 rounded-xl bg-[white]/5 hover:bg-[white]/10 transform hover:scale-105 transition-all duration-200"
-                  >
-                    <Check className="w-8 h-8 mb-4 mx-auto text-blue-500" />
-                    <h3 className="text-xl font-semibold mb-2">
-                      {feature.title}
-                    </h3>
-                    <p className="text-gray-200">{feature.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </ShineBorder>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[
+              {
+                title: "AI-Powered Content",
+                desc: "Transform ideas into engaging newsletters in minutes",
+                icon: Pen,
+              },
+              {
+                title: "Premium Templates",
+                desc: "Professionally designed templates with easy customization",
+                icon: Layout,
+              },
+              {
+                title: "One-Click Publishing",
+                desc: "Publish in three clicks with built-in email service",
+                icon: Send,
+              },
+              {
+                title: "Built-in Email Service",
+                desc: "Send newsletters directly from our platform with no third-party tools",
+                icon: Mail,
+              },
+              {
+                title: "Subscriber Management",
+                desc: "Easily manage subscribers, add/remove them, and share an invite link",
+                icon: Users,
+              },
+              {
+                title: "Visual Analytics",
+                desc: "Beautiful dashboards for data-driven decisions",
+                icon: BarChart,
+              },
+            ].map((feature, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="group p-8 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300"
+              >
+                <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 mb-6 flex items-center justify-center text-white">
+                  <feature.icon size={24} />
+                </div>
+                <h3 className="text-xl font-semibold mb-4">{feature.title}</h3>
+                <p className="text-gray-600 leading-relaxed">{feature.desc}</p>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* How It Works Section */}
-      <section className="relative py-20 overflow-hidden">
-        <div className="max-w-6xl mx-auto px-6">
-          <ShineBorder borderClassName="border border-[white]/10 rounded-xl">
-            <div className="p-12 text-center">
-              <h2 className="text-3xl md:text-4xl font-bold mb-16">
-                Create in 3 Simple Steps
-              </h2>
+      {/* How It Works */}
+      <section className="py-32 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-20"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              How It <GradientText>Works</GradientText>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Create professional newsletters in three simple steps
+            </p>
+          </motion.div>
 
-              <div className="grid md:grid-cols-3 gap-8">
-                {[
-                  {
-                    step: "1",
-                    title: "Share Your Idea",
-                    desc: "Write/pick your topic, industry, and audience preferences",
-                  },
-                  {
-                    step: "2",
-                    title: "Choose Style",
-                    desc: "Select templates and let AI craft your content",
-                  },
-                  {
-                    step: "3",
-                    title: "Review & Send",
-                    desc: "Quick edit and share with subscribers",
-                  },
-                ].map((step, i) => (
-                  <div
-                    key={i}
-                    className="p-8 border border-[white]/10 rounded-xl bg-[white]/5 hover:bg-[white]/10 transform hover:scale-105 transition-all duration-200"
-                  >
-                    <div className="w-12 h-12 mb-6 mx-auto bg-blue-500 rounded-full flex items-center justify-center">
-                      <span className="text-xl font-bold">{step.step}</span>
-                    </div>
-                    <h3 className="text-xl font-semibold mb-4">{step.title}</h3>
-                    <p className="text-gray-200">{step.desc}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </ShineBorder>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                step: "01",
+                title: "Share Your Idea",
+                description: "Input your Industry, topic,length and preferences.",
+              },
+              {
+                step: "02",
+                title: "AI Magic",
+                description: "Our AI transforms your input into engaging content.",
+              },
+              {
+                step: "03",
+                title: "Publish & Share",
+                description: "Review, edit, and share with your audience.",
+              },
+            ].map((step, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.2 }}
+                viewport={{ once: true }}
+                className="relative p-8 rounded-2xl bg-white shadow-lg"
+              >
+                <span className="absolute -top-6 left-8 text-7xl font-bold text-blue-100">{step.step}</span>
+                <div className="relative">
+                  <h3 className="text-xl font-semibold mb-4">{step.title}</h3>
+                  <p className="text-gray-600">{step.description}</p>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
-      {/* Pricing Section */}
-      <section className="relative py-20 overflow-hidden">
-        <InteractiveGrid
-          containerClassName="absolute inset-0"
-          className="opacity-30"
-          points={40}
-        />
+      {/* Testimonials */}
+      <section className="py-32 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-20"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Loved by <GradientText>Creators</GradientText>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">Join thousands of satisfied newsletter creators</p>
+          </motion.div>
 
-        <div className="max-w-6xl mx-auto px-6">
-          <ShineBorder borderClassName="border border-[white]/10 rounded-xl">
-            <div className="p-12 text-center">
-              <h2 className="text-3xl md:text-4xl font-bold mb-16">
-                Start Free, Upgrade as You Grow
-              </h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                name: "Sarah Johnson",
+                role: "Content Creator",
+                content:
+                  "ClipMailo has transformed how I create newsletters. The AI suggestions are spot-on, and the templates are beautiful.",
+                image: "/api/placeholder/48/48",
+              },
+              {
+                name: "Mike Chen",
+                role: "Tech Blogger",
+                content:
+                  "The efficiency and quality of content generation is unmatched. My subscriber engagement has increased by 40%.",
+                image: "/api/placeholder/48/48",
+              },
+              {
+                name: "Emma Davis",
+                role: "Marketing Director",
+                content:
+                  "Finally, a newsletter platform that understands modern design and content needs. Absolutely worth every penny.",
+                image: "/api/placeholder/48/48",
+              },
+            ].map((testimonial, index) => (
+              <TestimonialCard key={index} {...testimonial} />
+            ))}
+          </div>
+        </div>
+      </section>
 
-              <div className="grid md:grid-cols-3 gap-8">
-                {[
-                  {
-                    title: "Starter",
-                    price: "0",
-                    features: [
-                      "500 subscribers",
-                      "10 AI newsletters/month",
-                      "All templates",
-                      "Email support",
-                      "Full Analytics",
-                    ],
-                    cta: "Start Free Trial",
-                  },
-                  {
-                    title: "Growth",
-                    price: "19",
-                    features: [
-                      "25K subscribers",
-                      "100 AI newsletters/month",
-                      "All templates",
-                      "Priority support",
-                      "Full Analytics",,
-                    ],
-                    cta: "Coming Soon",
-                    featured: true,
-                  },
-                  {
-                    title: "Pro",
-                    price: "49",
-                    features: [
-                      "Unlimited subscribers",
-                      "Unlimited AI newsletters",
-                      "All templates",
-                      "Priority support",
-                      "Full Analytics",
-                    ],
-                    cta: "Coming Soon",
-                  },
-                ].map((plan, i) => (
-                  <div
-                    key={i}
-                    className={`p-8 border rounded-xl transform hover:scale-105 transition-all duration-200 ${
-                      plan.featured
-                        ? "border-blue-500 bg-blue-500/10"
-                        : "border-[white]/10 bg-[white]/5"
-                    }`}
-                  >
-                    <h3 className="text-2xl font-bold mb-2">{plan.title}</h3>
-                    <div className="text-4xl font-bold mb-6">
-                      ${plan.price}
-                      <span className="text-gray-200 text-lg">/mo</span>
-                    </div>
+      {/* Pricing */}
+      <section className="py-32 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center mb-20"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Simple, <GradientText>Transparent</GradientText> Pricing
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">Start free, upgrade as you grow</p>
+          </motion.div>
 
-                    <div className="space-y-4 mb-8">
-                      {plan.features.map((feature, j) => (
-                        <div key={j} className="flex items-center gap-2">
-                          <Check className="w-5 h-5 text-blue-500" />
-                          <span>{feature}</span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <Link href="/Login">
-                      <Button
-                        className="w-full hover:bg-blue-700 transform hover:scale-105 transition-all duration-200"
-                        variant={plan.featured ? "default" : "default"}
-                        disabled={plan.cta !== "Start Free Trial"}
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              {
+                title: "Starter",
+                price: "0",
+                features: [
+                  "500 subscribers",
+                  "10 AI newsletters/month",
+                  "All templates",
+                  "Email support",
+                  "Full Analytics",
+                ],
+                cta: "Start Free Trial",
+              },
+              {
+                title: "Growth",
+                price: "19",
+                features: [
+                  "25K subscribers",
+                  "100 AI newsletters/month",
+                  "All templates",
+                  "Priority support",
+                  "Full Analytics",
+                ],
+                cta: "Coming Soon",
+                featured: true,
+              },
+              {
+                title: "Pro",
+                price: "49",
+                features: [
+                  "Unlimited subscribers",
+                  "Unlimited AI newsletters",
+                  "All templates",
+                  "Priority support",
+                  "Full Analytics",
+                ],
+                cta: "Coming Soon",
+              },
+            ].map((plan, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.2 }}
+                viewport={{ once: true }}
+                className={`p-8 rounded-2xl ${
+                  plan.featured ? "bg-blue-600 text-white shadow-xl scale-105" : "bg-white shadow-lg"
+                }`}
+              >
+                <h3 className="text-2xl font-bold mb-4">{plan.title}</h3>
+                <div className="text-4xl font-bold mb-6">
+                  ${plan.price}
+                  <span className={`text-lg ${plan.featured ? "text-blue-100" : "text-gray-500"}`}>/month</span>
+                </div>
+                <ul className="space-y-4 mb-8">
+                  {plan.features.map((feature, i) => (
+                    <li key={i} className="flex items-center gap-2">
+                      <svg
+                        className={`w-5 h-5 ${plan.featured ? "text-blue-200" : "text-blue-500"}`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
                       >
-                        {plan.cta}
-                      </Button>
-                    </Link>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </ShineBorder>
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span className={plan.featured ? "text-blue-100" : "text-gray-600"}>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <Link href="/Login">
+                  <Button
+                    className={`w-full py-6 ${
+                      plan.featured
+                        ? "bg-white text-blue-600 hover:bg-blue-50"
+                        : "bg-blue-600 text-white hover:bg-blue-700"
+                    } font-medium rounded-xl ${plan.cta === "Coming Soon" ? "opacity-50 cursor-not-allowed" : ""}`}
+                    disabled={plan.cta === "Coming Soon"}
+                  >
+                    {plan.cta}
+                  </Button>
+                </Link>
+              </motion.div>
+            ))}
+          </div>
         </div>
       </section>
 
       {/* CTA Section */}
-      <section className="relative py-32 overflow-hidden">
-        <InteractiveGrid
-          containerClassName="absolute inset-0"
-          className="opacity-30"
-          points={40}
-        />
-
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <ShineBorder borderClassName="border border-[white]/10 rounded-xl">
-            <div className="p-12 bg-[white]/5 rounded-xl">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Start Your Newsletter Adventure
-              </h2>
-              <p className="text-gray-200 mb-8 max-w-2xl mx-auto">
-                Join thousands of creators building audiences and making their
-                first dollars with AI-powered newsletters.
-              </p>
-              <Link href="/Login">
-                <Button className="gap-2 bg-blue-600 hover:bg-blue-700 transform hover:scale-105 transition-all duration-200">
-                  Start Free Trial <ArrowRight className="w-4 h-4" />
-                </Button>
-              </Link>
-              <p className="text-sm text-gray-200 mt-4">
-                No credit card required
-              </p>
-            </div>
-          </ShineBorder>
+      <section className="py-32 bg-blue-600">
+        <div className="max-w-7xl mx-auto px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="text-center text-white"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">Start Your Newsletter Journey Today</h2>
+            <p className="text-xl text-blue-100 mb-12 max-w-2xl mx-auto">
+              Join thousands of creators who are building their audience and monetizing their passion.
+            </p>
+            <Link href="/Login">
+              <Button className="px-12 py-6 bg-white text-blue-600 hover:bg-blue-50 text-lg font-medium rounded-xl">
+                Get Started Now
+              </Button>
+            </Link>
+            <p className="mt-4 text-blue-100">No credit card required</p>
+          </motion.div>
         </div>
       </section>
 
       {/* Footer */}
-      <footer className="border-t border-[white]/10 py-12">
-        <div className="max-w-6xl mx-auto px-6">
+      <footer className="py-12 bg-white border-t border-gray-100">
+        <div className="max-w-7xl mx-auto px-6">
           <div className="flex justify-center space-x-8 mb-8">
-            <Link
-              href="/terms-of-service"
-              className="md:text-sm text-xs text-gray-200 hover:text-white transition-colors whitespace-nowrap"
-            >
+            <Link href="/terms-of-service" className="md:text-sm text-xs whitespace-nowrap text-gray-600 hover:text-gray-900 transition-colors">
               Terms of Service
             </Link>
-            <Link
-              href="/privacy-policy"
-              className="md:text-sm text-xs text-gray-200 hover:text-white transition-colors whitespace-nowrap"
-            >
+            <Link href="/privacy-policy" className="md:text-sm text-xs whitespace-nowrap text-gray-600 hover:text-gray-900 transition-colors">
               Privacy Policy
             </Link>
-            <Link
-              href="/contact-us"
-              className="md:text-sm text-xs text-gray-200 hover:text-white transition-colors whitespace-nowrap"
-            >
+            <Link href="/contact-us" className="md:text-sm text-xs whitespace-nowrap text-gray-600 hover:text-gray-900 transition-colors">
               Contact Us
             </Link>
-            <Link
-              href="/credits"
-              className="md:text-sm text-xs text-gray-200 hover:text-white transition-colors whitespace-nowrap"
-            >
+            <Link href="/credits" className="md:text-sm text-xs whitespace-nowrap text-gray-600 hover:text-gray-900 transition-colors">
               Credits
             </Link>
           </div>
 
-          <div className="text-center text-sm text-gray-200">
-            © 2025 ClipMailo. All rights reserved.
-          </div>
+          <div className="text-center text-sm text-gray-600">© 2025 ClipMailo. All rights reserved.</div>
         </div>
       </footer>
     </div>
-  );
+  )
 }
+
