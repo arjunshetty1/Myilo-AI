@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { TrendingUp, AlertCircle, CheckCircle } from 'lucide-react';
+import { TrendingUp, CheckCircle } from 'lucide-react';
 import LoaderSecondary from '../App Components/LoaderSecondary';
 
 
@@ -109,7 +109,7 @@ const MinimalThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
 
           <div className="bg-gray-50 rounded-lg p-4 md:p-6 mb-6">
             <h3 className="text-xl md:text-2xl font-semibold text-gray-800 flex items-center mb-3">
-              <AlertCircle size={24} className="mr-2 text-blue-600" />
+              {/* <AlertCircle size={24} className="mr-2 text-blue-600" /> */}
               Key Points
             </h3>
             <ul className="space-y-3 md:space-y-4">
@@ -163,7 +163,7 @@ const MinimalThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
 
           <div className="bg-blue-50 rounded-lg p-4 md:p-6">
             <h3 className="text-xl md:text-2xl font-semibold text-gray-800 flex items-center mb-3">
-              <AlertCircle size={24} className="mr-2 text-blue-600" />
+              
               Final Thoughts
             </h3>
             <div className="text-gray-700 leading-relaxed">

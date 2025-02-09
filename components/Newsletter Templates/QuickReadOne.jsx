@@ -67,24 +67,21 @@ const QuickReadOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
 
   return (
     <div className="font-sans max-w-2xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden m-4">
-      <div className="relative aspect-video bg-gray-100">
-        <img
-          src={thumbnail}
-          alt="Video thumbnail"
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent p-4 md:p-6 flex flex-col justify-end">
-          <div className="text-white space-y-2">
-            <h1 className="text-xl md:text-2xl font-bold">
-              {rendeblueitableInput(editableData.title, "title", "Edit title")}
-            </h1>
-            {/* <div className="flex items-center space-x-2 text-xs md:text-sm">
-              <Clock size={16} className="flex-shrink-0" />
-              <span>{editableData.date}</span>
-            </div> */}
-          </div>
-        </div>
-      </div>
+      <div className="relative aspect-video">
+  <img
+    src={thumbnail}
+    alt="Video thumbnail"
+    className="w-full h-full object-cover"
+  />
+  <div className="p-4 md:p-6">
+    <div className="text-gray-900 space-y-2">
+      <h1 className="text-xl md:text-2xl font-bold">
+        {rendeblueitableInput(editableData.title, "title", "Edit title")}
+      </h1>
+    </div>
+  </div>
+</div>
+
 
       <div className="p-4 md:p-6 space-y-4 md:space-y-6">
         <h2 className="text-lg md:text-xl font-semibold text-gray-900">
