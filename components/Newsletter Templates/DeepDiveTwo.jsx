@@ -72,7 +72,7 @@ export default function DeepDiveTwo({
   }
 
   return (
-    <div className="font-sans text-gray-800 max-w-4xl mx-auto p-4 md:p-6 lg:p-8 bg-gray-50">
+    <div className="font-sans text-gray-800 max-w-4xl mx-auto p-4 md:p-6 lg:p-8">
       <header className="text-center mb-6 md:mb-10">
         <h1 className="text-2xl md:text-4xl font-bold text-gray-900 mb-2 md:mb-4">
           {rendeblueitableInput(editableData.title, "title", "Edit title")}
