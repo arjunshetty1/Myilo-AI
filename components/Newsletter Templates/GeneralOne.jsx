@@ -74,7 +74,7 @@ const GeneralOne = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
   }
 
   return (
-    <div className="font-sans text-sm bg-gray-50">
+    <div className="font-sans text-sm ">
       <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg overflow-hidden">
         <div className="relative">
           <div className="w-full aspect-video overflow-hidden">
