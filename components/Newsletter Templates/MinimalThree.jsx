@@ -69,7 +69,7 @@ const MinimalThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
   }
 
   return (
-    <div className="font-sans min-h-screen bg-gray-50 p-0 sm:p-6">
+    <div className="font-sans min-h-screen p-0 sm:p-6">
       <div className="max-w-4xl mx-auto bg-white shadow-xl rounded-xl overflow-hidden">
         <div className="bg-gradient-to-r from-blue-600 to-purple-600 text-white p-6 md:p-8">
           <h1 className="text-2xl md:text-4xl font-bold mb-3 leading-tight">
