@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import LoaderSecondary from "../App Components/LoaderSecondary";
 
-
 export default function StoryDrivenTwo({
   thumbnail,
   dataToTemplate,
@@ -76,28 +75,21 @@ export default function StoryDrivenTwo({
   };
 
   if (!editableData) {
-    return <LoaderSecondary/>;
+    return <LoaderSecondary />;
   }
 
   return (
     <div className="font-sans text-gray-800 max-w-4xl mx-auto p-4 md:p-6 lg:p-8 bg-white">
       <header className="mb-8 md:mb-12">
-        {/* <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 font-playfair">
-          {rendeblueitableInput(editableData.title, "title", "Edit title")}
-        </h1>
-        <p className="text-base md:text-lg text-gray-600 mb-4 md:mb-6">
-          By{" "}
-          {rendeblueitableInput(editableData.author, "author", "Edit author")} |{" "}
-          {rendeblueitableInput(editableData.date, "date", "Edit date")}
-        </p> */}
+      
         <div className="relative aspect-video overflow-hidden rounded-lg shadow-md">
           <img
             src={thumbnail}
             alt="Hero Image"
             className="w-full h-full object-cover"
           />
-          <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 bg-gradient-to-t from-black/70 to-transparent">
-            <p className="text-white text-lg md:text-xl italic m-0 leading-snug">
+          <div className="p-4 md:p-6">
+            <p className="text-gray-900 text-lg md:text-xl italic m-0 leading-snug">
               {rendeblueitableText(
                 editableData.introduction,
                 "introduction",
@@ -194,8 +186,6 @@ export default function StoryDrivenTwo({
           )}
         </div>
       </div>
-
-     
 
       <footer className="border-t border-gray-200 pt-6 text-center text-sm md:text-base text-gray-600">
         <p>
