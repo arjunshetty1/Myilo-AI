@@ -30,7 +30,7 @@ const TestimonialCard = ({ name, role, content, image }) => (
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5 }}
     viewport={{ once: true }}
-    className="p-6 rounded-2xl bg-white shadow-xl border border-gray-100"
+    className="p-6 rounded-2xl bg-white shadow-lg border border-gray-100"
   >
     <p className="text-gray-700 mb-6">{content}</p>
     <div className="flex items-center gap-4">
@@ -205,7 +205,7 @@ export default function LandingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="group p-8 rounded-2xl bg-white shadow-lg hover:shadow-xl transition-all duration-300"
+                className="group p-8 rounded-2xl bg-white shadow-sm hover:shadow-lg transition-all duration-300"
               >
                 <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 mb-6 flex items-center justify-center text-white">
                   <feature.icon size={24} />
@@ -260,7 +260,7 @@ export default function LandingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.2 }}
                 viewport={{ once: true }}
-                className="relative p-8 rounded-2xl bg-white shadow-lg"
+                className="relative p-8 rounded-2xl bg-white shadow-md"
               >
                 <span className="absolute -top-6 left-8 text-7xl font-bold text-blue-100">{step.step}</span>
                 <div className="relative">
@@ -382,7 +382,7 @@ export default function LandingPage() {
                 transition={{ delay: index * 0.2 }}
                 viewport={{ once: true }}
                 className={`p-8 rounded-2xl ${
-                  plan.featured ? "bg-blue-600 text-white shadow-xl scale-105" : "bg-white shadow-lg"
+                  plan.featured ? "bg-blue-600 text-white shadow-lg scale-105" : "bg-white shadow-md"
                 }`}
               >
                 <h3 className="text-2xl font-bold mb-4">{plan.title}</h3>

@@ -75,7 +75,7 @@ const GeneralTwo = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
   }
 
   return (
-    <div className="font-sans bg-gray-100 min-h-screen">
+    <div className="font-sans min-h-screen">
       <div className="max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden my-4 md:my-8">
         <header className="relative">
           <div className="w-full aspect-video md:aspect-[3/1] overflow-hidden">
