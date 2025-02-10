@@ -1,94 +1,34 @@
 "use client";
 import { useState, useContext } from "react";
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Card, CardContent } from "@/components/UI/shadcn-ui/card";
 import { Badge } from "@/components/UI/shadcn-ui/badge";
 import { Button } from "@/components/UI/shadcn-ui/button";
-import { FileText, X } from "lucide-react";
+import { FileText, X, LayoutTemplate, Sparkles } from "lucide-react";
 import { CreateNewsletter } from "@/services/Newsletter";
 import { CreateContextWrapper } from "@/context/global/GlobalContext";
-
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/UI/shadcn-ui/tooltip";
-
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/UI/shadcn-ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
 import { Loader } from "@/components/App Components/Loader";
 
-const templates = [
-  { id: "0", name: "General 1", category: "General", image: "/t1.png" },
-  { id: "1", name: "General 2", category: "General", image: "/t2.png" },
-  { id: "2", name: "General 3", category: "General", image: "/t3.png" },
-  {
-    id: "3",
-    name: "Minimal 1",
-    category: "Minimal & Clean",
-    image: "/MinimalOne.png",
-  },
-  // {
-  //   id: "4",
-  //   name: "Minimal 2",
-  //   category: "Minimal & Clean",
-  //   image: "/MinimalTwo.png",
-  // },
-  {
-    id: "4",
-    name: "Minimal 3",
-    category: "Minimal & Clean",
-    image: "/MinimalThree.png",
-  },
-  {
-    id: "5",
-    name: "Minimal 4",
-    category: "Minimal & Clean",
-    image: "/MinimalFour.png",
-  },
-
-  {
-    id: "6",
-    name: "Story Driven 1",
-    category: "Story-Driven",
-    image: "/MinimalFour.png",
-  },
-  {
-    id: "7",
-    name: "Story Driven 2",
-    category: "Story-Driven",
-    image: "/MinimalOne.png",
-  },
-  {
-    id: "8",
-    name: "Deep Dive 1",
-    category: "Deep Dive",
-    image: "/MinimalThree.png",
-  },
-  {
-    id: "9",
-    name: "Deep Dive 2",
-    category: "Deep Dive",
-    image: "/MinimalTwo.png",
-  },
-  {
-    id: "10",
-    name: "Quick Reads 1",
-    category: "Quick Reads",
-    image: "/MinimalTwo.png",
-  },
-  {
-    id: "11",
-    name: "Quick Reads 2",
-    category: "Quick Reads",
-    image: "/MinimalOne.png",
-  },
+const TEMPLATES = [
+  { id: "0", name: "Timeless Editorial", category: "General" },
+  { id: "1", name: "Contemporary Brief", category: "General" },
+  { id: "2", name: "Executive Digest", category: "General" },
+  { id: "3", name: "Neutral Foundations", category: "Minimal & Clean" },
+  { id: "4", name: "Essential Blueprint", category: "Minimal & Clean" },
+  { id: "5", name: "Pure Interface", category: "Minimal & Clean" },
+  { id: "6", name: "Narrative Canvas", category: "Story-Driven" },
+  { id: "7", name: "Chronicle Framework", category: "Story-Driven" },
+  { id: "8", name: "Data Deep Dive", category: "Deep Dive" },
+  { id: "9", name: "Insight Matrix", category: "Deep Dive" },
+  { id: "10", name: "Rapid Pulse", category: "Quick Reads" },
+  { id: "11", name: "Bite-Sized Update", category: "Quick Reads" },
 ];
 
-const categories = [
-  "all",
+const CATEGORIES = [
+  "All",
   "General",
   "Minimal & Clean",
   "Quick Reads",
@@ -97,25 +37,33 @@ const categories = [
 ];
 
 const TemplateCard = ({ template, onClick, isSelected }) => (
-  <motion.div whileHover={{ y: -5 }} whileTap={{ scale: 0.98 }}>
+  <motion.div 
+    whileHover={{ y: -8 }} 
+    whileTap={{ scale: 0.98 }}
+    transition={{ type: "spring", stiffness: 300 }}
+  >
     <Card
-      className={`overflow-hidden cursor-pointer rounded-xl shadow-sm transition-all ${
-        isSelected ? "ring-2 ring-blue-500" : ""
+      className={`group relative overflow-hidden cursor-pointer rounded-2xl border-2 transition-all ${
+        isSelected 
+          ? "border-blue-500 shadow-xl dark:border-blue-400" 
+          : "border-transparent hover:border-gray-200 dark:hover:border-gray-700"
       }`}
       onClick={() => onClick(template)}
     >
-      <CardContent className="p-0 relative">
-        <Image
-          src={template.image}
-          alt={template.name}
-          width={300}
-          height={200}
-          className="w-full h-72 object-contain"
-          unoptimized
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-[#343434] to-transparent opacity-0 hover:opacity-100 transition-opacity flex items-end justify-between p-4">
-          <h2 className="text-lg font-semibold text-white">{template.name}</h2>
-          <Badge className="bg-blue-500 text-white">{template.category}</Badge>
+      <CardContent className="p-6 flex flex-col items-center gap-4 h-full bg-gradient-to-b from-white/50 to-transparent dark:from-gray-800/50">
+        <div className="w-12 h-12 flex items-center justify-center bg-blue-50 rounded-lg dark:bg-blue-900/30">
+          <LayoutTemplate className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+        </div>
+        <div className="text-center space-y-2">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-50">
+            {template.name}
+          </h3>
+          <Badge 
+            variant="outline" 
+            className="bg-gradient-to-r from-blue-100 to-purple-100 text-blue-800 dark:from-blue-900/30 dark:to-purple-900/30 dark:text-blue-200"
+          >
+            {template.category}
+          </Badge>
         </div>
       </CardContent>
     </Card>
@@ -124,16 +72,16 @@ const TemplateCard = ({ template, onClick, isSelected }) => (
 
 export default function NewsletterTemplates() {
   const context = useContext(CreateContextWrapper);
-  const [activeCategory, setActiveCategory] = useState("all");
+  const [activeCategory, setActiveCategory] = useState("All");
   const [selectedTemplate, setSelectedTemplate] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
-  const [generating, setGenerating] = useState(false)
+  const [generating, setGenerating] = useState(false);
   const { toast } = useToast();
 
-  const filteblueTemplates = templates.filter(
+  const filteredTemplates = TEMPLATES.filter(
     (template) =>
-      activeCategory === "all" || template.category === activeCategory
+      activeCategory === "All" || template.category === activeCategory
   );
 
   const selectTemplate = (template) => {
@@ -155,29 +103,25 @@ export default function NewsletterTemplates() {
       brandGuidelines: context.choosenNewsLetterInputs.brandGuidelines,
       keyPoints: context.choosenNewsLetterInputs.keyPoints,
     };
-    console.log(context.choosenNewsLetterInputs);
 
-    if (context.choosenNewsLetterInputs == null) {
+    if (!context.choosenNewsLetterInputs) {
       router.push("/Application");
-
       toast({
         variant: "destructive",
-        title: "Uh oh! Something went wrong.",
-        description:
-          "The selected video has been expiblue! Please select a again.",
+        title: "Session Expired",
+        description: "Your configuration has expired. Please start again.",
       });
     } else {
       try {
         const response = await CreateNewsletter(params);
         if (!response) throw new Error("Failed to create newsletter");
-        const objectId = response._id;
-        router.push(`Edit/${objectId}`);
+        router.push(`Edit/${response._id}`);
       } catch (error) {
         setIsLoading(false);
         toast({
           variant: "destructive",
-          title: "Uh oh! Something went wrong.",
-          description: "Failed to generate newsletter. Please try again",
+          title: "Generation Failed",
+          description: "Couldn't create newsletter. Please try again.",
         });
         router.push("/Application");
       }
@@ -185,30 +129,44 @@ export default function NewsletterTemplates() {
   };
 
   return (
-    <div className="bg-gradient-to-br from-gray-50 to-gray-100 h-[100vh]">
+    <div className="bg-gradient-to-br from-gray-50 to-gray-100/50 dark:from-gray-900 dark:to-gray-800/20 min-h-screen">
       <TooltipProvider>
-        <div className="mx-auto px-4 md:px-24 py-12 ">
-          <h1 className="text-2xl font-semibold mb-2 text-gray-800 dark:text-gray-200">
-            Choose Your Newsletter Template
-          </h1>
-          <h2 className="text-base text-gray-600 dark:text-gray-400 mb-8">
-            Select a template that best fits your content and style
-          </h2>
+        <div className="mx-auto px-4 md:px-24 py-12">
+          <header className="mb-12 text-center space-y-2">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="inline-flex items-center gap-2 text-blue-600 bg-blue-50 px-4 py-1 rounded-full dark:bg-blue-900/30 dark:text-blue-400"
+            >
+              <Sparkles className="w-4 h-4" />
+              <span className="text-sm font-medium">New templates available</span>
+            </motion.div>
+            <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
+              Craft Your Narrative
+            </h1>
+            <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              Select a foundation that aligns with your communication style and audience expectations
+            </p>
+          </header>
 
-          <div className="mb-8">
-            <div className="flex flex-wrap gap-2">
-              {categories.map((category) => (
+          <nav className="mb-12">
+            <div className="flex flex-wrap justify-center gap-3">
+              {CATEGORIES.map((category) => (
                 <Button
                   key={category}
-                  variant={activeCategory === category ? "primary" : "outline"}
+                  variant={activeCategory === category ? "default" : "outline"}
                   onClick={() => setActiveCategory(category)}
-                  className="capitalize rounded-3xl  "
+                  className={`rounded-full px-5 ${
+                    activeCategory === category 
+                      ? "shadow-md bg-gradient-to-r from-blue-500 to-blue-400 text-white hover:opacity-90"
+                      : "bg-white dark:bg-gray-800"
+                  }`}
                 >
-                  {category}
+                  {category.replace(/([A-Z])/g, " $1").trim()}
                 </Button>
               ))}
             </div>
-          </div>
+          </nav>
 
           <AnimatePresence mode="wait">
             <motion.div
@@ -216,10 +174,10 @@ export default function NewsletterTemplates() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
-              transition={{ duration: 0.3 }}
+              transition={{ duration: 0.25 }}
             >
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {filteblueTemplates.map((template) => (
+                {filteredTemplates.map((template) => (
                   <TemplateCard
                     key={template.id}
                     template={template}
@@ -237,28 +195,44 @@ export default function NewsletterTemplates() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="fixed inset-0 bg-black bg-opacity-50 backdrop-blur-sm flex items-center justify-center p-4 z-50"
+                className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 z-50"
               >
-                <Card className="w-full max-w-md bg-white dark:bg-gray-800 shadow-2xl">
-                  <CardContent className="p-6">
-                    <div className="flex justify-between items-center mb-4">
-                      <h3 className="text-xl font-semibold">
-                        Generate Newsletter
+                <Card className="w-full max-w-md bg-white dark:bg-gray-800 shadow-2xl border-0 overflow-hidden">
+                  <div className="bg-gradient-to-r from-[#e6e6e6] to-[white] p-6">
+                    <div className="flex justify-between items-center">
+                      <h3 className="text-xl font-semibold text-black">
+                        Confirm Template
                       </h3>
-                      <Button
-                        variant="ghost"
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        className="text-white/80 hover:text-white hover:bg-white/10 rounded-full"
                         onClick={() => setSelectedTemplate(null)}
                       >
-                        <X className="h-6 w-6" />
+                        <X className="w-5 h-5" />
                       </Button>
                     </div>
-                    <p className="mb-6 text-gray-600 dark:text-gray-300">
-                      You've selected the "{selectedTemplate.name}" template.
-                    </p>
-                    <div className="flex justify-end space-x-4">
-                      <Button
-                        variant="outline"
+                  </div>
+                  <CardContent className="p-6 space-y-6">
+                    <div className="space-y-2">
+                      <p className="text-gray-600 dark:text-gray-300">
+                        Selected template:
+                      </p>
+                      <div className="flex items-center gap-3 bg-gray-50 dark:bg-gray-700/30 p-4 rounded-lg">
+                        <LayoutTemplate className="w-5 h-5 text-blue-500" />
+                        <span className="font-medium text-gray-900 dark:text-gray-100">
+                          {selectedTemplate.name}
+                        </span>
+                        <Badge variant="outline" className="ml-auto">
+                          {selectedTemplate.category}
+                        </Badge>
+                      </div>
+                    </div>
+                    <div className="flex justify-end gap-3">
+                      <Button 
+                        variant="outline" 
                         onClick={() => setSelectedTemplate(null)}
+                        className="rounded-full"
                       >
                         Cancel
                       </Button>
@@ -266,14 +240,14 @@ export default function NewsletterTemplates() {
                         <TooltipTrigger asChild>
                           <Button
                             onClick={GenerateNewsletter}
-                            className="bg-blue-500 hover:bg-blue-600 text-white"
+                            className="rounded-full bg-gradient-to-r from-blue-500 to-purple-500 hover:opacity-90"
                           >
-                            <FileText className="mr-2 h-4 w-4" /> Generate
-                            Newsletter
+                            <FileText className="mr-2 w-4 h-4" />
+                            Generate Now
                           </Button>
                         </TooltipTrigger>
                         <TooltipContent>
-                          <p>Click to generate your newsletter</p>
+                          <p>Start newsletter generation</p>
                         </TooltipContent>
                       </Tooltip>
                     </div>
