@@ -158,3 +158,25 @@
 }
 
 
+
+
+
+.slow-color-change {
+  color: #6366f1; /* Initial color (indigo-500) */
+  text-decoration: none; /* Remove underline initially */
+  animation: colorChange 2s infinite; /* 5s duration, infinite loop */
+}
+
+.slow-color-change:hover {
+  text-decoration: underline; /* Add underline on hover */
+}
+
+@keyframes colorChange {
+  0% {
+    color: #6366f1; /* indigo-500 */
+  }
+ 
+  100% {
+    color: #f80000; /* Back to indigo-500 */
+  }
+}

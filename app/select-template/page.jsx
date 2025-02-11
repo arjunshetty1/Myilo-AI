@@ -240,7 +240,7 @@ export default function NewsletterTemplates() {
                         <TooltipTrigger asChild>
                           <Button
                             onClick={GenerateNewsletter}
-                            className="rounded-full bg-gradient-to-r from-blue-500 to-purple-500 hover:opacity-90"
+                            className="rounded-full bg-gradient-to-r from-blue-500 to-blue-400 hover:opacity-90"
                           >
                             <FileText className="mr-2 w-4 h-4" />
                             Generate Now

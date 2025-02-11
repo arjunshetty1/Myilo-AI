@@ -1,4 +1,5 @@
 import api from "@/utils/api";
+import axios from "axios";
 
 export const GetSubscribers = async (page, limit) => {
   try {
@@ -43,9 +44,21 @@ export const DeleteSubscribers = async (emails) => {
   }
 };
 
-export const OnboardSubscriber = async (params) => {
+export const OnboardSubscriber = async (params) => { // a public route api call, so not gonna pass access_token.
   try {
-    const response = await api.post("subscriber/opt", params);
+    const response = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/onboard/subscriber/opt`, params);
+    const result = response.data;
+    return result;
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+};
+
+
+export const GetCreatorProfile = async (id) => { // a public route api call, so not gonna pass access_token.
+  try {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/onboard/profile/${id}`);
     const result = response.data;
     return result;
   } catch (error) {
