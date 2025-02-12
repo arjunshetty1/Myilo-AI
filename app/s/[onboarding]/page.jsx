@@ -167,25 +167,28 @@ const Page = () => {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.2 }}
                   >
-                    <input
-                      checked={isChecked}
-                      onChange={(e) => setIsChecked(e.target.checked)}
-                      id="terms"
-                      type="checkbox"
-                      className="mt-0.5 h-4 w-4 rounded border-slate-300 text-indigo-500 focus:ring-indigo-500 sm:h-5 sm:w-5"
-                    />
-                    <label
-                      htmlFor="terms"
-                      className="text-xs text-slate-600 sm:text-sm"
-                    >
-                      I agree to receive email updates and acknowledge
-                      ClipMailo's
-                      <a href="#" className="text-indigo-500 hover:underline">
-                        {" "}
-                        Privacy Policy
-                      </a>
-                      . Unsubscribe anytime.
-                    </label>
+                    <div className="flex items-start">
+  <input
+    checked={isChecked}
+    onChange={(e) => setIsChecked(e.target.checked)}
+    id="terms"
+    type="checkbox"
+    className="mt-0.5 h-4 w-4 rounded border-slate-300 text-indigo-500 focus:ring-indigo-500 sm:h-5 sm:w-5"
+  />
+  <div className="ml-2">
+    <label htmlFor="terms" className="text-xs text-slate-600 sm:text-sm">
+      I agree to receive email updates and acknowledge ClipMailo's
+      <a
+        href="https://clipmailo.com/privacy-policy"
+        className="text-indigo-500 hover:underline cursor-pointer"
+      >
+        {" "}
+        Privacy Policy
+      </a>
+      . Unsubscribe anytime.
+    </label>
+  </div>
+</div>
                   </motion.div>
                 </div>
 
