@@ -22,7 +22,8 @@ export function withAuth(WrappedComponent) {
             "/terms-of-service",
             "/contact-us",
             "/credits",
-            "/privacy-policy"
+            "/privacy-policy",
+            "/unsubscribe"
           ];
           const publicPatterns = [{ pattern: /^\/s\/.+/ }];
 
