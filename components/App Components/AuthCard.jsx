@@ -13,16 +13,32 @@ const AuthCard = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    console.log("Setting up auth listener");
+    
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      console.log("Current session:", session);
+      if (session) {
+        console.log("Redirecting to /Application");
+        router.push("/Application");
+      }
+    };
+    
+    checkSession();
+
     const { data: authListener } = supabase.auth.onAuthStateChange(
       async (event, session) => {
-        if (session) {
-          localStorage.setItem("tk", session.access_token);
+        console.log("Auth event:", event, "Session:", session);
+        if (event === 'SIGNED_IN' && session) {
+          console.log("Redirecting after sign in");
           router.push("/Application");
         }
       }
     );
 
-    return () => authListener.subscription.unsubscribe();
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
   }, [router]);
 
   const handleGoogleLogin = async () => {
@@ -31,13 +47,17 @@ const AuthCard = () => {
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
-          redirectTo: `${window.location.origin}/Application`,
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          },
         },
       });
 
       if (error) throw error;
     } catch (error) {
       console.error("Login error:", error);
+    } finally {
       setIsLoading(false);
     }
   };
