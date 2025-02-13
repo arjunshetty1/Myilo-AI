@@ -85,7 +85,7 @@ const steps = [
             }}
             className="bg-blue-600 hover:bg-blue-700"
           >
-            Add Subscribers
+            Go to subscribers tab after reaching the create tab
           </Button>
         </div>
       </div>
