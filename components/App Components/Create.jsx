@@ -511,35 +511,18 @@ const Create = () => {
                                   htmlFor="keyPoints"
                                   className="text-sm md:text-base font-medium"
                                 >
-                                  Key Points to Cover
+                                  Custom Instructions
                                 </Label>
                                 <Textarea
                                   id="keyPoints"
-                                  placeholder="Enter the main points you want to address in your newsletter"
+                                  placeholder="Enter your custom instruction"
                                   className="mt-2"
                                   rows={4}
                                   value={keyPoints}
                                   onChange={(e) => setKeyPoints(e.target.value)}
                                 />
                               </div>
-                              <div>
-                                <Label
-                                  htmlFor="brandGuidelines"
-                                  className="text-sm md:text-base font-medium"
-                                >
-                                  Brand Guidelines
-                                </Label>
-                                <Textarea
-                                  id="brandGuidelines"
-                                  placeholder="Enter any specific brand guidelines or requirements"
-                                  className="mt-2"
-                                  rows={4}
-                                  value={brandGuidelines}
-                                  onChange={(e) =>
-                                    setBrandGuidelines(e.target.value)
-                                  }
-                                />
-                              </div>
+                              
                             </motion.div>
                           )}
                         </AnimatePresence>
