@@ -14,7 +14,7 @@ import { Loader } from "@/components/App Components/Loader";
 
 const TEMPLATES = [
   { id: "0", name: "Timeless Editorial", category: "General" },
-  { id: "1", name: "Contemporary Brief", category: "General" },
+  // { id: "1", name: "Contemporary Brief", category: "General" },
   { id: "2", name: "Executive Digest", category: "General" },
   { id: "3", name: "Neutral Foundations", category: "Minimal & Clean" },
   { id: "4", name: "Essential Blueprint", category: "Minimal & Clean" },
