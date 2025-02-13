@@ -24,7 +24,13 @@ export function withAuth(WrappedComponent) {
             "/credits",
             "/privacy-policy",
           ];
-          const publicPatterns = [{ pattern: /^\/s\/.+/ }];
+
+          // Define patterns for dynamic public routes
+          const publicPatterns = [
+            { pattern: /^\/s\/.+/ },
+            { pattern: /^\/unsubscribe\/.+/ },  // Add pattern for dynamic unsubscribe route
+            { pattern: /^\/unsubscribe$/ }      // Also match the base unsubscribe route if needed
+          ];
 
           const isPublicPath = publicPaths.includes(pathname);
           const matchesPublicPattern = publicPatterns.some(({ pattern }) =>
