@@ -440,7 +440,7 @@ const Create = () => {
                         <div>
                           <Label
                             htmlFor="audience"
-                            className="text-sm md:text-base font-medium"
+                            className="text-sm md:text-base font-medium "
                           >
                             Target Audience
                           </Label>
@@ -494,7 +494,7 @@ const Create = () => {
                           ) : (
                             <ChevronDown className="mr-2 h-4 w-4 md:h-5 md:w-5" />
                           )}
-                          Advanced Options
+                          Advanced Option
                         </button>
 
                         <AnimatePresence>

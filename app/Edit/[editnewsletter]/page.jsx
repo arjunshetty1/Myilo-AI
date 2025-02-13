@@ -85,7 +85,7 @@ const steps = [
             }}
             className="bg-blue-600 hover:bg-blue-700"
           >
-            Go to subscribers tab after reaching the create tab
+            Tap here to go back then select subscribers tab
           </Button>
         </div>
       </div>

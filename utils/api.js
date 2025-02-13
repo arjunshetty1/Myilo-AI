@@ -17,8 +17,6 @@ const getAccessToken = async () => {
     return;
   }
 
-  console.log("session", session.session.access_token);
-
   return session.session.access_token;
 };
 

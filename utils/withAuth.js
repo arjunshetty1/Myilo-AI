@@ -13,8 +13,10 @@ export function withAuth(WrappedComponent) {
     useEffect(() => {
       const checkAuth = async () => {
         try {
-          const { data: { session } } = await supabase.auth.getSession();
-          
+          const {
+            data: { session },
+          } = await supabase.auth.getSession();
+
           const publicPaths = [
             "/Login",
             "/",
@@ -28,8 +30,8 @@ export function withAuth(WrappedComponent) {
           // Define patterns for dynamic public routes
           const publicPatterns = [
             { pattern: /^\/s\/.+/ },
-            { pattern: /^\/unsubscribe\/.+/ },  // Add pattern for dynamic unsubscribe route
-            { pattern: /^\/unsubscribe$/ }      // Also match the base unsubscribe route if needed
+            { pattern: /^\/unsubscribe\/.+/ }, // Add pattern for dynamic unsubscribe route
+            { pattern: /^\/unsubscribe$/ }, // Also match the base unsubscribe route if needed
           ];
 
           const isPublicPath = publicPaths.includes(pathname);
@@ -49,7 +51,7 @@ export function withAuth(WrappedComponent) {
             router.replace("/Application");
             return;
           }
-          
+
           setIsAuthChecked(true);
         } catch (error) {
           console.error("Error checking authentication:", error);
