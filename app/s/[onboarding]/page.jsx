@@ -27,7 +27,7 @@ const Page = () => {
     try {
       const res = await GetCreatorProfile(userId);
       console.log(res);
-      setUserName(res.username)
+      setUserName(res.username);
     } catch (error) {
       console.log(error);
     }
@@ -121,8 +121,7 @@ const Page = () => {
                 <span>Powered by ClipMailo</span> */}
               </motion.div>
               <h1 className="mt-4 text-2xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
-                Join{" "}
-                {userName}
+                Join {userName}
                 's Inner Circle
               </h1>
               <p className="mt-3 text-sm text-indigo-100 sm:text-lg">
@@ -169,27 +168,31 @@ const Page = () => {
                     transition={{ delay: 0.2 }}
                   >
                     <div className="flex items-start">
-  <input
-    checked={isChecked}
-    onChange={(e) => setIsChecked(e.target.checked)}
-    id="terms"
-    type="checkbox"
-    className="mt-0.5 h-4 w-4 rounded border-slate-300 text-indigo-500 focus:ring-indigo-500 sm:h-5 sm:w-5"
-  />
-  <div className="ml-2">
-    <label htmlFor="terms" className="text-xs text-slate-600 sm:text-sm">
-      I agree to receive email updates and acknowledge ClipMailo's
-      <a
-        href="https://clipmailo.com/privacy-policy"
-        className="text-indigo-500 hover:underline cursor-pointer"
-      >
-        {" "}
-        Privacy Policy
-      </a>
-      . Unsubscribe anytime.
-    </label>
-  </div>
-</div>
+                      <input
+                        checked={isChecked}
+                        onChange={(e) => setIsChecked(e.target.checked)}
+                        id="terms"
+                        type="checkbox"
+                        className="mt-0.5 h-4 w-4 rounded border-slate-300 text-indigo-500 focus:ring-indigo-500 sm:h-5 sm:w-5"
+                      />
+                      <div className="ml-2">
+                        <label
+                          htmlFor="terms"
+                          className="text-xs text-slate-600 sm:text-sm"
+                        >
+                          I agree to receive email updates and acknowledge
+                          ClipMailo's
+                          <a
+                            href="https://clipmailo.com/privacy-policy"
+                            className="text-indigo-500 hover:underline cursor-pointer"
+                          >
+                            {" "}
+                            Privacy Policy
+                          </a>
+                          . Unsubscribe anytime.
+                        </label>
+                      </div>
+                    </div>
                   </motion.div>
                 </div>
 
@@ -208,11 +211,11 @@ const Page = () => {
               <span>Generate & send beautiful newsletters within 1 minute</span>
             </div>
             <a
-      href="https://clipmailo.com"
-      className="slow-color-change font-medium"
-    >
-      Try ClipMailo →
-    </a>
+              href="https://clipmailo.com"
+              className="slow-color-change font-medium"
+            >
+              Try ClipMailo →
+            </a>
           </div>
         </div>
       </div>
