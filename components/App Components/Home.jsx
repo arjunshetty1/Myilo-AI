@@ -101,7 +101,7 @@ const Home = ({ setactiveComponent }) => {
           await Promise.all([
             GetProfile(),
             GetUsageDetails(),
-            GetNewsletterList(1, 7, "draft"),
+            GetNewsletterList(1, 7),
             fetchOpenRateData(),
             fetchSubscriberData(),
           ])
