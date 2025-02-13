@@ -20,7 +20,7 @@ const AuthCard = () => {
       console.log("Current session:", session);
       if (session) {
         console.log("Redirecting to /Application");
-        router.push("/Application");
+        router.replace("/Application"); // Changed to replace to prevent back navigation
       }
     };
     
@@ -31,13 +31,15 @@ const AuthCard = () => {
         console.log("Auth event:", event, "Session:", session);
         if (event === 'SIGNED_IN' && session) {
           console.log("Redirecting after sign in");
-          router.push("/Application");
+          router.replace("/Application"); // Changed to replace to prevent back navigation
         }
       }
     );
 
     return () => {
-      authListener.subscription.unsubscribe();
+      if (authListener?.subscription) {
+        authListener.subscription.unsubscribe();
+      }
     };
   }, [router]);
 
@@ -51,6 +53,7 @@ const AuthCard = () => {
             access_type: 'offline',
             prompt: 'consent',
           },
+          redirectTo: `${window.location.origin}/Application`, // Added redirectTo option
         },
       });
 
