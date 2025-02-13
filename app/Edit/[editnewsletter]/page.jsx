@@ -51,13 +51,14 @@ import {
   UndoIcon,
 } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useState, useContext } from "react";
 import LoaderSecondary from "@/components/App Components/LoaderSecondary";
 import { TourProvider, useTour } from "@reactour/tour";
 import { ChevronRight, X } from "lucide-react";
 import { NewsletterSubscriberAnalyitics } from "@/services/Analytics";
+import { ActiveComponentWrapper } from "@/context/app/ActiveComponentContext";
 
-const steps = [
+const steps = (setactiveComponent) => [
   {
     selector: '[data-tour="publish-step"]',
     content: ({ setSteps, currentStep, steps }) => (
@@ -68,18 +69,9 @@ const steps = [
           subscribers through your dashboard.
         </p>
         <div className="flex gap-2">
-          {/* <Button
-            onClick={() => {
-              localStorage.setItem("tour-completed", "true")
-              setSteps((steps) => steps.slice(0, 1))
-            }}
-            variant="outline"
-            className="border-blue-500 text-blue-600 hover:bg-blue-50"
-          >
-            Skip Tour
-          </Button> */}
           <Button
             onClick={() => {
+              setactiveComponent('Subscribers');
               window.location.href = "/Application";
               localStorage.setItem("tour-completed", "true");
             }}
@@ -105,22 +97,23 @@ const steps = [
   },
 ];
 
-function TourComponent({ showTour }) {
+function TourComponent({ showTour, setactiveComponent }) {
   const { setIsOpen, setCurrentStep, setSteps } = useTour();
 
   useEffect(() => {
     if (showTour) {
       setIsOpen(true);
-      setSteps(steps);
+      setSteps(steps(setactiveComponent));
       setCurrentStep(0);
     }
-  }, [showTour, setIsOpen, setSteps, setCurrentStep]);
+  }, [showTour, setIsOpen, setSteps, setCurrentStep, setactiveComponent]);
 
   return null;
 }
 
 export default function ImprovedNewsletterEditor() {
   const router = useRouter();
+  const { activeComponent, setactiveComponent } = useContext(ActiveComponentWrapper);
   const [isEditing, setIsEditing] = useState(false);
   const [previewDevice, setPreviewDevice] = useState("laptop");
   const [currentTemplate, setCurrentTemplate] = useState("");
@@ -395,7 +388,7 @@ export default function ImprovedNewsletterEditor() {
 
   return (
     <TourProvider
-      steps={steps}
+      steps={steps(setactiveComponent)}
       styles={{
         popover: (base) => ({
           ...base,
@@ -496,7 +489,7 @@ export default function ImprovedNewsletterEditor() {
         ),
       }}
     >
-      <TourComponent showTour={showTour} />
+      <TourComponent showTour={showTour} setactiveComponent={setactiveComponent} />
       <div className="min-h-dvh p-2 sm:p-4 bg-gradient-to-br from-gray-50 to-gray-100">
         <div className="mx-auto space-y-6 rounded-xl p-4 sm:p-8 bg-white shadow-lg border border-gray-100">
           <Tabs defaultValue="edit" onValueChange={setCurrentTab}>
