@@ -15,6 +15,7 @@ const Page = () => {
   const [isChecked, setIsChecked] = useState(false);
   const [status, setStatus] = useState("idle");
   const [errorMessage, setErrorMessage] = useState("");
+  const [userName, setUserName] = useState("");
 
   const userId = params.onboarding;
 
@@ -26,6 +27,7 @@ const Page = () => {
     try {
       const res = await GetCreatorProfile(userId);
       console.log(res);
+      setUserName(res.username)
     } catch (error) {
       console.log(error);
     }
@@ -120,8 +122,7 @@ const Page = () => {
               </motion.div>
               <h1 className="mt-4 text-2xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
                 Join{" "}
-                {userId.toString().charAt(0).toUpperCase() +
-                  userId.toString().slice(1)}
+                {userName}
                 's Inner Circle
               </h1>
               <p className="mt-3 text-sm text-indigo-100 sm:text-lg">
