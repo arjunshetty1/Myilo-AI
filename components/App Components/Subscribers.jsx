@@ -112,7 +112,7 @@ export default function Subscribers() {
 
         toast({
           variant: "outline",
-          title: "Email added successfully!",
+          title: "Email added successfully! Please perfrom a browser refresh to see the changes",
           className: "bg-[white]",
         })
 
@@ -249,7 +249,7 @@ export default function Subscribers() {
 
       toast({
         variant: "outline",
-        title: "Selected subscribers deleted successfully.",
+        title: "Selected subscribers deleted successfully! Please perform a browser refresh to see the changes.",
         className: "bg-[white]",
       })
     } catch (error) {
