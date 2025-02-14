@@ -126,7 +126,7 @@ const PricingSection = () => {
                       />
                     </div>
                     <p className="text-sm text-gray-500 mt-2">
-                      Base price $49 for 1000 subscribers + $0.15 per additional subscriber
+                      Base price $49 for 3000 subscribers + $0.15 per additional subscriber
                     </p>
                   </div>
                 ) : (
