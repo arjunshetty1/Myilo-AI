@@ -1,21 +1,24 @@
 import api from "@/utils/api";
+import { apiCache, createCacheKey } from "@/utils/apiCahche";
 import axios from "axios";
 
 export const GetSubscribers = async (page, limit) => {
-  try {
-    const response = await api.get("subscriber", {
-      params: {
-        page: page,
-        limit: limit,
-      },
-    });
-
-    const result = response.data;
-    return result;
-  } catch (error) {
-    console.log(error);
-    return error;
-  }
+  const cacheKey = createCacheKey('subscribers', page, limit);
+  
+  return apiCache.getOrFetch(cacheKey, async () => {
+    try {
+      const response = await api.get("subscriber", {
+        params: {
+          page: page,
+          limit: limit,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  });
 };
 
 export const PostSubscribers = async (emailList) => {
@@ -23,8 +26,9 @@ export const PostSubscribers = async (emailList) => {
     const response = await api.post("subscriber", {
       emails: emailList,
     });
-    const result = response.data;
-    return result;
+    // Clear subscriber cache after adding new subscribers
+    apiCache.remove('subscribers');
+    return response.data;
   } catch (error) {
     console.log(error);
     return error;
@@ -36,8 +40,9 @@ export const DeleteSubscribers = async (emails) => {
     const response = await api.post("subscriber/unsubscribe", {
       emails: emails,
     });
-    const result = response.data;
-    return result;
+    // Clear subscriber cache after deleting subscribers
+    apiCache.remove('subscribers');
+    return response.data;
   } catch (error) {
     console.log(error);
     return error;
@@ -45,14 +50,13 @@ export const DeleteSubscribers = async (emails) => {
 };
 
 export const OnboardSubscriber = async (params) => {
-  // a public route api call, so not gonna pass access_token.
+  // Public route API call, no caching for this one
   try {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/onboard/subscriber/opt`,
       params
     );
-    const result = response.data;
-    return result;
+    return response.data;
   } catch (error) {
     console.log(error);
     throw error;
@@ -60,28 +64,30 @@ export const OnboardSubscriber = async (params) => {
 };
 
 export const GetCreatorProfile = async (id) => {
-  // a public route api call, so not gonna pass access_token.
-  try {
-    const response = await axios.get(
-      `${process.env.NEXT_PUBLIC_API_URL}/onboard/profile/${id}`
-    );
-    const result = response.data;
-    return result;
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
+  const cacheKey = createCacheKey('creator-profile', id);
+  
+  return apiCache.getOrFetch(cacheKey, async () => {
+    try {
+      const response = await axios.get(
+        `${process.env.NEXT_PUBLIC_API_URL}/onboard/profile/${id}`
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  });
 };
 
 export const unSubscribe = async (params) => {
-  console.log("hello")
   try {
     const response = await axios.post(
       `${process.env.NEXT_PUBLIC_API_URL}/onboard/subscriber/out`,
       params
     );
-    const result = response.data;
-    return result;
+    // Clear subscriber cache after unsubscribing
+    apiCache.remove('subscribers');
+    return response.data;
   } catch (error) {
     console.log(error);
   }

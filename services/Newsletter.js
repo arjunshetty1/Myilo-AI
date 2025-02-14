@@ -1,10 +1,15 @@
 import api from "@/utils/api";
+import { apiCache, createCacheKey } from "@/utils/apiCahche";
+
+
 
 export const CreateNewsletter = async (params) => {
   try {
     const data = await api.post("newsletter", params);
-    const response = data.data;
-    return response;
+    // Clear related caches when creating a new newsletter
+    apiCache.remove('newsletter-list');
+    apiCache.remove('newsletter-count');
+    return data.data;
   } catch (error) {
     console.log(error);
     return error;
@@ -14,8 +19,10 @@ export const CreateNewsletter = async (params) => {
 export const PublishNewsetter = async (params) => {
   try {
     const data = await api.patch(`newsletter/publish/${params}`);
-    const response = data.data;
-    return response;
+    // Clear related caches
+    apiCache.remove('newsletter-list');
+    apiCache.remove(createCacheKey('newsletter-by-id', params));
+    return data.data;
   } catch (error) {
     console.log(error);
     return error;
@@ -23,51 +30,57 @@ export const PublishNewsetter = async (params) => {
 };
 
 export const GetNewsletterList = async (page, limit, status) => {
-  try {
-    const response = await api.get("newsletter", {
-      params: {
-        page: page,
-        limit: limit,
-        status: status,
-      },
-    });
-
-    const result = response.data;
-
-    return result;
-  } catch (error) {
-    console.log(error);
-    return null;
-  }
+  const cacheKey = createCacheKey('newsletter-list', page, limit, status);
+  
+  return apiCache.getOrFetch(cacheKey, async () => {
+    try {
+      const response = await api.get("newsletter", {
+        params: {
+          page: page,
+          limit: limit,
+          status: status,
+        },
+      });
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
+  });
 };
 
 export const GetNewsletterByID = async (id) => {
-  try {
-    const response = await api.get(`newsletter/${id}`);
-    const result = response.data;
-    return result;
-  } catch (error) {
-    console.log(error);
-    return error;
-  }
+  const cacheKey = createCacheKey('newsletter-by-id', id);
+  
+  return apiCache.getOrFetch(cacheKey, async () => {
+    try {
+      const response = await api.get(`newsletter/${id}`);
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  });
 };
 
 export const GetNewsletterCount = async () => {
-  try {
-    const response = await api.get("newsletter/count");
-    const result = response.data;
-    return result;
-  } catch (error) {
-    console.log(error);
-    return error;
-  }
+  const cacheKey = 'newsletter-count';
+  
+  return apiCache.getOrFetch(cacheKey, async () => {
+    try {
+      const response = await api.get("newsletter/count");
+      return response.data;
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  });
 };
 
 export const SendTestMail = async (id, email) => {
   try {
     const response = await api.post(`newsletter/test/${id}`, { email });
-    const result = response.data;
-    return result;
+    return response.data;
   } catch (error) {
     console.error("Error sending test email:", error);
     return error;
@@ -75,24 +88,29 @@ export const SendTestMail = async (id, email) => {
 };
 
 export const Reccomandations = async (industry, length) => {
-  try {
-    const response = await api.post("/newsletter/suggestion", {
-      industry,
-      length,
-    });
-    const result = response.data;
-    return result;
-  } catch (error) {
-    console.error("Error sending test email:", error);
-    return error;
-  }
+  const cacheKey = createCacheKey('newsletter-suggestions', industry, length);
+  
+  return apiCache.getOrFetch(cacheKey, async () => {
+    try {
+      const response = await api.post("/newsletter/suggestion", {
+        industry,
+        length,
+      });
+      return response.data;
+    } catch (error) {
+      console.error("Error getting recommendations:", error);
+      return error;
+    }
+  });
 };
 
 export const UpdateNewsletter = async (data, id) => {
   try {
     const response = await api.patch(`/newsletter/${id}`, data);
-    const result = response.data;
-    return result;
+    // Clear related caches
+    apiCache.remove(createCacheKey('newsletter-by-id', id));
+    apiCache.remove('newsletter-list');
+    return response.data;
   } catch (error) {
     console.log("Error in updating newsletter API response");
     return error;
