@@ -1,154 +1,152 @@
-"use client"
+"use client";
+import { Button } from "@/components/UI/shadcn-ui/button";
+import { useEffect } from "react";
+import { supabase } from "@/utils/supabaseConfig";
+import { AnimatePresence, motion } from "framer-motion";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
+import { FcGoogle } from "react-icons/fc";
+import Logo from "./Logo";
 
-import { useState, useEffect } from "react"
-import { Card, CardContent, CardHeader, CardTitle, CardFooter } from "@/components/UI/shadcn-ui/card"
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/UI/shadcn-ui/avatar"
-import { Button } from "@/components/UI/shadcn-ui/button"
-import { Input } from "@/components/UI/shadcn-ui/input"
-import { LogOut, Edit2, Check, Loader2, User } from "lucide-react"
-import { GetProfile, Logout, updateUserName } from "@/services/Profile"
-import { useRouter } from "next/navigation"
-import { Skeleton } from "@/components/UI/shadcn-ui/skeleton"
-
-const Account = () => {
-  const [userData, setUserData] = useState({
-    userName: "",
-    email: "",
-    imgUrl: "",
-    usage: { newslettersDelivered: 0, newslettersGenerated: 0 },
-  })
-  const [isEditing, setIsEditing] = useState(false)
-  const [editedUserName, setEditedUserName] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
-  const [isInitialLoading, setIsInitialLoading] = useState(true)
-  const router = useRouter()
+const AuthCard = () => {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    const fetchProfileData = async () => {
-      setIsInitialLoading(true);
-      try {
-        const res = await GetProfile();
-        setUserData(res);
-        setEditedUserName(res.userName);
-      } catch (error) {
-        console.error("Error fetching profile data:", error);
-      } finally {
-        setIsInitialLoading(false);
+    console.log("Setting up auth listener");
+    
+    const checkSession = async () => {
+      const { data: { session } } = await supabase.auth.getSession();
+      console.log("Current session:", session);
+      if (session) {
+        console.log("Redirecting to /Application");
+        router.replace("/Application"); // Changed to replace to prevent back navigation
       }
     };
-  
-    fetchProfileData();
-  }, [])
+    
+    checkSession();
 
-  const handleEditClick = () => {
-    if (isEditing) {
-      handleSaveClick()
-    } else {
-      setIsEditing(true)
-      setEditedUserName(userData.username)
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      async (event, session) => {
+        console.log("Auth event:", event, "Session:", session);
+        if (event === 'SIGNED_IN' && session) {
+          console.log("Redirecting after sign in");
+          router.replace("/Application"); // Changed to replace to prevent back navigation
+        }
+      }
+    );
+
+    return () => {
+      if (authListener?.subscription) {
+        authListener.subscription.unsubscribe();
+      }
+    };
+  }, [router]);
+
+  const handleGoogleLogin = async () => {
+    setIsLoading(true);
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: "google",
+        options: {
+          queryParams: {
+            access_type: 'offline',
+            prompt: 'consent',
+          },
+          redirectTo: `${window.location.origin}/Application`, // Added redirectTo option
+        },
+      });
+
+      if (error) throw error;
+    } catch (error) {
+      console.error("Login error:", error);
+    } finally {
+      setIsLoading(false);
     }
-  }
-
-const handleSaveClick = async () => {
-  setIsLoading(true);
-  try {
-    await updateUserName(editedUserName);
-    const updatedProfile = await GetProfile();
-    setUserData(updatedProfile);
-    setIsEditing(false);
-  } catch (error) {
-    console.error("Failed to update username:", error);
-  } finally {
-    setIsLoading(false);
-  }
-}
-
-  const handleLogout = async () => {
-    const error = await Logout()
-    if (!error) {
-      router.push("/Login")
-    }
-  }
-
-  const plan = "Free Trial"
+  };
 
   return (
-    <Card className="w-full max-w-2xl mx-auto shadow-sm rounded-lg overflow-hidden">
-      <CardHeader className="bg-gradient-to-r from-gray-50 to-gray-100 dark:from-gray-800 dark:to-gray-900">
-        <div className="flex items-center space-x-4">
-          <Avatar className="h-20 w-20 ring-2 ring-white dark:ring-gray-800">
-            {isInitialLoading ? (
-              <Skeleton className="h-full w-full rounded-full" />
-            ) : userData.imgUrl ? (
-              <AvatarImage src={userData.imgUrl} alt={userData.username} />
-            ) : (
-              <AvatarFallback>
-                <User className="h-10 w-10" />
-              </AvatarFallback>
-            )}
-          </Avatar>
-          <div className="space-y-1">
-            {isInitialLoading ? (
-              <Skeleton className="h-8 w-40" />
-            ) : isEditing ? (
-              <div className="flex items-center space-x-2">
-                <Input
-                  value={editedUserName}
-                  onChange={(e) => setEditedUserName(e.target.value)}
-                  className="max-w-[200px]"
-                />
-                <Button onClick={handleSaveClick} size="sm" variant="ghost" disabled={isLoading}>
-                  {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Check className="h-4 w-4" />}
-                </Button>
-              </div>
-            ) : (
-              <div className="flex items-center space-x-2">
-                <CardTitle className="text-2xl font-bold">
-                  {userData.username || "Loading..."}
-                </CardTitle>
-              </div>
-            )}
-          </div>
-        </div>
-      </CardHeader>
-      <CardContent className="p-6 space-y-6">
-        <div className="grid grid-cols-2 gap-4">
-          <InfoItem label="Email" value={userData.email} isLoading={isInitialLoading} className="truncate overflow-hidden text-ellipsis whitespace-nowrap" />
-          <InfoItem label="Current Plan" value={plan} isLoading={isInitialLoading} />
-          <InfoItem
-            label="Newsletters Delivered"
-            value={userData.usage.newslettersDelivered}
-            isLoading={isInitialLoading}
-          />
-          <InfoItem
-            label="Newsletters Received"
-            value={userData.usage.newslettersGenerated}
-            isLoading={isInitialLoading}
-          />
-        </div>
-      </CardContent>
-      <CardFooter className="bg-gray-50 dark:bg-gray-900 p-6 flex flex-col items-center space-y-4">
-        <Button
-          onClick={handleLogout}
-          variant="outline"
-          className="w-full sm:w-auto flex items-center justify-center space-x-2"
-        >
-          <LogOut className="h-4 w-4" />
-          <span>Logout</span>
-        </Button>
-        <p className="text-xs text-center text-muted-foreground max-w-sm">
-          Your username will be used to send emails. Please ensure it's correct.
-        </p>
-      </CardFooter>
-    </Card>
-  )
-}
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+      className="min-h-screen md:w-1/2 w-full bg-[white] dark:from-gray-800 dark:to-gray-900 flex justify-center items-center p-6"
+    >
+      <motion.div
+        initial={{ y: 50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ delay: 0.2, duration: 0.5 }}
+        className="bg-white dark:bg-gray-900 rounded-3xl shadow-sm p-10 w-full max-w-md border dark:border-gray-700"
+      >
+        <div className="flex flex-col items-center gap-8">
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ type: "spring", stiffness: 260, damping: 20 }}
+          >
+            <Logo />
+          </motion.div>
 
-const InfoItem = ({ label, value, isLoading, className = "" }) => (
-  <div className="flex flex-col space-y-1">
-    <span className="text-sm text-muted-foreground">{label}</span>
-    {isLoading ? <Skeleton className="h-5 w-20" /> : <span className={`font-medium ${className}`}>{value}</span>}
-  </div>
-)
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.5 }}
+            className="text-center"
+          >
+            <h2 className="text-2xl font-semibold text-gray-700 dark:text-gray-300 mb-2">
+              Get started with ClipMailo AI
+            </h2>
+            <p className="text-gray-600 dark:text-gray-400">
+              Dive into the world of simple newsletter creation with AI.
+            </p>
+          </motion.div>
 
-export default Account
+          <motion.div
+            className="w-full"
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+          >
+            <Button
+              onClick={() => !isLoading && handleGoogleLogin()}
+              className="w-full py-3 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-200 border border-gray-300 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-300 flex items-center justify-center gap-2 text-base font-medium rounded-xl"
+              disabled={isLoading}
+            >
+              <AnimatePresence mode="wait" initial={false}>
+                {isLoading ? (
+                  <motion.div
+                    key="loading"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="w-6 h-6 border-t-2 border-gray-500 border-solid rounded-full animate-spin"
+                  />
+                ) : (
+                  <motion.div
+                    key="google"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <FcGoogle className="w-5 h-5" />
+                  </motion.div>
+                )}
+              </AnimatePresence>
+              {isLoading ? "Logging in..." : "Login with Google"}
+            </Button>
+          </motion.div>
+
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5, duration: 0.5 }}
+            className="text-gray-500 dark:text-gray-400 text-sm text-center max-w-xs"
+          >
+            Your details will be synced automatically upon login.
+          </motion.p>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+};
+
+export default AuthCard;

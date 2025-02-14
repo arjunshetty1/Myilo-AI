@@ -40,36 +40,52 @@ export function withAuth(WrappedComponent) {
     
           const requiresAuth = !isPublicPath && !matchesPublicPattern;
     
-          // Redirect logic:
-          // 1. If user is not logged in and page requires auth, go to Login
           if (!session && requiresAuth) {
             router.replace("/Login");
             return;
           }
     
-          // 2. If user is logged in and tries to access Login page, go to Application
           if (session && pathname === "/Login") {
             router.replace("/Application");
             return;
           }
     
-          // 3. For all other cases, just render the component (including homepage)
           setIsLoading(false);
         } catch (error) {
           console.error("Error checking authentication:", error);
-          setIsLoading(false);
+          // On error, if the path requires auth, redirect to login
+          const isPublicPath = [
+            "/Login",
+            "/",
+            "/earlyaccess",
+            "/terms-of-service",
+            "/contact-us",
+            "/credits",
+            "/privacy-policy",
+          ].includes(pathname);
+          
+          const isPublicPattern = [
+            /^\/s\/.+/,
+            /^\/unsubscribe\/.+/,
+            /^\/unsubscribe$/,
+          ].some(pattern => pattern.test(pathname));
+          
+          if (!isPublicPath && !isPublicPattern) {
+            router.replace("/Login");
+          } else {
+            setIsLoading(false);
+          }
         }
       };
     
       checkAuth();
     }, [pathname, router]);
     
-    // Show a simple loading indicator while auth check is in progress
+    // Show loading indicator
     if (isLoading) {
       return <div>Loading...</div>;
     }
 
-    // Once loading is complete, render the wrapped component
     return <WrappedComponent {...props} />;
   };
 }
