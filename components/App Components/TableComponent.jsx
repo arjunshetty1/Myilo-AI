@@ -53,6 +53,7 @@ const TableComponent = ({
                   <Checkbox
                     checked={selectedSubscribers.includes(item.email)}
                     onCheckedChange={() => handleSelectSubscriber(item.email)}
+                      className="bg-white border-gray-300 text-blue-600 focus:ring-blue-500"
                   />
                 </TableCell>
                 <TableCell className="font-medium">{item.email}</TableCell>
