@@ -8,7 +8,7 @@ export function withAuth(WrappedComponent) {
   return function AuthComponent(props) {
     const router = useRouter();
     const pathname = usePathname();
-    const [isAuthChecked, setIsAuthChecked] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
       const checkAuth = async () => {
@@ -40,38 +40,36 @@ export function withAuth(WrappedComponent) {
     
           const requiresAuth = !isPublicPath && !matchesPublicPattern;
     
+          // Redirect logic:
+          // 1. If user is not logged in and page requires auth, go to Login
           if (!session && requiresAuth) {
             router.replace("/Login");
             return;
           }
     
-          // ✅ Allow logged-in users to visit "/" (landing page)
-          if (session && pathname === "/") {
-            return; // Do nothing, let them stay on the landing page
-          }
-    
-          // ✅ Redirect logged-in users away from "/Login" to "/Application"
+          // 2. If user is logged in and tries to access Login page, go to Application
           if (session && pathname === "/Login") {
             router.replace("/Application");
             return;
           }
     
-          setIsAuthChecked(true);
+          // 3. For all other cases, just render the component (including homepage)
+          setIsLoading(false);
         } catch (error) {
           console.error("Error checking authentication:", error);
-          router.replace("/Login");
+          setIsLoading(false);
         }
       };
     
       checkAuth();
     }, [pathname, router]);
     
-
-    // Show nothing while checking auth
-    if (!isAuthChecked) {
-      return null;
+    // Show a simple loading indicator while auth check is in progress
+    if (isLoading) {
+      return <div>Loading...</div>;
     }
 
+    // Once loading is complete, render the wrapped component
     return <WrappedComponent {...props} />;
   };
 }
