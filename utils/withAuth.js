@@ -3,6 +3,8 @@
 import { useEffect, useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import { supabase } from "@/utils/supabaseConfig";
+import LoaderSecondary from "@/components/App Components/LoaderSecondary";
+
 
 export function withAuth(WrappedComponent) {
   return function AuthComponent(props) {
@@ -83,7 +85,7 @@ export function withAuth(WrappedComponent) {
     
     // Show loading indicator
     if (isLoading) {
-      return <div>Loading...</div>;
+      return <div><LoaderSecondary/></div>;
     }
 
     return <WrappedComponent {...props} />;
