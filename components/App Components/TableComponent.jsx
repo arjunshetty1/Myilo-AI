@@ -36,7 +36,7 @@ const TableComponent = ({
   };
 
   return (
-    <div className="border-[1px] border-[#D8D8D8] rounded-md">
+    <div className="border-[10px] border-[#D8D8D8] rounded-md">
       <Table>
         <TableHeader>
           <TableRow>
