@@ -45,13 +45,13 @@ export function withAuth(WrappedComponent) {
             return;
           }
     
-          // FIX: Only redirect to /Application if user is on "/" AND was not previously logged out
-          const previousAuthState = localStorage.getItem("wasLoggedIn");
-          if (session) {
-            localStorage.setItem("wasLoggedIn", "true");
+          // ✅ Allow logged-in users to visit "/" (landing page)
+          if (session && pathname === "/") {
+            return; // Do nothing, let them stay on the landing page
           }
     
-          if (session && pathname === "/" && previousAuthState === "true") {
+          // ✅ Redirect logged-in users away from "/Login" to "/Application"
+          if (session && pathname === "/Login") {
             router.replace("/Application");
             return;
           }
@@ -65,6 +65,7 @@ export function withAuth(WrappedComponent) {
     
       checkAuth();
     }, [pathname, router]);
+    
 
     // Show nothing while checking auth
     if (!isAuthChecked) {
