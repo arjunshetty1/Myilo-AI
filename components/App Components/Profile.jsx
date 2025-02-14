@@ -29,7 +29,7 @@ const Account = () => {
       try {
         const res = await GetProfile();
         setUserData(res);
-        setEditedUserName(res.userName); // Set editedUserName initially
+        setEditedUserName(res.userName);
       } catch (error) {
         console.error("Error fetching profile data:", error);
       } finally {
@@ -53,10 +53,7 @@ const handleSaveClick = async () => {
   setIsLoading(true);
   try {
     await updateUserName(editedUserName);
-    
-    // Re-fetch user data to get updated username
     const updatedProfile = await GetProfile();
-    
     setUserData(updatedProfile);
     setIsEditing(false);
   } catch (error) {
@@ -107,11 +104,8 @@ const handleSaveClick = async () => {
             ) : (
               <div className="flex items-center space-x-2">
                 <CardTitle className="text-2xl font-bold">
-  {userData.username || "Loading..."}
-</CardTitle>
-                {/* <Button onClick={handleEditClick} size="sm" variant="ghost">
-                  <Edit2 className="h-4 w-4" />
-                </Button> */}
+                  {userData.username || "Loading..."}
+                </CardTitle>
               </div>
             )}
           </div>
@@ -119,7 +113,7 @@ const handleSaveClick = async () => {
       </CardHeader>
       <CardContent className="p-6 space-y-6">
         <div className="grid grid-cols-2 gap-4">
-          <InfoItem label="Email" value={userData.email} isLoading={isInitialLoading} />
+          <InfoItem label="Email" value={userData.email} isLoading={isInitialLoading} className="truncate overflow-hidden text-ellipsis whitespace-nowrap" />
           <InfoItem label="Current Plan" value={plan} isLoading={isInitialLoading} />
           <InfoItem
             label="Newsletters Delivered"
@@ -150,10 +144,10 @@ const handleSaveClick = async () => {
   )
 }
 
-const InfoItem = ({ label, value, isLoading }) => (
+const InfoItem = ({ label, value, isLoading, className = "" }) => (
   <div className="flex flex-col space-y-1">
     <span className="text-sm text-muted-foreground">{label}</span>
-    {isLoading ? <Skeleton className="h-5 w-20" /> : <span className="font-medium">{value}</span>}
+    {isLoading ? <Skeleton className="h-5 w-20" /> : <span className={`font-medium ${className}`}>{value}</span>}
   </div>
 )
 
