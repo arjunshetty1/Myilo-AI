@@ -72,7 +72,7 @@ const PricingSection = () => {
               title: "Pro",
               price: "49",
               features: [
-                "1000 subscribers included",
+                "3000 subscribers included",
                 "100 newsletter creations/month",
                 "50 newsletter publishes/month",
                 "High-quality HD images included",
