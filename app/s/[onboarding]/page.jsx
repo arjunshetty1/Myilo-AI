@@ -39,23 +39,32 @@ const Page = () => {
       setErrorMessage("Please agree to the terms to continue.");
       return;
     }
-
+  
     setStatus("loading");
-    try {
-      const result = await OnboardSubscriber({ email, userId });
-
-      if (result.acknowledged && result.modifiedCount > 0) {
-        setStatus("success");
-        setEmail("");
-        setIsChecked(false);
-      } else {
-        throw new Error("Subscription was not successful. Please try again.");
+  
+    let retries = 3; // Retry up to 3 times
+    while (retries > 0) {
+      try {
+        const result = await OnboardSubscriber({ email, userId });
+  
+        if (result.acknowledged && result.modifiedCount > 0) {
+          setStatus("success");
+          setEmail("");
+          setIsChecked(false);
+          return;
+        } else {
+          throw new Error("Subscription was not successful. Please try again.");
+        }
+      } catch (error) {
+        retries--;
+        if (retries === 0) {
+          setStatus("error");
+          setErrorMessage(error.message || "An error occurred. Please try again.");
+        }
       }
-    } catch (error) {
-      setStatus("error");
-      setErrorMessage(error.message || "An error occurred. Please try again.");
     }
   };
+  
 
   const StatusBanner = ({ type }) => {
     const config = {
