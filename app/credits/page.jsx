@@ -150,17 +150,6 @@ export default function Cblueits() {
               <ul className="list-disc pl-5 text-sm text-gray-600 space-y-2">
                 <li>
                   <a
-                    href="https://www.assemblyai.com/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-blue-600 hover:underline flex items-center"
-                  >
-                    AssemblyAI - Speech recognition{" "}
-                    <ExternalLink className="h-4 w-4 ml-1" />
-                  </a>
-                </li>
-                <li>
-                  <a
                     href="https://mongoosejs.com/"
                     target="_blank"
                     rel="noopener noreferrer"
@@ -187,6 +176,17 @@ export default function Cblueits() {
                 Third-Party Services
               </h3>
               <ul className="list-disc pl-5 text-sm text-gray-600 space-y-2">
+              <li>
+                  <a
+                    href="https://supabase.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-blue-600 hover:underline flex items-center"
+                  >
+                    Supabase Auth{" "}
+                    <ExternalLink className="h-4 w-4 ml-1" />
+                  </a>
+                </li>
                 <li>
                   <a
                     href="https://developers.google.com/identity"
