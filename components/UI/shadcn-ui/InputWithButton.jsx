@@ -16,13 +16,16 @@ import {
 import { Input } from "@/components/UI/shadcn-ui/input";
 import { Label } from "@/components/UI/shadcn-ui/label";
 import { useState } from "react";
-import { UserRoundPlus } from "lucide-react";
+import { UserRoundPlus, Loader2 } from "lucide-react";
 
 export function InputWithButton({ setNewEmail, newEmail, addEmailUser }) {
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
+    setLoading(true);
     const success = await addEmailUser();
+    setLoading(false);
     if (success) {
       setOpen(false);
     }
@@ -73,8 +76,9 @@ export function InputWithButton({ setNewEmail, newEmail, addEmailUser }) {
               className="bg-[var(--third)] hover:bg-[var(--third-hover)]"
               type="submit"
               onClick={handleSubmit}
+              disabled={loading}
             >
-              Add
+              {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : "Add"}
             </Button>
           </DialogFooter>
         </DialogContent>
