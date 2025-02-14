@@ -16,7 +16,7 @@ export function withAuth(WrappedComponent) {
           const {
             data: { session },
           } = await supabase.auth.getSession();
-
+    
           const publicPaths = [
             "/Login",
             "/",
@@ -26,39 +26,43 @@ export function withAuth(WrappedComponent) {
             "/credits",
             "/privacy-policy",
           ];
-
-          // Define patterns for dynamic public routes
+    
           const publicPatterns = [
             { pattern: /^\/s\/.+/ },
-            { pattern: /^\/unsubscribe\/.+/ }, // Add pattern for dynamic unsubscribe route
-            { pattern: /^\/unsubscribe$/ }, // Also match the base unsubscribe route if needed
+            { pattern: /^\/unsubscribe\/.+/ },
+            { pattern: /^\/unsubscribe$/ },
           ];
-
+    
           const isPublicPath = publicPaths.includes(pathname);
           const matchesPublicPattern = publicPatterns.some(({ pattern }) =>
             pattern.test(pathname)
           );
-
+    
           const requiresAuth = !isPublicPath && !matchesPublicPattern;
-
+    
           if (!session && requiresAuth) {
             router.replace("/Login");
             return;
           }
-
-          // Redirect to /Application if user is authenticated and on the home page
-          if (session && pathname === "/") {
+    
+          // FIX: Only redirect to /Application if user is on "/" AND was not previously logged out
+          const previousAuthState = localStorage.getItem("wasLoggedIn");
+          if (session) {
+            localStorage.setItem("wasLoggedIn", "true");
+          }
+    
+          if (session && pathname === "/" && previousAuthState === "true") {
             router.replace("/Application");
             return;
           }
-
+    
           setIsAuthChecked(true);
         } catch (error) {
           console.error("Error checking authentication:", error);
           router.replace("/Login");
         }
       };
-
+    
       checkAuth();
     }, [pathname, router]);
 
