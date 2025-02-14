@@ -29,42 +29,30 @@ const Account = () => {
       try {
         const res = await GetProfile();
         setUserData(res);
-        setEditedUserName(res.userName); // Set editedUserName initially
+        setEditedUserName(res.userName);
       } catch (error) {
         console.error("Error fetching profile data:", error);
       } finally {
         setIsInitialLoading(false);
       }
     };
-  
+    
     fetchProfileData();
   }, [])
 
-  const handleEditClick = () => {
-    if (isEditing) {
-      handleSaveClick()
-    } else {
-      setIsEditing(true)
-      setEditedUserName(userData.username)
+  const handleSaveClick = async () => {
+    setIsLoading(true);
+    try {
+      await updateUserName(editedUserName);
+      const updatedProfile = await GetProfile();
+      setUserData(updatedProfile);
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Failed to update username:", error);
+    } finally {
+      setIsLoading(false);
     }
   }
-
-const handleSaveClick = async () => {
-  setIsLoading(true);
-  try {
-    await updateUserName(editedUserName);
-    
-    // Re-fetch user data to get updated username
-    const updatedProfile = await GetProfile();
-    
-    setUserData(updatedProfile);
-    setIsEditing(false);
-  } catch (error) {
-    console.error("Failed to update username:", error);
-  } finally {
-    setIsLoading(false);
-  }
-}
 
   const handleLogout = async () => {
     const error = await Logout()
@@ -83,7 +71,7 @@ const handleSaveClick = async () => {
             {isInitialLoading ? (
               <Skeleton className="h-full w-full rounded-full" />
             ) : userData.imgUrl ? (
-              <AvatarImage src={userData.imgUrl} alt={userData.username} />
+              <AvatarImage src={userData.imgUrl} alt={userData.userName} />
             ) : (
               <AvatarFallback>
                 <User className="h-10 w-10" />
@@ -93,33 +81,17 @@ const handleSaveClick = async () => {
           <div className="space-y-1">
             {isInitialLoading ? (
               <Skeleton className="h-8 w-40" />
-            ) : isEditing ? (
-              <div className="flex items-center space-x-2">
-                <Input
-                  value={editedUserName}
-                  onChange={(e) => setEditedUserName(e.target.value)}
-                  className="max-w-[200px]"
-                />
-                <Button onClick={handleSaveClick} size="sm" variant="ghost" disabled={isLoading}>
-                  {isLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Check className="h-4 w-4" />}
-                </Button>
-              </div>
             ) : (
-              <div className="flex items-center space-x-2">
-                <CardTitle className="text-2xl font-bold">
-  {userData.username || "Loading..."}
-</CardTitle>
-                {/* <Button onClick={handleEditClick} size="sm" variant="ghost">
-                  <Edit2 className="h-4 w-4" />
-                </Button> */}
-              </div>
+              <CardTitle className="text-2xl font-bold break-words max-w-[200px]">
+                {userData.userName || "Loading..."}
+              </CardTitle>
             )}
           </div>
         </div>
       </CardHeader>
       <CardContent className="p-6 space-y-6">
         <div className="grid grid-cols-2 gap-4">
-          <InfoItem label="Email" value={userData.email} isLoading={isInitialLoading} />
+          <InfoItem label="Email" value={userData.email} isLoading={isInitialLoading} isEmail />
           <InfoItem label="Current Plan" value={plan} isLoading={isInitialLoading} />
           <InfoItem
             label="Newsletters Delivered"
@@ -150,12 +122,15 @@ const handleSaveClick = async () => {
   )
 }
 
-const InfoItem = ({ label, value, isLoading }) => (
+const InfoItem = ({ label, value, isLoading, isEmail }) => (
   <div className="flex flex-col space-y-1">
     <span className="text-sm text-muted-foreground">{label}</span>
-    {isLoading ? <Skeleton className="h-5 w-20" /> : <span className="font-medium">{value}</span>}
+    {isLoading ? (
+      <Skeleton className="h-5 w-20" />
+    ) : (
+      <span className={`font-medium ${isEmail ? 'break-all max-w-full' : ''}`}>{value}</span>
+    )}
   </div>
 )
 
 export default Account
-

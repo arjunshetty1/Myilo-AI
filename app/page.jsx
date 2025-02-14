@@ -1,28 +1,206 @@
-"use client"
+"use client";
 
-import { useEffect, useState } from "react"
-import { motion, useScroll, useTransform } from "framer-motion"
-import Link from "next/link"
-import { Button } from "@/components/UI/shadcn-ui/button"
-import { Pen, Layout, Send, Mail, Users, BarChart } from "lucide-react"
-import Logo from "@/components/App Components/Logo"
+import { useEffect, useState } from "react";
+import { motion, useScroll, useTransform } from "framer-motion";
+import Link from "next/link";
+import { Button } from "@/components/UI/shadcn-ui/button";
+// import { Pen, Layout, Send, Mail, Users, BarChart } from "lucide-react";
+import {
+  Pen,
+  Layout,
+  Send,
+  Mail,
+  Users,
+  BarChart,
+  Youtube,
+  ArrowRight,
+  FileOutputIcon as FileExport,
+} from "lucide-react"
+import Logo from "@/components/App Components/Logo";
 
+const PricingSection = () => {
+  return (
+    <section className="py-32 bg-gray-50">
+      <div className="max-w-7xl mx-auto px-6">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="text-center mb-20"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-6">
+            Simple, <GradientText>Transparent</GradientText> Pricing
+          </h2>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">Start free, upgrade as you grow</p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+          {[
+            {
+              title: "Starter",
+              price: "0",
+              features: [
+                "500 subscribers",
+                "5 newsletter creations/month",
+                "5 newsletter publishes/month",
+                "High-quality HD images included",
+                "All templates",
+                "Email support",
+                "Full Analytics",
+                "Email service integrated",
+              ],
+              cta: "Start Free Trial",
+            },
+            {
+              title: "Growth",
+              price: "19",
+              features: [
+                "1000 subscribers max",
+                "25 newsletter creations/month",
+                "25 newsletter publishes/month",
+                "High-quality HD images included",
+                "All templates",
+                "Priority support",
+                "Full Analytics",
+                "Email service integrated",
+              ],
+              cta: "Coming Soon",
+              featured: true,
+            },
+            {
+              title: "Pro",
+              price: "49",
+              features: [
+                "1000 subscribers included",
+                "100 newsletter creations/month",
+                "50 newsletter publishes/month",
+                "High-quality HD images included",
+                "All templates",
+                "Priority support",
+                "Full Analytics",
+                "Email service integrated",
+                "$0.15 per additional subscriber",
+              ],
+              cta: "Coming Soon",
+              hasSlider: true,
+            },
+          ].map((plan, index) => {
+            // Pro plan pricing calculation with slider
+            const [subscribers, setSubscribers] = useState(1000);
+            const baseFee = 49;
+            const additionalCost = (subscribers > 1000) ? (subscribers - 1000) * 0.15 : 0;
+            const totalCost = baseFee + additionalCost;
+
+            return (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: index * 0.2 }}
+                viewport={{ once: true }}
+                className={`p-8 rounded-2xl flex flex-col ${
+                  plan.featured ? "bg-blue-600 text-white shadow-md scale-105" : "bg-white shadow-md"
+                }`}
+              >
+                <h3 className="text-2xl font-bold mb-4">{plan.title}</h3>
+                {plan.hasSlider ? (
+                  <div className="mb-6">
+                    <div className="text-4xl font-bold">
+                      ${totalCost.toFixed(0)}
+                      <span className="text-lg text-gray-500">/month</span>
+                    </div>
+                    <div className="mt-4 mb-2">
+                      <label htmlFor="subscribers" className="text-sm text-gray-600 block mb-1">
+                        Subscribers: {subscribers.toLocaleString()}
+                      </label>
+                      <input
+                        type="range"
+                        id="subscribers"
+                        min="1000"
+                        max="10000"
+                        step="100"
+                        value={subscribers}
+                        onChange={(e) => setSubscribers(parseInt(e.target.value))}
+                        className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                      />
+                    </div>
+                    <p className="text-sm text-gray-500 mt-2">
+                      Base price $49 for 1000 subscribers + $0.15 per additional subscriber
+                    </p>
+                  </div>
+                ) : (
+                  <div className="text-4xl font-bold mb-6">
+                    ${plan.price}
+                    <span className={`text-lg ${plan.featured ? "text-blue-100" : "text-gray-500"}`}>/month</span>
+                  </div>
+                )}
+                <ul className="space-y-4 mb-6 flex-grow">
+                  {plan.features.map((feature, i) => (
+                    <li key={i} className="flex items-center gap-2">
+                      <svg
+                        className={`w-5 h-5 ${plan.featured ? "text-blue-200" : "text-blue-500"}`}
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                      </svg>
+                      <span className={plan.featured ? "text-blue-100" : "text-gray-600"}>{feature}</span>
+                    </li>
+                  ))}
+                </ul>
+                <div className="mt-auto">
+                  <Link href="/Login">
+                    <Button
+                      className={`w-full py-6 ${
+                        plan.featured
+                          ? "bg-white text-blue-600 hover:bg-blue-50"
+                          : "bg-blue-600 text-white hover:bg-blue-700"
+                      } font-medium rounded-xl ${plan.cta === "Coming Soon" ? "opacity-50 cursor-not-allowed" : ""}`}
+                      disabled={plan.cta === "Coming Soon"}
+                    >
+                      {plan.cta}
+                    </Button>
+                  </Link>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        <div className="mt-16 text-center">
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            <strong>All plans include:</strong> Generate and send newsletters within one platform. 
+            No third-party costs - AI generation, email delivery, and all server costs are included in the pricing.
+          </p>
+        </div>
+      </div>
+    </section>
+  );
+};
 
 const GradientText = ({ children, className = "" }) => (
-  <span className={`bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 ${className}`}>
+  <span
+    className={`bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 ${className}`}
+  >
     {children}
   </span>
-)
+);
 
 const FloatingElement = ({ children }) => (
   <motion.div
     initial={{ y: 0 }}
     animate={{ y: [-10, 10, -10] }}
-    transition={{ duration: 6, repeat: Number.POSITIVE_INFINITY, ease: "easeInOut" }}
+    transition={{
+      duration: 6,
+      repeat: Number.POSITIVE_INFINITY,
+      ease: "easeInOut",
+    }}
   >
     {children}
   </motion.div>
-)
+);
 
 const TestimonialCard = ({ name, role, content, image }) => (
   <motion.div
@@ -41,18 +219,18 @@ const TestimonialCard = ({ name, role, content, image }) => (
       </div>
     </div>
   </motion.div>
-)
+);
 
 export default function LandingPage() {
-  const [scrolled, setScrolled] = useState(false)
-  const { scrollYProgress } = useScroll()
-  const opacity = useTransform(scrollYProgress, [0, 0.05], [1, 0])
+  const [scrolled, setScrolled] = useState(false);
+  const { scrollYProgress } = useScroll();
+  const opacity = useTransform(scrollYProgress, [0, 0.05], [1, 0]);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50)
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    const handleScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <div className="min-h-screen bg-white text-gray-900">
@@ -65,9 +243,11 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
           {/* <span className="text-2xl text-blue-600 font-bold">ClipMailo</span>
            */}
-           <Logo/>
+          <Logo />
           <Link href="/Login">
-            <Button className="bg-blue-600 hover:bg-blue-700 text-white">Sign In</Button>
+            <Button className="bg-blue-600 hover:bg-blue-700 text-white">
+              Sign In
+            </Button>
           </Link>
         </div>
       </nav>
@@ -96,8 +276,12 @@ export default function LandingPage() {
               transition={{ delay: 0.2 }}
               className="mb-8 inline-flex items-center gap-2 bg-white rounded-full py-2 px-4 shadow-md"
             >
-              <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-sm">New</span>
-              <span className="text-sm text-gray-600">AI-Powered Newsletter Platform</span>
+              <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-sm">
+                New
+              </span>
+              <span className="text-sm text-gray-600">
+                AI-Powered Newsletter Platform
+              </span>
             </motion.div>
 
             <h1 className="text-5xl md:text-7xl font-bold mb-8 tracking-tight">
@@ -105,8 +289,8 @@ export default function LandingPage() {
             </h1>
 
             <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
-              Transform your ideas into professional newsletters in minutes. Built for creators who value design and
-              efficiency.
+              Transform your ideas into professional newsletters in minutes.
+              Built for creators who value design and efficiency.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -137,8 +321,15 @@ export default function LandingPage() {
             </div>
           </FloatingElement>
         </motion.div>
-        <motion.div className="absolute bottom-0 left-0 right-0" style={{ opacity }}>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="w-full h-auto">
+        <motion.div
+          className="absolute bottom-0 left-0 right-0"
+          style={{ opacity }}
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 1440 320"
+            className="w-full h-auto"
+          >
             <path
               fill="currentColor"
               fillOpacity="1"
@@ -162,7 +353,8 @@ export default function LandingPage() {
               Crafted for <GradientText>Professional</GradientText> Creators
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Everything you need to create, manage, and grow your newsletter audience.
+              Everything you need to create, manage, and grow your newsletter
+              audience.
             </p>
           </motion.div>
 
@@ -218,6 +410,8 @@ export default function LandingPage() {
         </div>
       </section>
 
+      
+
       {/* How It Works */}
       <section className="py-32 bg-gray-50">
         <div className="max-w-7xl mx-auto px-6">
@@ -241,12 +435,14 @@ export default function LandingPage() {
               {
                 step: "01",
                 title: "Share Your Idea",
-                description: "Input your Industry, topic,length and preferences.",
+                description:
+                  "Input your Industry, topic,length and preferences.",
               },
               {
                 step: "02",
                 title: "AI Magic",
-                description: "Our AI transforms your input into engaging content.",
+                description:
+                  "Our AI transforms your input into engaging content.",
               },
               {
                 step: "03",
@@ -262,7 +458,9 @@ export default function LandingPage() {
                 viewport={{ once: true }}
                 className="relative p-8 rounded-2xl bg-white shadow-md"
               >
-                <span className="absolute -top-6 left-8 text-7xl font-bold text-blue-100">{step.step}</span>
+                <span className="absolute -top-6 left-8 text-7xl font-bold text-blue-100">
+                  {step.step}
+                </span>
                 <div className="relative">
                   <h3 className="text-xl font-semibold mb-4">{step.title}</h3>
                   <p className="text-gray-600">{step.description}</p>
@@ -286,7 +484,9 @@ export default function LandingPage() {
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               Loved by <GradientText>Creators</GradientText>
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">Join thousands of satisfied newsletter creators</p>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              Join thousands of satisfied newsletter creators
+            </p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -320,106 +520,86 @@ export default function LandingPage() {
       </section>
 
       {/* Pricing */}
-      <section className="py-32 bg-gray-50">
+      <PricingSection />
+
+{/* upcoming featuers */}
+      <section className="py-32 bg-gradient-to-b from-white to-gray-50">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
-            className="text-center mb-20"
+            className="text-center mb-16"
           >
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Simple, <GradientText>Transparent</GradientText> Pricing
+              Exciting <GradientText>Upcoming Features</GradientText>
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">Start free, upgrade as you grow</p>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              We're constantly innovating to make ClipMailo even better. Here's a sneak peek at what's coming soon:
+            </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
-            {[
-              {
-                title: "Starter",
-                price: "0",
-                features: [
-                  "500 subscribers",
-                  "10 AI newsletters/month",
-                  "All templates",
-                  "Email support",
-                  "Full Analytics",
-                ],
-                cta: "Start Free Trial",
-              },
-              {
-                title: "Growth",
-                price: "19",
-                features: [
-                  "25K subscribers",
-                  "100 AI newsletters/month",
-                  "All templates",
-                  "Priority support",
-                  "Full Analytics",
-                ],
-                cta: "Coming Soon",
-                featured: true,
-              },
-              {
-                title: "Pro",
-                price: "49",
-                features: [
-                  "Unlimited subscribers",
-                  "Unlimited AI newsletters",
-                  "All templates",
-                  "Priority support",
-                  "Full Analytics",
-                ],
-                cta: "Coming Soon",
-              },
-            ].map((plan, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.2 }}
-                viewport={{ once: true }}
-                className={`p-8 rounded-2xl ${
-                  plan.featured ? "bg-blue-600 text-white shadow-md scale-105" : "bg-white shadow-md"
-                }`}
-              >
-                <h3 className="text-2xl font-bold mb-4">{plan.title}</h3>
-                <div className="text-4xl font-bold mb-6">
-                  ${plan.price}
-                  <span className={`text-lg ${plan.featured ? "text-blue-100" : "text-gray-500"}`}>/month</span>
+          <div className="grid md:grid-cols-2 gap-12">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.1, duration: 0.6 }}
+              viewport={{ once: true }}
+              className="bg-white rounded-2xl shadow-md overflow-hidden group hover:shadow-lg transition-shadow duration-300"
+            >
+              <div className="p-8">
+                <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <Youtube className="w-8 h-8 text-blue-600" />
                 </div>
-                <ul className="space-y-4 mb-8">
-                  {plan.features.map((feature, i) => (
-                    <li key={i} className="flex items-center gap-2">
-                      <svg
-                        className={`w-5 h-5 ${plan.featured ? "text-blue-200" : "text-blue-500"}`}
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                      </svg>
-                      <span className={plan.featured ? "text-blue-100" : "text-gray-600"}>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-                <Link href="/Login">
-                  <Button
-                    className={`w-full py-6 ${
-                      plan.featured
-                        ? "bg-white text-blue-600 hover:bg-blue-50"
-                        : "bg-blue-600 text-white hover:bg-blue-700"
-                    } font-medium rounded-xl ${plan.cta === "Coming Soon" ? "opacity-50 cursor-not-allowed" : ""}`}
-                    disabled={plan.cta === "Coming Soon"}
-                  >
-                    {plan.cta}
-                  </Button>
-                </Link>
-              </motion.div>
-            ))}
+                <h3 className="text-2xl font-bold mb-4">YouTube to Newsletter Integration</h3>
+                <p className="text-gray-600 mb-6">
+                  Seamlessly convert your YouTube content into engaging newsletters, expanding your reach across
+                  multiple platforms.
+                </p>
+                <div className="flex items-center text-blue-600 font-semibold">
+                  <span>Coming Soon</span>
+                  {/* <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" /> */}
+                </div>
+              </div>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              viewport={{ once: true }}
+              className="bg-white rounded-2xl shadow-md overflow-hidden group hover:shadow-lg transition-shadow duration-300"
+            >
+              <div className="p-8">
+                <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <FileExport className="w-8 h-8 text-green-600" />
+                </div>
+                <h3 className="text-2xl font-bold mb-4">Export Newsletter as an Image in Editor</h3>
+                <p className="text-gray-600 mb-6">
+                  Gain ultimate flexibility with the ability to export your newsletters directly from the editor,
+                  perfect for multi-channel distribution strategies.
+                </p>
+                <div className="flex items-center text-green-600 font-semibold">
+                  <span>Coming soon</span>
+                  {/* <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" /> */}
+                </div>
+              </div>
+            </motion.div>
           </div>
+
+          {/* <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.3, duration: 0.6 }}
+            viewport={{ once: true }}
+            className="mt-16 text-center"
+          >
+            <Link href="/roadmap">
+              <Button variant="outline" className="px-8 py-6 text-lg font-semibold rounded-xl">
+                View Full Roadmap
+              </Button>
+            </Link>
+          </motion.div> */}
         </div>
       </section>
 
@@ -433,9 +613,12 @@ export default function LandingPage() {
             viewport={{ once: true }}
             className="text-center text-white"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">Start Your Newsletter Journey Today</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              Start Your Newsletter Journey Today
+            </h2>
             <p className="text-xl text-blue-100 mb-12 max-w-2xl mx-auto">
-              Join thousands of creators who are building their audience and monetizing their passion.
+              Join thousands of creators who are building their audience and
+              monetizing their passion.
             </p>
             <Link href="/Login">
               <Button className="px-12 py-6 bg-white text-blue-600 hover:bg-blue-50 text-lg font-medium rounded-xl">
@@ -451,24 +634,37 @@ export default function LandingPage() {
       <footer className="py-12 bg-white border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex justify-center space-x-8 mb-8">
-            <Link href="/terms-of-service" className="md:text-sm text-xs whitespace-nowrap text-gray-600 hover:text-gray-900 transition-colors">
+            <Link
+              href="/terms-of-service"
+              className="md:text-sm text-xs whitespace-nowrap text-gray-600 hover:text-gray-900 transition-colors"
+            >
               Terms of Service
             </Link>
-            <Link href="/privacy-policy" className="md:text-sm text-xs whitespace-nowrap text-gray-600 hover:text-gray-900 transition-colors">
+            <Link
+              href="/privacy-policy"
+              className="md:text-sm text-xs whitespace-nowrap text-gray-600 hover:text-gray-900 transition-colors"
+            >
               Privacy Policy
             </Link>
-            <Link href="/contact-us" className="md:text-sm text-xs whitespace-nowrap text-gray-600 hover:text-gray-900 transition-colors">
+            <Link
+              href="/contact-us"
+              className="md:text-sm text-xs whitespace-nowrap text-gray-600 hover:text-gray-900 transition-colors"
+            >
               Contact Us
             </Link>
-            <Link href="/credits" className="md:text-sm text-xs whitespace-nowrap text-gray-600 hover:text-gray-900 transition-colors">
+            <Link
+              href="/credits"
+              className="md:text-sm text-xs whitespace-nowrap text-gray-600 hover:text-gray-900 transition-colors"
+            >
               Credits
             </Link>
           </div>
 
-          <div className="text-center text-sm text-gray-600">© 2025 ClipMailo. All rights reserved.</div>
+          <div className="text-center text-sm text-gray-600">
+            © 2025 ClipMailo. All rights reserved.
+          </div>
         </div>
       </footer>
     </div>
-  )
+  );
 }
-
