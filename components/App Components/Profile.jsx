@@ -29,7 +29,7 @@ const Account = () => {
       try {
         const res = await GetProfile();
         setUserData(res);
-        setEditedUserName(res.userName);
+        setEditedUserName(res.username);
       } catch (error) {
         console.error("Error fetching profile data:", error);
       } finally {
