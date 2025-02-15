@@ -254,88 +254,94 @@ export default function LandingPage() {
 
       {/* Hero Section */}
       <section className="relative min-h-screen pt-32 pb-20 overflow-hidden">
-        <motion.div
-          className="absolute inset-0 z-0"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.5 }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-purple-100 opacity-30"></div>
-          <div className="absolute inset-0 bg-[url('/noise.png')] opacity-5 mix-blend-overlay"></div>
-        </motion.div>
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="relative z-10 max-w-7xl mx-auto px-6"
-        >
-          <div className="text-center max-w-4xl mx-auto">
-            <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ delay: 0.2 }}
-              className="mb-8 inline-flex items-center gap-2 bg-white rounded-full py-2 px-4 shadow-md"
-            >
-              <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-600 text-sm">
-                New
-              </span>
-              <span className="text-sm text-gray-600">
-                AI-Powered Newsletter Platform
-              </span>
-            </motion.div>
+      <motion.div
+        className="absolute inset-0 z-0"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.5 }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-purple-100 opacity-30"></div>
+        <div className="absolute inset-0 bg-[url('/noise.png')] opacity-5 mix-blend-overlay"></div>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        className="relative z-10 max-w-7xl mx-auto px-6"
+      >
+        <div className="text-center md:max-w-4xl max-w-5xl mx-auto">
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ delay: 0.2 }}
+            className="mb-8 inline-flex items-center gap-2 bg-white/90 backdrop-blur-sm rounded-full py-2 px-4 shadow-sm"
+          >
+            <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-600 md:text-sm text-[0.6rem] font-medium whitespace-nowrap">
+              Private Beta
+            </span>
+            <span className="md:text-sm text-[0.6rem] text-gray-600 whitespace-nowrap">
+              Currently Testing  
+            </span>
+          </motion.div>
 
-            <h1 className="text-5xl md:text-7xl font-bold mb-8 tracking-tight">
-              Create <GradientText>Stunning</GradientText> Newsletters with AI
-            </h1>
+          <h1 className="text-5xl md:text-7xl font-bold mb-8 tracking-tight">
+            Create <GradientText>Stunning</GradientText> Newsletters with AI
+          </h1>
 
-            <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
-              Transform your ideas into professional newsletters in minutes.
-              Built for creators who value design and efficiency.
-            </p>
+          <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
+            Transform your ideas into professional newsletters in minutes.
+            Built for creators who value design and efficiency.
+          </p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/Login">
-                <Button className="w-full sm:w-auto px-8 py-6 bg-blue-600 hover:bg-blue-700 text-white text-lg font-medium rounded-xl">
-                  Start Creating
-                </Button>
-              </Link>
-              <Button
-                variant="outline"
-                className="w-full sm:w-auto px-8 py-6 border-gray-200 hover:bg-gray-50 text-lg font-medium rounded-xl"
-              >
-                Watch Demo
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link href="/Login">
+              <Button className="w-full sm:w-auto px-8 py-6 bg-blue-600 hover:bg-blue-700 text-white text-lg font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-200">
+                Try Now
               </Button>
+            </Link>
+            <Button
+              variant="outline"
+              className="w-full sm:w-auto px-8 py-6 border-gray-200 hover:bg-gray-50 text-lg font-medium rounded-xl backdrop-blur-sm bg-white/50"
+            >
+              Watch Demo
+            </Button>
+          </div>
+        </div>
+
+        {/* <FloatingElement> */}
+          <div className="mt-20 relative group">
+            <div className="absolute -inset-1  rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
+            <div className="relative">
+              <video
+                className="w-full rounded-xl shadow-2xl md:h-[43.5rem] h-[12.85rem] border border-gray-200/20 bg-white/5 backdrop-blur-sm"
+                src="/Product video 2.mp4"
+                controls
+                autoPlay
+                muted
+                loop
+                playsInline
+              />
             </div>
           </div>
-
-          <FloatingElement>
-  <div className="mt-20 relative">
-    <video
-      className="w-full rounded-xl shadow-xl md:h-[43.5rem] h-[12.85rem]"
-      src="/Product video.mp4" 
-      controls
-      autoPlay
-    />
-  </div>
-</FloatingElement>
-        </motion.div>
-        <motion.div
-          className="absolute bottom-0 left-0 right-0"
-          style={{ opacity }}
+        {/* </FloatingElement> */}
+      </motion.div>
+      <motion.div
+        className="absolute bottom-0 left-0 right-0"
+        style={{ opacity }}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 1440 320"
+          className="w-full h-auto"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 1440 320"
-            className="w-full h-auto"
-          >
-            <path
-              fill="currentColor"
-              fillOpacity="1"
-              d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,122.7C960,117,1056,171,1152,197.3C1248,224,1344,224,1392,224L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
-            ></path>
-          </svg>
-        </motion.div>
-      </section>
+          <path
+            fill="currentColor"
+            fillOpacity="1"
+            d="M0,96L48,112C96,128,192,160,288,186.7C384,213,480,235,576,213.3C672,192,768,128,864,122.7C960,117,1056,171,1152,197.3C1248,224,1344,224,1392,224L1440,224L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"
+          ></path>
+        </svg>
+      </motion.div>
+    </section>
 
       {/* Features Grid */}
       <section className="py-32 bg-white">
