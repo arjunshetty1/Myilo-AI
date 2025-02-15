@@ -280,7 +280,7 @@ export default function LandingPage() {
               Private Beta
             </span>
             <span className="md:text-sm text-[0.6rem] text-gray-600 whitespace-nowrap">
-              Currently Testing  
+              Internal Release  
             </span>
           </motion.div>
 
