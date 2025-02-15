@@ -430,7 +430,7 @@ export default function Subscribers() {
               {chartLoading ? (
                 <SkeletonChart />
               ) : (
-                <div className="w-full h-64 sm:h-full">
+                <div className="w-full sm:h-full">
                   <Radarchart chartData={chartData} />
                 </div>
               )}
