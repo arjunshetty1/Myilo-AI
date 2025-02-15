@@ -632,39 +632,41 @@ export default function LandingPage() {
 
       {/* Footer */}
       <footer className="py-12 bg-white border-t border-gray-100">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="flex justify-center space-x-8 mb-8">
-            <Link
-              href="/terms-of-service"
-              className="md:text-sm text-xs whitespace-nowrap text-gray-600 hover:text-gray-900 transition-colors"
-            >
-              Terms of Service
-            </Link>
-            <Link
-              href="/privacy-policy"
-              className="md:text-sm text-xs whitespace-nowrap text-gray-600 hover:text-gray-900 transition-colors"
-            >
-              Privacy Policy
-            </Link>
-            <Link
-              href="/contact-us"
-              className="md:text-sm text-xs whitespace-nowrap text-gray-600 hover:text-gray-900 transition-colors"
-            >
-              Contact Us
-            </Link>
-            <Link
-              href="/credits"
-              className="md:text-sm text-xs whitespace-nowrap text-gray-600 hover:text-gray-900 transition-colors"
-            >
-              Credits
-            </Link>
-          </div>
+  <div className="max-w-7xl mx-auto px-6">
+    {/* Flex container for links */}
+    <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8 mb-8">
+      <Link
+        href="/terms-of-service"
+        className="text-xs sm:text-sm whitespace-nowrap text-gray-600 hover:text-gray-900 transition-colors"
+      >
+        Terms of Service
+      </Link>
+      <Link
+        href="/privacy-policy"
+        className="text-xs sm:text-sm whitespace-nowrap text-gray-600 hover:text-gray-900 transition-colors"
+      >
+        Privacy Policy
+      </Link>
+      <Link
+        href="/contact-us"
+        className="text-xs sm:text-sm whitespace-nowrap text-gray-600 hover:text-gray-900 transition-colors"
+      >
+        Contact Us
+      </Link>
+      <Link
+        href="/credits"
+        className="text-xs sm:text-sm whitespace-nowrap text-gray-600 hover:text-gray-900 transition-colors"
+      >
+        Credits
+      </Link>
+    </div>
 
-          <div className="text-center text-sm text-gray-600">
-            © 2025 ClipMailo. All rights reserved.
-          </div>
-        </div>
-      </footer>
+    {/* Copyright text */}
+    <div className="text-center text-sm text-gray-600">
+      © 2025 ClipMailo. All rights reserved.
+    </div>
+  </div>
+</footer>
     </div>
   );
 }
