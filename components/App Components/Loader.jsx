@@ -17,8 +17,6 @@ export const Loader = () => {
     "Secret weapon: Newsletters get 3x more shares than blog posts.",
     "Pro insight: 80% of professionals cite newsletters as primary info source.",
     "Community building: Regular updates increase superfan conversion by 2x.",
-    "AI is polishing your content to perfection...",
-    "Note: Preview formatting may differ slightly from email clients - we optimize for both readability and delivery!",
   ]
 
   const [currentTip, setCurrentTip] = useState(0)
@@ -39,7 +37,7 @@ export const Loader = () => {
       className="fixed inset-0 bg-gray-900/90 backdrop-blur-lg flex items-center justify-center p-4 z-50"
     >
       <div className="w-full max-w-md">
-        {/* Enhanced AI Loader */}
+        {/* AI Loader */}
         <div className="flex justify-center mb-8">
           <motion.div
             animate={{ rotate: 360 }}
@@ -63,7 +61,7 @@ export const Loader = () => {
           </motion.div>
         </div>
 
-        {/* Animated Title */}
+        {/* Title */}
         <motion.h3
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -73,8 +71,8 @@ export const Loader = () => {
           Crafting Newsletter Magic
         </motion.h3>
 
-        {/* Dynamic Tips Container */}
-        <div className="h-24 flex items-center justify-center overflow-hidden mb-6">
+        {/* Dynamic Tips */}
+        <div className="h-24 flex items-center justify-center overflow-hidden mb-4">
           <AnimatePresence mode="wait">
             <motion.div
               key={currentTip}
@@ -84,19 +82,27 @@ export const Loader = () => {
               transition={{ duration: 0.4, ease: "easeInOut" }}
               className="text-center px-4"
             >
-              <p className="text-white text-lg font-medium mb-2">
+              <p className="text-white text-lg font-medium">
                 {tips[currentTip]}
               </p>
-              {currentTip === tips.length - 1 && (
-                <p className="text-sm text-blue-200 mt-1">
-                  (We automatically optimize formatting for different email clients)
-                </p>
-              )}
             </motion.div>
           </AnimatePresence>
         </div>
 
-        {/* Glowing Progress Bar */}
+        {/* Persistent Preview Note */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="text-center mb-6"
+        >
+          <p className="text-sm text-blue-200">
+            <span className="mr-2">📌</span>
+            Note: Preview layout may vary slightly in email clients - 
+            we optimize for both readability and deliverability!
+          </p>
+        </motion.div>
+
+        {/* Progress Bar */}
         <div className="relative h-3 bg-gray-700 rounded-full overflow-hidden">
           <motion.div
             initial={{ width: "0%" }}
@@ -112,19 +118,25 @@ export const Loader = () => {
           </motion.div>
         </div>
 
-        {/* Creator Benefits Footer */}
+        {/* Creator Benefits */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          className="mt-8 text-center"
+          className="mt-6 text-center"
         >
-          <p className="text-sm text-gray-300">
+          <p className="text-sm text-gray-300 mb-2">
             Every newsletter helps you:
           </p>
-          <div className="flex justify-center flex-wrap gap-2 mt-2">
-            <span className="px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-sm">Build Authority</span>
-            <span className="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-sm">Increase Engagement</span>
-            <span className="px-3 py-1 rounded-full bg-green-500/20 text-green-300 text-sm">Drive Conversions</span>
+          <div className="flex justify-center flex-wrap gap-2">
+            <span className="px-3 py-1 rounded-full bg-blue-500/20 text-blue-300 text-sm">
+              Build Authority
+            </span>
+            <span className="px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-sm">
+              Boost Engagement
+            </span>
+            <span className="px-3 py-1 rounded-full bg-green-500/20 text-green-300 text-sm">
+              Drive Sales
+            </span>
           </div>
         </motion.div>
       </div>
