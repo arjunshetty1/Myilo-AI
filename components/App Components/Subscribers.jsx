@@ -19,9 +19,10 @@ import { Radarchart } from "@/components/UI/shadcn-ui/RadarChart"
 import { NewsletterSubscriberAnalyitics } from "@/services/Analytics"
 import { GetProfile } from "@/services/Profile"
 import Papa from "papaparse"
-import { FileUp, FileDown, Trash2, Share2, Menu } from "lucide-react"
+import { FileUp, FileDown, Trash2 } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
 import { Card, CardContent } from "@/components/UI/shadcn-ui/card"
+import { Share2 } from "lucide-react"
 
 const SkeletonChart = () => <div className="animate-pulse bg-gray-200 h-32 w-full rounded-xl"></div>
 
@@ -33,20 +34,17 @@ const SkeletonTable = () => (
   </div>
 )
 
-const SkeletonInput = () => <div className="animate-pulse bg-gray-200 h-10 rounded-full w-full md:w-64 mb-6"></div>
+const SkeletonInput = () => <div className="animate-pulse bg-gray-200 h-10 rounded-full w-64 mb-6"></div>
 
 const SkeletonIcon = () => <div className="animate-pulse bg-gray-200 h-8 w-8 rounded-full"></div>
-
-const SkeletonInviteLink = () => <div className="animate-pulse bg-gray-200 h-9 w-full md:w-40 rounded-full"></div>
+const SkeletonInviteLink = () => <div className="animate-pulse bg-gray-200 h-9 w-40 rounded-full"></div>
 
 const SkeletonContainer = () => (
-  <div className="animate-pulse flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-4 w-full">
+  <div className="animate-pulse flex space-x-4">
     <SkeletonInviteLink />
-    <div className="flex space-x-2">
-      <SkeletonIcon />
-      <SkeletonIcon />
-      <SkeletonIcon />
-    </div>
+    <SkeletonIcon />
+    <SkeletonIcon />
+    <SkeletonIcon />
   </div>
 )
 
@@ -63,9 +61,9 @@ export default function Subscribers() {
   const [chartData, setChartData] = useState([])
   const [chartLoading, setChartLoading] = useState(true)
   const [isLinkCopying, setIsLinkCopying] = useState(false)
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   const { toast } = useToast()
+
   const fileInputRef = useRef(null)
 
   useEffect(() => {
@@ -262,129 +260,119 @@ export default function Subscribers() {
     }
   }
 
-  const getLastSixMonthsRange = () => {
-    const endDate = new Date()
-    const startDate = new Date()
-    startDate.setMonth(startDate.getMonth() - 5)
-    return {
-      startDate: startDate.toISOString().split("T")[0],
-      endDate: endDate.toISOString().split("T")[0],
-    }
-  }
-
-  const getMonthName = (period) => {
-    const date = new Date(`${period}-01`)
-    return date.toLocaleString("default", { month: "short" })
-  }
-
-  const ActionButtons = () => (
-    <div className="flex flex-col md:flex-row w-full md:w-auto gap-2">
-      <TooltipProvider>
-        <Tooltip delayDuration={300}>
-          <TooltipTrigger asChild>
-            <Button
-              size="sm"
-              className="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95"
-              onClick={handleCopyLink}
-              disabled={isLinkCopying}
-            >
-              <Share2 className="mr-2 h-4 w-4" />
-              {isLinkCopying ? "Copying..." : "Share Invite Link"}
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent side="bottom" className="bg-gray-800 text-white p-2 rounded-md">
-            <p>Click to copy your unique invite link and grow your audience!</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-      <div className="flex gap-2 justify-center md:justify-start">
-        <TooltipProvider>
-          <Tooltip delayDuration={0}>
-            <TooltipTrigger asChild>
-              <Button size="icon" variant="outline" onClick={handleImportClick} className="rounded-full">
-                <FileDown className="h-4 w-4" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Import Subscribers</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-        <input
-          type="file"
-          ref={fileInputRef}
-          accept=".csv"
-          className="hidden"
-          onChange={handleFileChange}
-        />
-        <TooltipProvider>
-          <Tooltip delayDuration={0}>
-            <TooltipTrigger asChild>
-              <Button size="icon" variant="outline" onClick={exportSubscribersToCSV} className="rounded-full">
-                <FileUp className="h-4 w-4" />
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Export Subscribers</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
-        {selectedSubscribers.length > 0 && (
-          <TooltipProvider>
-            <Tooltip delayDuration={0}>
-              <TooltipTrigger asChild>
-                <Button size="icon" variant="destructive" onClick={handleDeleteSelected} className="rounded-full">
-                  <Trash2 className="h-4 w-4" />
-                </Button>
-              </TooltipTrigger>
-              <TooltipContent>
-                <p>Delete Selected ({selectedSubscribers.length})</p>
-              </TooltipContent>
-            </Tooltip>
-          </TooltipProvider>
-        )}
-      </div>
-    </div>
-  )
-
   return (
     <div className="mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-8">
       <div className="grid gap-8 lg:grid-cols-3">
         <div className="lg:col-span-2 space-y-8 flex flex-col">
-          <div className="bg-white rounded-2xl shadow-sm p-4 md:p-6 flex-grow flex flex-col">
-            <div className="flex flex-col space-y-4 mb-6">
-              <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                <h2 className="text-xl sm:text-2xl font-semibold">Subscribers</h2>
-                <div className="w-full md:w-auto">
-                  {loading ? <SkeletonContainer /> : <ActionButtons />}
-                </div>
+          <div className="bg-white rounded-2xl shadow-sm p-6 flex-grow flex flex-col">
+            <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 space-y-4 sm:space-y-0">
+              <h2 className="text-xl sm:text-2xl font-semibold">Subscribers</h2>
+              <div className="flex flex-wrap items-center gap-2">
+                {loading ? (
+                  <SkeletonContainer />
+                ) : (
+                  <>
+                    <TooltipProvider>
+                      <Tooltip delayDuration={300}>
+                        <TooltipTrigger asChild>
+                          <Button
+                            size="sm"
+                            className="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded-full shadow-lg transition-all duration-300 ease-in-out transform hover:scale-105 active:scale-95"
+                            onClick={handleCopyLink}
+                            disabled={isLinkCopying}
+                          >
+                            <Share2 className="mr-2 h-4 w-4" />
+                            {isLinkCopying ? "Copying..." : "Share Invite Link"}
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent side="bottom" className="bg-gray-800 text-white p-2 rounded-md">
+                          <p>Click to copy your unique invite link and grow your audience!</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                    <TooltipProvider>
+                      <Tooltip delayDuration={0}>
+                        <TooltipTrigger asChild>
+                          <Button size="icon" variant="outline" onClick={handleImportClick} className="rounded-full">
+                            <FileDown className="h-4 w-4" />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Import Subscribers</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      accept=".csv"
+                      className="hidden"
+                      onChange={handleFileChange}
+                    />
+                    <TooltipProvider>
+                      <Tooltip delayDuration={0}>
+                        <TooltipTrigger asChild>
+                          <Button
+                            size="icon"
+                            variant="outline"
+                            onClick={exportSubscribersToCSV}
+                            className="rounded-full"
+                          >
+                            <FileUp className="h-4 w-4" />
+                          </Button>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                          <p>Export Subscribers</p>
+                        </TooltipContent>
+                      </Tooltip>
+                    </TooltipProvider>
+                    {selectedSubscribers.length > 0 && (
+                      <TooltipProvider>
+                        <Tooltip delayDuration={0}>
+                          <TooltipTrigger asChild>
+                            <Button
+                              size="icon"
+                              variant="destructive"
+                              onClick={handleDeleteSelected}
+                              className="rounded-full"
+                            >
+                              <Trash2 className="h-4 w-4" />
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Delete Selected ({selectedSubscribers.length})</p>
+                          </TooltipContent>
+                        </Tooltip>
+                      </TooltipProvider>
+                    )}
+                  </>
+                )}
               </div>
-              {loading ? (
-                <SkeletonInput />
-              ) : (
-                <div className="flex flex-col space-y-4 md:space-y-0 md:flex-row md:items-center md:gap-4">
-                  <Input
-                    type="email"
-                    placeholder="Search by email"
-                    className="w-full rounded-full"
-                    value={emailSearch}
-                    onChange={(e) => setEmailSearch(e.target.value)}
-                  />
-                  <InputWithButton
-                    newEmail={newEmail}
-                    setNewEmail={setNewEmail}
-                    addEmailUser={handleAddEmail}
-                    className="w-full md:w-auto"
-                  />
-                </div>
-              )}
             </div>
-
-            <div className="flex-grow overflow-hidden rounded-xl">
+            {loading ? (
+              <SkeletonInput />
+            ) : (
+              <div className="flex flex-col sm:flex-row items-center gap-4 mb-6">
+                <Input
+                  type="email"
+                  placeholder="Search by email"
+                  className="w-full sm:w-auto flex-grow rounded-full"
+                  value={emailSearch}
+                  onChange={(e) => setEmailSearch(e.target.value)}
+                />
+                <InputWithButton
+                  newEmail={newEmail}
+                  setNewEmail={setNewEmail}
+                  addEmailUser={handleAddEmail}
+                  className="w-full sm:w-auto"
+                />
+              </div>
+            )}
+            <div className="flex-grow overflow-hidden rounded-xl ">
               {loading ? (
                 <SkeletonTable />
               ) : data.length > 0 ? (
-                <div className="h-full overflow-x-auto">
+                <div className="h-full overflow-y-auto">
                   <TableComponent
                     key={`table-${pageNumber}`}
                     setEmailSearch={setEmailSearch}
@@ -393,16 +381,15 @@ export default function Subscribers() {
                     selectedSubscribers={selectedSubscribers}
                     setSelectedSubscribers={setSelectedSubscribers}
                   />
-                  </div>
+                </div>
               ) : (
                 <div className="flex items-center justify-center h-full">
                   <p className="text-gray-500">No subscribers available</p>
                 </div>
               )}
             </div>
-
-            <Pagination className="mt-6">
-              <PaginationContent className="flex-wrap justify-center gap-2">
+            <Pagination className="mt-6 flex justify-center sm:justify-start">
+              <PaginationContent>
                 <PaginationItem>
                   <PaginationPrevious
                     onClick={handlePaginationPrevious}
@@ -410,7 +397,7 @@ export default function Subscribers() {
                   />
                 </PaginationItem>
                 <PaginationItem>
-                  <span className="px-4 py-2 text-sm md:text-base">
+                  <span className="px-4 py-2">
                     Page {pageNumber} of {totalPages}
                   </span>
                 </PaginationItem>
@@ -424,7 +411,6 @@ export default function Subscribers() {
             </Pagination>
           </div>
         </div>
-
         <div className="space-y-8 flex flex-col">
           <Card className="w-full">
             <CardContent>
@@ -444,7 +430,7 @@ export default function Subscribers() {
               {chartLoading ? (
                 <SkeletonChart />
               ) : (
-                <div className="w-full h-64">
+                <div className="w-full h-64 sm:h-full">
                   <Radarchart chartData={chartData} />
                 </div>
               )}
@@ -454,4 +440,21 @@ export default function Subscribers() {
       </div>
     </div>
   )
+}
+
+// Helper function to calculate the last 6 months' date range
+const getLastSixMonthsRange = () => {
+  const endDate = new Date()
+  const startDate = new Date()
+  startDate.setMonth(startDate.getMonth() - 5)
+  return {
+    startDate: startDate.toISOString().split("T")[0],
+    endDate: endDate.toISOString().split("T")[0],
+  }
+}
+
+// Helper function to convert period to month name
+const getMonthName = (period) => {
+  const date = new Date(`${period}-01`)
+  return date.toLocaleString("default", { month: "short" })
 }

@@ -97,7 +97,7 @@ export const Loader = () => {
         >
           <p className="text-sm text-blue-200">
             <span className="mr-2">📌</span>
-            Note: Preview layout may vary slightly in email clients - 
+            Note: Newsletter layout may vary slightly in email clients - 
             we optimize for both readability and deliverability!
           </p>
         </motion.div>
