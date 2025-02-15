@@ -21,7 +21,7 @@ import { GetProfile } from "@/services/Profile"
 import Papa from "papaparse"
 import { FileUp, FileDown, Trash2 } from "lucide-react"
 import { useToast } from "@/hooks/use-toast"
-import { Card, CardContent } from "@/components/UI/shadcn-ui/card"
+import { Card, CardContent } from "@/components/UI/shadcn-ui/card" // Import Card and CardContent
 import { Share2 } from "lucide-react"
 
 const SkeletonChart = () => <div className="animate-pulse bg-gray-200 h-32 w-full rounded-xl"></div>
@@ -112,7 +112,7 @@ export default function Subscribers() {
 
         toast({
           variant: "outline",
-          title: "Email added successfully! Please perform a browser refresh to see the changes",
+          title: "Email added successfully! Please perfrom a browser refresh to see the changes",
           className: "bg-[white]",
         })
 
@@ -430,7 +430,7 @@ export default function Subscribers() {
               {chartLoading ? (
                 <SkeletonChart />
               ) : (
-                <div className="w-full h-48 sm:h-64">
+                <div className="w-full h-64 sm:h-full">
                   <Radarchart chartData={chartData} />
                 </div>
               )}
@@ -458,3 +458,4 @@ const getMonthName = (period) => {
   const date = new Date(`${period}-01`)
   return date.toLocaleString("default", { month: "short" })
 }
+

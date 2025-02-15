@@ -34,7 +34,7 @@ const page = () => {
   };
   return (
     <>
-      <div>
+      <div className="min-h-screen overflow-y-auto sm:min-h-0 sm:overflow-y-visible">
         {renderComponent()}
       </div>
     </>
