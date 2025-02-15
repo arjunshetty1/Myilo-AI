@@ -1,9 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from 'react';
-import { TrendingUp, CheckCircle } from 'lucide-react';
-import LoaderSecondary from '../App Components/LoaderSecondary';
-
+import { useState, useEffect } from "react";
+import { CheckCircle } from "lucide-react";
+import LoaderSecondary from "../App Components/LoaderSecondary";
 
 const MinimalThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
   const [editableData, setEditableData] = useState(dataToTemplate);
@@ -46,7 +45,12 @@ const MinimalThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
         />
       );
     }
-    return <div className="prose prose-sm max-w-none" dangerouslySetInnerHTML={{ __html: content }} />;
+    return (
+      <div
+        className="prose prose-sm max-w-none"
+        dangerouslySetInnerHTML={{ __html: content }}
+      />
+    );
   };
 
   const rendeblueitableInput = (content, field, placeholder = "Edit text") => {
@@ -65,7 +69,7 @@ const MinimalThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
   };
 
   if (!editableData) {
-    return <LoaderSecondary/>;
+    return <LoaderSecondary />;
   }
 
   return (
@@ -80,10 +84,18 @@ const MinimalThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
         <div className="p-6 md:p-8 space-y-6 md:space-y-8">
           <div className="space-y-4">
             <h2 className="text-xl md:text-2xl font-semibold text-gray-800">
-              {rendeblueitableInput(editableData.mainTitle, "mainTitle", "Edit main title")}
+              {rendeblueitableInput(
+                editableData.mainTitle,
+                "mainTitle",
+                "Edit main title"
+              )}
             </h2>
             <div className="text-gray-600 leading-relaxed">
-              {rendeblueitableText(editableData.summary, "summary", "Edit summary")}
+              {rendeblueitableText(
+                editableData.summary,
+                "summary",
+                "Edit summary"
+              )}
             </div>
           </div>
 
@@ -97,7 +109,9 @@ const MinimalThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
                   <input
                     type="text"
                     value={tag}
-                    onChange={(e) => handleArrayInputChange("tags", index, e.target.value)}
+                    onChange={(e) =>
+                      handleArrayInputChange("tags", index, e.target.value)
+                    }
                     className="min-w-[100px] bg-transparent border-none"
                   />
                 ) : (
@@ -115,12 +129,21 @@ const MinimalThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
             <ul className="space-y-3 md:space-y-4">
               {editableData.keyPoints.map((point, index) => (
                 <li key={index} className="flex items-start">
-                  <CheckCircle size={20} className="mr-2 text-blue-600 flex-shrink-0 mt-1" />
+                  <CheckCircle
+                    size={20}
+                    className="mr-2 text-blue-600 flex-shrink-0 mt-1"
+                  />
                   {isEditing ? (
                     <input
                       type="text"
                       value={point}
-                      onChange={(e) => handleArrayInputChange("keyPoints", index, e.target.value)}
+                      onChange={(e) =>
+                        handleArrayInputChange(
+                          "keyPoints",
+                          index,
+                          e.target.value
+                        )
+                      }
                       className="w-full p-2 text-sm md:text-base bg-white border rounded-md"
                     />
                   ) : (
@@ -139,7 +162,9 @@ const MinimalThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
                     <input
                       type="text"
                       value={section.title}
-                      onChange={(e) => handleSectionChange(index, "title", e.target.value)}
+                      onChange={(e) =>
+                        handleSectionChange(index, "title", e.target.value)
+                      }
                       className="w-full p-2 text-lg md:text-xl bg-transparent border-none font-semibold"
                     />
                   ) : (
@@ -150,11 +175,16 @@ const MinimalThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
                   {isEditing ? (
                     <textarea
                       value={section.content}
-                      onChange={(e) => handleSectionChange(index, "content", e.target.value)}
+                      onChange={(e) =>
+                        handleSectionChange(index, "content", e.target.value)
+                      }
                       className="w-full p-3 text-sm md:text-base border-2 border-gray-200 rounded-lg resize-y min-h-[120px]"
                     />
                   ) : (
-                    <div className="prose prose-sm max-w-none" dangerouslySetInnerHTML={{ __html: section.content }} />
+                    <div
+                      className="prose prose-sm max-w-none"
+                      dangerouslySetInnerHTML={{ __html: section.content }}
+                    />
                   )}
                 </div>
               </div>
@@ -163,17 +193,18 @@ const MinimalThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
 
           <div className="bg-blue-50 rounded-lg p-4 md:p-6">
             <h3 className="text-xl md:text-2xl font-semibold text-gray-800 flex items-center mb-3">
-              
               Final Thoughts
             </h3>
             <div className="text-gray-700 leading-relaxed">
-              {rendeblueitableText(editableData.conclusion, "conclusion", "Edit conclusion")}
+              {rendeblueitableText(
+                editableData.conclusion,
+                "conclusion",
+                "Edit conclusion"
+              )}
             </div>
           </div>
 
-          <div className="flex justify-center">
-            
-          </div>
+          <div className="flex justify-center"></div>
         </div>
 
         <div className="bg-gray-800 text-white p-4 md:p-6 text-center">
@@ -181,10 +212,10 @@ const MinimalThree = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
             {rendeblueitableInput(editableData.footer, "footer", "Edit footer")}
           </p>
           <a
-            href="https://www.example.com"
+            href="https://www.clipmailo.com"
             className="text-xs md:text-sm text-gray-400 hover:text-gray-300 transition-colors duration-200"
           >
-            Powered by example.com
+            Powered by clipmailo.com
           </a>
         </div>
       </div>
