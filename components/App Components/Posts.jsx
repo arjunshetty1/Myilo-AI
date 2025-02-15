@@ -179,7 +179,7 @@ export default function Posts() {
   };
 
   return (
-    <div className="mx-auto px-10 md:px-4 py-8">
+    <div className="mx-auto px-2 md:px-4 py-8">
       <h1 className="text-2xl font-medium text-gray-900 mb-4 pb-2 border-b border-gray-200">
         Posts
       </h1>
