@@ -36,12 +36,12 @@ const TableComponent = ({
   };
 
   return (
-    <div>
-      <Table>
+    <div className="overflow-x-auto"> {/* Allow horizontal scrolling on mobile */}
+      <Table className="min-w-full"> {/* Ensure table takes full width */}
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[50px]"></TableHead>
-            <TableHead className="w-[250px]">Subscriber</TableHead>
+            <TableHead className="w-[50px] sm:w-auto"></TableHead> {/* Adjust width for mobile */}
+            <TableHead className="w-[250px] sm:w-auto">Subscriber</TableHead> {/* Adjust width for mobile */}
             <TableHead>Subscription date</TableHead>
           </TableRow>
         </TableHeader>
@@ -56,15 +56,17 @@ const TableComponent = ({
                     className="border-gray-300 text-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:border-blue-600"
                   />
                 </TableCell>
-                <TableCell className="font-medium">{item.email}</TableCell>
-                <TableCell>
+                <TableCell className="font-medium text-sm sm:text-base"> {/* Adjust font size for mobile */}
+                  {item.email}
+                </TableCell>
+                <TableCell className="text-sm sm:text-base"> {/* Adjust font size for mobile */}
                   {new Date(item.createdAt).toLocaleDateString()}
                 </TableCell>
               </TableRow>
             ))
           ) : (
             <TableRow>
-              <TableCell colSpan={3} className="text-center">
+              <TableCell colSpan={3} className="text-center text-sm sm:text-base"> {/* Adjust font size for mobile */}
                 No subscribers found.
               </TableCell>
             </TableRow>
