@@ -26,12 +26,12 @@ const Page = () => {
   const getCreatorData = async () => {
     try {
       const res = await GetCreatorProfile(userId);
-      console.log(res);
       setUserName(res.username);
     } catch (error) {
       console.log(error);
     }
   };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!isChecked) {
@@ -42,7 +42,7 @@ const Page = () => {
   
     setStatus("loading");
   
-    let retries = 3; // Retry up to 3 times
+    let retries = 3;
     while (retries > 0) {
       try {
         const result = await OnboardSubscriber({ email, userId });
@@ -64,14 +64,18 @@ const Page = () => {
       }
     }
   };
-  
+
+  const handleCheckboxClick = (e) => {
+    // Prevent double-firing of click events
+    e.stopPropagation();
+    setIsChecked(!isChecked);
+  };
 
   const StatusBanner = ({ type }) => {
     const config = {
       success: {
         title: "Welcome Aboard! 🚀",
-        description:
-          "You've successfully joined the newsletter. You will start receving newsletters soon as I publish.",
+        description: "You've successfully joined the newsletter. You will start receiving newsletters soon as I publish.",
         icon: <CheckCircle className="h-5 w-5" />,
         className: "bg-emerald-50 text-emerald-700 border-emerald-200",
       },
@@ -96,9 +100,7 @@ const Page = () => {
             {icon}
             <div>
               <h4 className="font-semibold">{title}</h4>
-              <AlertDescription className="mt-1">
-                {description}
-              </AlertDescription>
+              <AlertDescription className="mt-1">{description}</AlertDescription>
             </div>
           </div>
         </Alert>
@@ -109,13 +111,11 @@ const Page = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-slate-50 to-indigo-50">
       <div className="mx-auto max-w-4xl px-4 py-8 sm:py-12 sm:px-6 lg:px-8">
-        {/* Main Card */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="relative overflow-hidden rounded-2xl bg-white shadow-md sm:rounded-3xl"
         >
-          {/* Gradient Header */}
           <div className="relative bg-gradient-to-br from-indigo-500 to-purple-600 pb-16 pt-12 sm:pb-32 sm:pt-24">
             <div className="absolute inset-0">
               <Ripple />
@@ -125,13 +125,9 @@ const Page = () => {
                 initial={{ scale: 0.9 }}
                 animate={{ scale: 1 }}
                 className="inline-flex items-center gap-2 rounded-full bg-indigo-500/10 px-4 py-1.5 text-xs sm:text-sm font-medium text-indigo-100"
-              >
-                {/* <Zap className="h-3 w-3 sm:h-4 sm:w-4" />
-                <span>Powered by ClipMailo</span> */}
-              </motion.div>
+              />
               <h1 className="mt-4 text-2xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
-                Join {userName}
-                's Inner Circle
+                Join {userName}'s Inner Circle
               </h1>
               <p className="mt-3 text-sm text-indigo-100 sm:text-lg">
                 Get exclusive content delivered straight to your inbox
@@ -139,7 +135,6 @@ const Page = () => {
             </div>
           </div>
 
-          {/* Form Section */}
           <div className="px-4 pb-6 pt-4 sm:px-8 sm:pb-12 sm:pt-8">
             <div className="-mt-12 rounded-xl bg-white p-4 shadow-lg ring-1 ring-slate-900/5 sm:-mt-20 sm:rounded-2xl sm:p-8">
               <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
@@ -176,26 +171,31 @@ const Page = () => {
                     animate={{ opacity: 1 }}
                     transition={{ delay: 0.2 }}
                   >
-                    <div className="flex items-start">
-                      <input
-                        checked={isChecked}
-                        onChange={(e) => setIsChecked(e.target.checked)}
-                        id="terms"
-                        type="checkbox"
-                        className="mt-0.5 h-4 w-4 rounded border-slate-300 text-indigo-500 focus:ring-indigo-500 sm:h-5 sm:w-5"
-                      />
-                      <div className="ml-2">
+                    <div className="flex items-start w-full">
+                      <div className="relative flex items-start">
+                        <div className="flex h-6 items-center">
+                          <input
+                            checked={isChecked}
+                            onChange={() => setIsChecked(!isChecked)}
+                            onClick={handleCheckboxClick}
+                            id="terms"
+                            type="checkbox"
+                            className="h-5 w-5 cursor-pointer rounded border-slate-300 text-indigo-500 focus:ring-indigo-500"
+                            aria-labelledby="terms-label"
+                          />
+                        </div>
                         <label
                           htmlFor="terms"
-                          className="text-xs text-slate-600 sm:text-sm"
+                          id="terms-label"
+                          className="ml-2 block cursor-pointer text-xs text-slate-600 sm:text-sm"
                         >
-                          I agree to receive email updates and acknowledge
-                          ClipMailo's
+                          I agree to receive email updates and acknowledge ClipMailo's{" "}
                           <a
                             href="https://clipmailo.com/privacy-policy"
-                            className="text-indigo-500 hover:underline cursor-pointer"
+                            className="text-indigo-500 hover:underline"
+                            target="_blank"
+                            rel="noopener noreferrer"
                           >
-                            {" "}
                             Privacy Policy
                           </a>
                           . Unsubscribe anytime.
@@ -213,7 +213,6 @@ const Page = () => {
           </div>
         </motion.div>
 
-        {/* Footer */}
         <div className="mt-6 text-center sm:mt-8">
           <div className="flex flex-col items-center justify-center gap-2 text-xs text-slate-600 sm:flex-row sm:text-sm">
             <div className="flex items-center gap-1.5">
@@ -222,6 +221,8 @@ const Page = () => {
             <a
               href="https://clipmailo.com"
               className="slow-color-change font-medium"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               Try ClipMailo →
             </a>
