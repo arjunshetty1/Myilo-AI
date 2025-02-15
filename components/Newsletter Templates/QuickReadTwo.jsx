@@ -66,7 +66,7 @@ const QuickReadTwo = ({ thumbnail, dataToTemplate, isEditing, onUpdate }) => {
   }
 
   return (
-    <div className="font-sans p-4 sm:p-6">
+    <div className="font-sans p-0 sm:p-6">
       <div className="max-w-2xl mx-auto">
         <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
           <div className="relative">
