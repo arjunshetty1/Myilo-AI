@@ -309,17 +309,15 @@ export default function LandingPage() {
           </div>
 
           <FloatingElement>
-            <div className="mt-20 relative">
-              <iframe
-                className="w-full rounded-xl shadow-xl md:h-[43.5rem] h-[12.85rem]"
-                src="https://www.youtube.com/embed/3ykJw8TDYds"
-                title="YouTube video player"
-                frameBorder="0"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              />
-            </div>
-          </FloatingElement>
+  <div className="mt-20 relative">
+    <video
+      className="w-full rounded-xl shadow-xl md:h-[43.5rem] h-[12.85rem]"
+      src="/Product video.mp4" 
+      controls
+      autoPlay
+    />
+  </div>
+</FloatingElement>
         </motion.div>
         <motion.div
           className="absolute bottom-0 left-0 right-0"
