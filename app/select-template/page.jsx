@@ -17,67 +17,67 @@ const TEMPLATES = [
     id: "0",
     name: "Timeless Editorial",
     category: "General",
-    image: "/templates/timeless-editorial.png"  // Replace with actual image path
+    image: "/Template.png"  
   },
   {
     id: "2",
     name: "Executive Digest",
     category: "General",
-    image: "/templates/executive-digest.png"
+    image: "/Template.png"
   },
   {
     id: "3",
     name: "Neutral Foundations",
     category: "Minimal & Clean",
-    image: "/templates/neutral-foundations.png"
+    image: "/Template.png"
   },
   {
     id: "4",
     name: "Essential Blueprint",
     category: "Minimal & Clean",
-    image: "/templates/essential-blueprint.png"
+    image: "/Template.png"
   },
   {
     id: "5",
     name: "Pure Interface",
     category: "Minimal & Clean",
-    image: "/templates/pure-interface.png"
+    image: "/Template.png"
   },
   {
     id: "6",
     name: "Narrative Canvas",
     category: "Story-Driven",
-    image: "/templates/narrative-canvas.png"
+    image:"/Template.png"
   },
   {
     id: "7",
     name: "Chronicle Framework",
     category: "Story-Driven",
-    image: "/templates/chronicle-framework.png"
+    image: "/Template.png"
   },
   {
     id: "8",
     name: "Data Deep Dive",
     category: "Deep Dive",
-    image: "/templates/data-deep-dive.png"
+    image: "/Template.png"
   },
   {
     id: "9",
     name: "Insight Matrix",
     category: "Deep Dive",
-    image: "/templates/insight-matrix.png"
+    image: "/Template.png"
   },
   {
     id: "10",
     name: "Rapid Pulse",
     category: "Quick Reads",
-    image: "/templates/rapid-pulse.png"
+    image: "/Template.png"
   },
   {
     id: "11",
     name: "Bite-Sized Update",
     category: "Quick Reads",
-    image: "/templates/bite-sized-update.png"
+    image: "/Template.png"
   },
 ];
 
