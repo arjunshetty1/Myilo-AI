@@ -13,72 +13,18 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader } from "@/components/App Components/Loader";
 
 const TEMPLATES = [
-  {
-    id: "0",
-    name: "Timeless Editorial",
-    category: "General",
-    image: "/Template.png"  
-  },
-  {
-    id: "2",
-    name: "Executive Digest",
-    category: "General",
-    image: "/Template.png"
-  },
-  {
-    id: "3",
-    name: "Neutral Foundations",
-    category: "Minimal & Clean",
-    image: "/Template.png"
-  },
-  {
-    id: "4",
-    name: "Essential Blueprint",
-    category: "Minimal & Clean",
-    image: "/Template.png"
-  },
-  {
-    id: "5",
-    name: "Pure Interface",
-    category: "Minimal & Clean",
-    image: "/Template.png"
-  },
-  {
-    id: "6",
-    name: "Narrative Canvas",
-    category: "Story-Driven",
-    image:"/Template.png"
-  },
-  {
-    id: "7",
-    name: "Chronicle Framework",
-    category: "Story-Driven",
-    image: "/Template.png"
-  },
-  {
-    id: "8",
-    name: "Data Deep Dive",
-    category: "Deep Dive",
-    image: "/Template.png"
-  },
-  {
-    id: "9",
-    name: "Insight Matrix",
-    category: "Deep Dive",
-    image: "/Template.png"
-  },
-  {
-    id: "10",
-    name: "Rapid Pulse",
-    category: "Quick Reads",
-    image: "/Template.png"
-  },
-  {
-    id: "11",
-    name: "Bite-Sized Update",
-    category: "Quick Reads",
-    image: "/Template.png"
-  },
+  { id: "0", name: "Timeless Editorial", category: "General" },
+  // { id: "1", name: "Contemporary Brief", category: "General" },
+  { id: "2", name: "Executive Digest", category: "General" },
+  { id: "3", name: "Neutral Foundations", category: "Minimal & Clean" },
+  { id: "4", name: "Essential Blueprint", category: "Minimal & Clean" },
+  { id: "5", name: "Pure Interface", category: "Minimal & Clean" },
+  { id: "6", name: "Narrative Canvas", category: "Story-Driven" },
+  { id: "7", name: "Chronicle Framework", category: "Story-Driven" },
+  { id: "8", name: "Data Deep Dive", category: "Deep Dive" },
+  { id: "9", name: "Insight Matrix", category: "Deep Dive" },
+  { id: "10", name: "Rapid Pulse", category: "Quick Reads" },
+  { id: "11", name: "Bite-Sized Update", category: "Quick Reads" },
 ];
 
 const CATEGORIES = [
@@ -104,13 +50,9 @@ const TemplateCard = ({ template, onClick, isSelected }) => (
       }`}
       onClick={() => onClick(template)}
     >
-      <CardContent className="p-6 flex flex-col items-center gap-4 h-full">
-        <div className="w-full aspect-video mb-2 overflow-hidden rounded-lg">
-          <img
-            src={template.image}
-            alt={template.name}
-            className="w-full h-full object-cover"
-          />
+      <CardContent className="p-6 flex flex-col items-center gap-4 h-full bg-gradient-to-b from-white/50 to-transparent dark:from-gray-800/50">
+        <div className="w-12 h-12 flex items-center justify-center bg-blue-50 rounded-lg dark:bg-blue-900/30">
+          <LayoutTemplate className="w-5 h-5 text-blue-600 dark:text-blue-400" />
         </div>
         <div className="text-center space-y-2">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-50">
@@ -284,13 +226,6 @@ export default function NewsletterTemplates() {
                         <Badge variant="outline" className="ml-auto">
                           {selectedTemplate.category}
                         </Badge>
-                      </div>
-                      <div className="mt-4">
-                        <img
-                          src={selectedTemplate.image}  // Replace with selectedTemplate.image when ready
-                          alt={selectedTemplate.name}
-                          className="w-full rounded-lg"
-                        />
                       </div>
                     </div>
                     <div className="flex justify-end gap-3">
