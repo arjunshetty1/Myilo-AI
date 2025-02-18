@@ -107,7 +107,7 @@ const TemplateCard = ({ template, onClick, isSelected }) => (
       <CardContent className="p-6 flex flex-col items-center gap-4 h-full">
         <div className="w-full aspect-video mb-2 overflow-hidden rounded-lg">
           <img
-            src="/api/placeholder/400/300"  // Replace this with template.image when ready
+            src={template.image}
             alt={template.name}
             className="w-full h-full object-cover"
           />
@@ -287,7 +287,7 @@ export default function NewsletterTemplates() {
                       </div>
                       <div className="mt-4">
                         <img
-                          src="/api/placeholder/400/300"  // Replace with selectedTemplate.image when ready
+                          src={selectedTemplate.image}  // Replace with selectedTemplate.image when ready
                           alt={selectedTemplate.name}
                           className="w-full rounded-lg"
                         />
