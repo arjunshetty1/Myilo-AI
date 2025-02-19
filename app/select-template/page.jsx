@@ -50,9 +50,18 @@ const TemplateCard = ({ template, onClick, isSelected }) => (
       }`}
       onClick={() => onClick(template)}
     >
-      <CardContent className="p-6 flex flex-col items-center gap-4 h-full bg-gradient-to-b from-white/50 to-transparent dark:from-gray-800/50">
-        <div className="w-12 h-12 flex items-center justify-center bg-blue-50 rounded-lg dark:bg-blue-900/30">
-          <LayoutTemplate className="w-5 h-5 text-blue-600 dark:text-blue-400" />
+      <CardContent className="p-6 flex flex-col items-center gap-4 h-full">
+        <div className="w-full h-48 relative overflow-hidden rounded-xl bg-gradient-to-br from-gray-50 to-gray-100">
+          <img
+            src="/Template.png"
+            alt={template.name}
+            className="w-full h-full object-contain p-4"
+            loading="lazy"
+          />
+          <div className="absolute bottom-2 right-2 bg-white/80 px-2 py-1 rounded-full text-xs shadow-sm">
+            <LayoutTemplate className="w-4 h-4 text-blue-600 inline-block mr-1" />
+            Preview
+          </div>
         </div>
         <div className="text-center space-y-2">
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-50">
@@ -219,13 +228,24 @@ export default function NewsletterTemplates() {
                         Selected template:
                       </p>
                       <div className="flex items-center gap-3 bg-gray-50 dark:bg-gray-700/30 p-4 rounded-lg">
-                        <LayoutTemplate className="w-5 h-5 text-blue-500" />
-                        <span className="font-medium text-gray-900 dark:text-gray-100">
-                          {selectedTemplate.name}
-                        </span>
-                        <Badge variant="outline" className="ml-auto">
-                          {selectedTemplate.category}
-                        </Badge>
+                        <div className="w-20 h-20 overflow-hidden rounded-lg border-2 border-gray-200 dark:border-gray-600">
+                          <img
+                            src="/Template.png"
+                            alt={selectedTemplate.name}
+                            className="w-full h-full object-contain"
+                          />
+                        </div>
+                        <div>
+                          <h4 className="font-medium text-gray-900 dark:text-gray-100">
+                            {selectedTemplate.name}
+                          </h4>
+                          <Badge 
+                            variant="outline" 
+                            className="mt-1 bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200"
+                          >
+                            {selectedTemplate.category}
+                          </Badge>
+                        </div>
                       </div>
                     </div>
                     <div className="flex justify-end gap-3">
