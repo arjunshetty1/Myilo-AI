@@ -238,6 +238,16 @@ export default function NewsletterTemplates() {
                         className="w-full h-full object-contain"
                       />
                     </div>
+                    <div className="flex justify-center">
+                      <Button
+                        variant="outline"
+                        onClick={() => setSelectedPreviewTemplate(null)}
+                        className="rounded-full gap-2"
+                      >
+                        <X className="w-4 h-4" />
+                        Close Preview
+                      </Button>
+                    </div>
                   </CardContent>
                 </Card>
               </motion.div>
