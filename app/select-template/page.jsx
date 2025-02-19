@@ -230,7 +230,7 @@ export default function NewsletterTemplates() {
                       </Button>
                     </div>
                   </div>
-                  <CardContent className="p-6">
+                  <CardContent className="p-6 space-y-6">
                     <div className="relative w-full h-[70vh] bg-gray-50 rounded-xl overflow-hidden">
                       <img
                         src={selectedPreviewTemplate.image}
