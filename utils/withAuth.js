@@ -64,7 +64,7 @@ export function withAuth(WrappedComponent) {
             "/contact-us",
             "/credits",
             "/privacy-policy",
-            "/select-template"
+            
           ].includes(pathname);
           
           const isPublicPattern = [
