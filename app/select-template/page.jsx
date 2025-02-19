@@ -13,18 +13,17 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader } from "@/components/App Components/Loader";
 
 const TEMPLATES = [
-  { id: "0", name: "Timeless Editorial", category: "General" },
-  // { id: "1", name: "Contemporary Brief", category: "General" },
-  { id: "2", name: "Executive Digest", category: "General" },
-  { id: "3", name: "Neutral Foundations", category: "Minimal & Clean" },
-  { id: "4", name: "Essential Blueprint", category: "Minimal & Clean" },
-  { id: "5", name: "Pure Interface", category: "Minimal & Clean" },
-  { id: "6", name: "Narrative Canvas", category: "Story-Driven" },
-  { id: "7", name: "Chronicle Framework", category: "Story-Driven" },
-  { id: "8", name: "Data Deep Dive", category: "Deep Dive" },
-  { id: "9", name: "Insight Matrix", category: "Deep Dive" },
-  { id: "10", name: "Rapid Pulse", category: "Quick Reads" },
-  { id: "11", name: "Bite-Sized Update", category: "Quick Reads" },
+  { id: "0", name: "Timeless Editorial", category: "General", image: "/Template.png" },
+  { id: "2", name: "Executive Digest", category: "General", image: "/Template.png" },
+  { id: "3", name: "Neutral Foundations", category: "Minimal & Clean", image: "/Template.png" },
+  { id: "4", name: "Essential Blueprint", category: "Minimal & Clean", image: "/Template.png" },
+  { id: "5", name: "Pure Interface", category: "Minimal & Clean", image: "/Template.png" },
+  { id: "6", name: "Narrative Canvas", category: "Story-Driven", image: "/Template.png" },
+  { id: "7", name: "Chronicle Framework", category: "Story-Driven", image: "/Template.png" },
+  { id: "8", name: "Data Deep Dive", category: "Deep Dive", image: "/Template.png" },
+  { id: "9", name: "Insight Matrix", category: "Deep Dive", image: "/Template.png" },
+  { id: "10", name: "Rapid Pulse", category: "Quick Reads", image: "/Template.png" },
+  { id: "11", name: "Bite-Sized Update", category: "Quick Reads", image: "/Template.png" },
 ];
 
 const CATEGORIES = [
@@ -36,7 +35,7 @@ const CATEGORIES = [
   "Story-Driven",
 ];
 
-const TemplateCard = ({ template, onClick, isSelected }) => (
+const TemplateCard = ({ template, onClick, isSelected, onPreviewClick }) => (
   <motion.div 
     whileHover={{ y: -8 }} 
     whileTap={{ scale: 0.98 }}
@@ -53,12 +52,18 @@ const TemplateCard = ({ template, onClick, isSelected }) => (
       <CardContent className="p-6 flex flex-col items-center gap-4 h-full">
         <div className="w-full h-48 relative overflow-hidden rounded-xl bg-gradient-to-br from-gray-50 to-gray-100">
           <img
-            src="/Template.png"
+            src={template.image}
             alt={template.name}
             className="w-full h-full object-contain p-4"
             loading="lazy"
           />
-          <div className="absolute bottom-2 right-2 bg-white/80 px-2 py-1 rounded-full text-xs shadow-sm">
+          <div 
+            className="absolute bottom-2 right-2 bg-white/80 px-2 py-1 rounded-full text-xs shadow-sm cursor-pointer hover:bg-white transition-colors"
+            onClick={(e) => {
+              e.stopPropagation();
+              onPreviewClick(template);
+            }}
+          >
             <LayoutTemplate className="w-4 h-4 text-blue-600 inline-block mr-1" />
             Preview
           </div>
@@ -83,6 +88,7 @@ export default function NewsletterTemplates() {
   const context = useContext(CreateContextWrapper);
   const [activeCategory, setActiveCategory] = useState("All");
   const [selectedTemplate, setSelectedTemplate] = useState(null);
+  const [selectedPreviewTemplate, setSelectedPreviewTemplate] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const router = useRouter();
   const [generating, setGenerating] = useState(false);
@@ -93,8 +99,8 @@ export default function NewsletterTemplates() {
       activeCategory === "All" || template.category === activeCategory
   );
 
-  const selectTemplate = (template) => {
-    setSelectedTemplate(template);
+  const handlePreviewClick = (template) => {
+    setSelectedPreviewTemplate(template);
   };
 
   const GenerateNewsletter = async () => {
@@ -124,7 +130,7 @@ export default function NewsletterTemplates() {
       try {
         const response = await CreateNewsletter(params);
         if (!response) throw new Error("Failed to create newsletter");
-        router.push(`Edit/${response._id}`);
+        router.push(`/Edit/${response._id}`);
       } catch (error) {
         setIsLoading(false);
         toast({
@@ -190,14 +196,55 @@ export default function NewsletterTemplates() {
                   <TemplateCard
                     key={template.id}
                     template={template}
-                    onClick={selectTemplate}
+                    onClick={setSelectedTemplate}
                     isSelected={selectedTemplate?.id === template.id}
+                    onPreviewClick={handlePreviewClick}
                   />
                 ))}
               </div>
             </motion.div>
           </AnimatePresence>
 
+          {/* Preview Modal */}
+          <AnimatePresence>
+            {selectedPreviewTemplate && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                className="fixed inset-0 bg-black/30 backdrop-blur-sm flex items-center justify-center p-4 z-50"
+              >
+                <Card className="w-full max-w-4xl bg-white dark:bg-gray-800 shadow-2xl border-0 overflow-hidden">
+                  <div className="bg-gradient-to-r from-[#e6e6e6] to-[white] p-6">
+                    <div className="flex justify-between items-center">
+                      <h3 className="text-xl font-semibold text-black">
+                        {selectedPreviewTemplate.name} Preview
+                      </h3>
+                      <Button 
+                        variant="ghost" 
+                        size="sm"
+                        className="text-white/80 hover:text-white hover:bg-white/10 rounded-full"
+                        onClick={() => setSelectedPreviewTemplate(null)}
+                      >
+                        <X className="w-5 h-5" />
+                      </Button>
+                    </div>
+                  </div>
+                  <CardContent className="p-6">
+                    <div className="relative w-full h-[70vh] bg-gray-50 rounded-xl overflow-hidden">
+                      <img
+                        src={selectedPreviewTemplate.image}
+                        alt={selectedPreviewTemplate.name}
+                        className="w-full h-full object-contain"
+                      />
+                    </div>
+                  </CardContent>
+                </Card>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          {/* Confirmation Modal */}
           <AnimatePresence>
             {selectedTemplate && !generating && (
               <motion.div
@@ -230,7 +277,7 @@ export default function NewsletterTemplates() {
                       <div className="flex items-center gap-3 bg-gray-50 dark:bg-gray-700/30 p-4 rounded-lg">
                         <div className="w-20 h-20 overflow-hidden rounded-lg border-2 border-gray-200 dark:border-gray-600">
                           <img
-                            src="/Template.png"
+                            src={selectedTemplate.image}
                             alt={selectedTemplate.name}
                             className="w-full h-full object-contain"
                           />
