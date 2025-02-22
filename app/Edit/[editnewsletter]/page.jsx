@@ -56,7 +56,7 @@ import LoaderSecondary from "@/components/App Components/LoaderSecondary";
 import { TourProvider, useTour } from "@reactour/tour";
 import { ChevronRight, X } from "lucide-react";
 import { NewsletterSubscriberAnalyitics } from "@/services/Analytics";
-import Link from 'next/link'
+import Link from "next/link";
 const steps = [
   {
     selector: '[data-tour="publish-step"]',
@@ -591,12 +591,19 @@ export default function ImprovedNewsletterEditor() {
                 <Link href="/Application">
                   <Button
                     variant="outline"
-                    className="bg-gradient-to-b from-gray-50 to-gray-100 border-gray-200 text-green-700 hover:bg-gray-100 hover:text-[black]"
+                    className="bg-gradient-to-b from-gray-50 to-gray-100 border-gray-200 text-gray-700 hover:bg-gray-100 hover:text-gray-200"
                   >
                     Go to Home
                   </Button>
                 </Link>
 
+                <Button
+                  variant="outline"
+                  onClick={() => setShowTestMailModal(true)}
+                  className="bg-gradient-to-b from-blue-50 to-blue-100 border-blue-200 text-blue-700 hover:bg-blue-100 hover:text-blue-800"
+                >
+                  Send Test Mail
+                </Button>
                 <Button
                   variant="outline"
                   onClick={() => setShowPublishModal(true)}
@@ -612,13 +619,6 @@ export default function ImprovedNewsletterEditor() {
                   ) : (
                     <>Publish</>
                   )}
-                </Button>
-                <Button
-                  variant="outline"
-                  onClick={() => setShowTestMailModal(true)}
-                  className="bg-gradient-to-b from-blue-50 to-blue-100 border-blue-200 text-blue-700 hover:bg-blue-100 hover:text-blue-800"
-                >
-                  Send Test Mail
                 </Button>
               </div>
             </div>
