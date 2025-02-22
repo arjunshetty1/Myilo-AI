@@ -12,7 +12,6 @@ import {
   Users,
   BarChart,
   Youtube,
-  ArrowRight,
   FileOutputIcon as FileExport,
 } from "lucide-react";
 import Logo from "@/components/App Components/Logo";
@@ -168,7 +167,9 @@ const PricingSection = () => {
                         max="10000"
                         step="100"
                         value={subscribers}
-                        onChange={(e) => setSubscribers(parseInt(e.target.value))}
+                        onChange={(e) =>
+                          setSubscribers(parseInt(e.target.value))
+                        }
                         className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
                       />
                     </div>
@@ -304,13 +305,14 @@ export default function LandingPage() {
               </span>
             </motion.div>
 
-            <h1 className="text-5xl md:text-7xl font-bold mb-8 tracking-tight">
-              Create <GradientText>Stunning</GradientText> Newsletters with AI
+            <h1 className="text-4xl md:text-7xl font-bold mb-8 tracking-tight">
+              AI-Powered <GradientText>Newsletters</GradientText> Create,
+              Design & Send
             </h1>
 
             <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
-              Transform your ideas into professional newsletters in minutes.
-              Built for creators who value design and efficiency.
+              Generate engaging content, customize with premium templates, and
+              deliver directly to your subscribers.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -613,8 +615,8 @@ export default function LandingPage() {
               Exciting <GradientText>Upcoming Features</GradientText>
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              We're constantly innovating to make ClipMailo even better. Here's a
-              sneak peek at what's coming soon:
+              We're constantly innovating to make ClipMailo even better. Here's
+              a sneak peek at what's coming soon:
             </p>
           </motion.div>
 
@@ -658,8 +660,8 @@ export default function LandingPage() {
                 </h3>
                 <p className="text-gray-600 mb-6">
                   Gain ultimate flexibility with the ability to export your
-                  newsletters directly from the editor, perfect for multi-channel
-                  distribution strategies.
+                  newsletters directly from the editor, perfect for
+                  multi-channel distribution strategies.
                 </p>
                 <div className="flex items-center text-green-600 font-semibold">
                   <span>Coming Soon</span>
