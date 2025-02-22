@@ -1,4 +1,5 @@
 "use client";
+
 import { Button } from "@/components/UI/shadcn-ui/button";
 import { useEffect } from "react";
 import { supabase } from "@/utils/supabaseConfig";
@@ -16,11 +17,15 @@ const AuthCard = () => {
     console.log("Setting up auth listener");
     
     const checkSession = async () => {
-      const { data: { session } } = await supabase.auth.getSession();
-      console.log("Current session:", session);
-      if (session) {
-        console.log("Redirecting to /Application");
-        router.replace("/Application"); // Changed to replace to prevent back navigation
+      try {
+        const { data: { session } } = await supabase.auth.getSession();
+        console.log("Current session:", session);
+        if (session) {
+          console.log("Redirecting to /Application");
+          window.location.href = `${window.location.origin}/Application`;
+        }
+      } catch (error) {
+        console.error("Session check error:", error);
       }
     };
     
@@ -31,7 +36,7 @@ const AuthCard = () => {
         console.log("Auth event:", event, "Session:", session);
         if (event === 'SIGNED_IN' && session) {
           console.log("Redirecting after sign in");
-          router.replace("/Application"); // Changed to replace to prevent back navigation
+          window.location.href = `${window.location.origin}/Application`;
         }
       }
     );
@@ -41,11 +46,14 @@ const AuthCard = () => {
         authListener.subscription.unsubscribe();
       }
     };
-  }, [router]);
+  }, []);
 
   const handleGoogleLogin = async () => {
     setIsLoading(true);
     try {
+      const redirectURL = new URL('/Application', window.location.origin).toString();
+      console.log("Redirect URL:", redirectURL);
+
       const { error } = await supabase.auth.signInWithOAuth({
         provider: "google",
         options: {
@@ -53,7 +61,7 @@ const AuthCard = () => {
             access_type: 'offline',
             prompt: 'consent',
           },
-          redirectTo: `${window.location.origin}/Application`, // Added redirectTo option
+          redirectTo: redirectURL,
         },
       });
 
