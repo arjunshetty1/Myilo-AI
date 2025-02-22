@@ -56,8 +56,7 @@ import LoaderSecondary from "@/components/App Components/LoaderSecondary";
 import { TourProvider, useTour } from "@reactour/tour";
 import { ChevronRight, X } from "lucide-react";
 import { NewsletterSubscriberAnalyitics } from "@/services/Analytics";
-import Link from "next/link";
-
+import Link from 'next/link'
 const steps = [
   {
     selector: '[data-tour="publish-step"]',
@@ -517,10 +516,6 @@ export default function ImprovedNewsletterEditor() {
                 </TabsTrigger>
               </TabsList>
 
-              <Link href="/Application">
-                <Button>Go to Home</Button>
-              </Link>
-
               {currentTab === "edit" && (
                 <div className="flex gap-2">
                   <TooltipProvider>
@@ -593,6 +588,15 @@ export default function ImprovedNewsletterEditor() {
               )}
 
               <div className="flex gap-2 flex-wrap">
+                <Link href="/Application">
+                  <Button
+                    variant="outline"
+                    className="bg-gradient-to-b from-gray-50 to-gray-100 border-gray-200 text-green-700 hover:bg-gray-100 hover:text-[black]"
+                  >
+                    Go to Home
+                  </Button>
+                </Link>
+
                 <Button
                   variant="outline"
                   onClick={() => setShowPublishModal(true)}
