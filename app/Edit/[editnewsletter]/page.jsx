@@ -56,6 +56,7 @@ import LoaderSecondary from "@/components/App Components/LoaderSecondary";
 import { TourProvider, useTour } from "@reactour/tour";
 import { ChevronRight, X } from "lucide-react";
 import { NewsletterSubscriberAnalyitics } from "@/services/Analytics";
+import Link from "next/link";
 
 const steps = [
   {
@@ -515,6 +516,10 @@ export default function ImprovedNewsletterEditor() {
                   Preview
                 </TabsTrigger>
               </TabsList>
+
+              <Link href="/Application">
+                <Button>Go to Home</Button>
+              </Link>
 
               {currentTab === "edit" && (
                 <div className="flex gap-2">
