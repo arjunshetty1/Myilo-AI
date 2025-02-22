@@ -591,7 +591,7 @@ export default function ImprovedNewsletterEditor() {
                 <Link href="/Application">
                   <Button
                     variant="outline"
-                    className="bg-gradient-to-b from-gray-50 to-gray-100 border-gray-200 text-gray-700 hover:bg-gray-100 hover:text-gray-200"
+                    className="bg-gradient-to-b from-gray-50 to-gray-100 border-gray-200 text-gray-700 hover:bg-gray-100 hover:text-gray-800"
                   >
                     Go to Home
                   </Button>
