@@ -8,22 +8,82 @@ import { Button } from "@/components/UI/shadcn-ui/button";
 import { FileText, X, LayoutTemplate, Sparkles } from "lucide-react";
 import { CreateNewsletter } from "@/services/Newsletter";
 import { CreateContextWrapper } from "@/context/global/GlobalContext";
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/UI/shadcn-ui/tooltip";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/UI/shadcn-ui/tooltip";
 import { useToast } from "@/hooks/use-toast";
 import { Loader } from "@/components/App Components/Loader";
 
 const TEMPLATES = [
-  { id: "0", name: "Timeless Editorial", category: "General", image: "/Template.png" },
-  { id: "2", name: "Executive Digest", category: "General", image: "/Template.png" },
-  { id: "3", name: "Neutral Foundations", category: "Minimal & Clean", image: "/Template.png" },
-  { id: "4", name: "Essential Blueprint", category: "Minimal & Clean", image: "/Template.png" },
-  { id: "5", name: "Pure Interface", category: "Minimal & Clean", image: "/Template.png" },
-  { id: "6", name: "Narrative Canvas", category: "Story-Driven", image: "/Template.png" },
-  { id: "7", name: "Chronicle Framework", category: "Story-Driven", image: "/Template.png" },
-  { id: "8", name: "Data Deep Dive", category: "Deep Dive", image: "/Template.png" },
-  { id: "9", name: "Insight Matrix", category: "Deep Dive", image: "/Template.png" },
-  { id: "10", name: "Rapid Pulse", category: "Quick Reads", image: "/Template.png" },
-  { id: "11", name: "Bite-Sized Update", category: "Quick Reads", image: "/Template.png" },
+  {
+    id: "0",
+    name: "Timeless Editorial",
+    category: "General",
+    image: "/General 1.png",
+  },
+  {
+    id: "2",
+    name: "Executive Digest",
+    category: "General",
+    image: "/General 3.png",
+  },
+  {
+    id: "3",
+    name: "Neutral Foundations",
+    category: "Minimal & Clean",
+    image: "/M1.png",
+  },
+  {
+    id: "4",
+    name: "Essential Blueprint",
+    category: "Minimal & Clean",
+    image: "/M2.png",
+  },
+  {
+    id: "5",
+    name: "Pure Interface",
+    category: "Minimal & Clean",
+    image: "/M3.png",
+  },
+  {
+    id: "6",
+    name: "Narrative Canvas",
+    category: "Story-Driven",
+    image: "/Story 1.png",
+  },
+  {
+    id: "7",
+    name: "Chronicle Framework",
+    category: "Story-Driven",
+    image: "/Story 2.png",
+  },
+  {
+    id: "8",
+    name: "Data Deep Dive",
+    category: "Deep Dive",
+    image: "/DD 1.png",
+  },
+  {
+    id: "9",
+    name: "Insight Matrix",
+    category: "Deep Dive",
+    image: "/DD 2.png",
+  },
+  {
+    id: "10",
+    name: "Rapid Pulse",
+    category: "Quick Reads",
+    image: "/Quick 1.png",
+  },
+  {
+    id: "11",
+    name: "Bite-Sized Update",
+    category: "Quick Reads",
+    image: "/Quick 2.png",
+  },
 ];
 
 const CATEGORIES = [
@@ -36,15 +96,15 @@ const CATEGORIES = [
 ];
 
 const TemplateCard = ({ template, onClick, isSelected, onPreviewClick }) => (
-  <motion.div 
-    whileHover={{ y: -8 }} 
+  <motion.div
+    whileHover={{ y: -8 }}
     whileTap={{ scale: 0.98 }}
     transition={{ type: "spring", stiffness: 300 }}
   >
     <Card
       className={`group relative overflow-hidden cursor-pointer rounded-2xl border-2 transition-all ${
-        isSelected 
-          ? "border-blue-500 shadow-xl dark:border-blue-400" 
+        isSelected
+          ? "border-blue-500 shadow-xl dark:border-blue-400"
           : "border-transparent hover:border-gray-200 dark:hover:border-gray-700"
       }`}
       onClick={() => onClick(template)}
@@ -57,7 +117,7 @@ const TemplateCard = ({ template, onClick, isSelected, onPreviewClick }) => (
             className="w-full h-full object-contain p-4"
             loading="lazy"
           />
-          <div 
+          <div
             className="absolute bottom-2 right-2 bg-white/80 px-2 py-1 rounded-full text-xs shadow-sm cursor-pointer hover:bg-white transition-colors"
             onClick={(e) => {
               e.stopPropagation();
@@ -72,8 +132,8 @@ const TemplateCard = ({ template, onClick, isSelected, onPreviewClick }) => (
           <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-50">
             {template.name}
           </h3>
-          <Badge 
-            variant="outline" 
+          <Badge
+            variant="outline"
             className="bg-gradient-to-r from-blue-100 to-purple-100 text-blue-800 dark:from-blue-900/30 dark:to-purple-900/30 dark:text-blue-200"
           >
             {template.category}
@@ -154,13 +214,16 @@ export default function NewsletterTemplates() {
               className="inline-flex items-center gap-2 text-blue-600 bg-blue-50 px-4 py-1 rounded-full dark:bg-blue-900/30 dark:text-blue-400"
             >
               <Sparkles className="w-4 h-4" />
-              <span className="text-sm font-medium">New templates available</span>
+              <span className="text-sm font-medium">
+                New templates available
+              </span>
             </motion.div>
             <h1 className="text-4xl font-bold text-gray-900 dark:text-white">
               Craft Your Narrative
             </h1>
             <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
-              Select a foundation that aligns with your communication style and audience expectations
+              Select a foundation that aligns with your communication style and
+              audience expectations
             </p>
           </header>
 
@@ -172,7 +235,7 @@ export default function NewsletterTemplates() {
                   variant={activeCategory === category ? "default" : "outline"}
                   onClick={() => setActiveCategory(category)}
                   className={`rounded-full px-5 ${
-                    activeCategory === category 
+                    activeCategory === category
                       ? "shadow-md bg-gradient-to-r from-blue-500 to-blue-400 text-white hover:opacity-90"
                       : "bg-white dark:bg-gray-800"
                   }`}
@@ -220,8 +283,8 @@ export default function NewsletterTemplates() {
                       <h3 className="text-xl font-semibold text-black">
                         {selectedPreviewTemplate.name} Preview
                       </h3>
-                      <Button 
-                        variant="ghost" 
+                      <Button
+                        variant="ghost"
                         size="sm"
                         className="text-white/80 hover:text-white hover:bg-white/10 rounded-full"
                         onClick={() => setSelectedPreviewTemplate(null)}
@@ -269,8 +332,8 @@ export default function NewsletterTemplates() {
                       <h3 className="text-xl font-semibold text-black">
                         Confirm Template
                       </h3>
-                      <Button 
-                        variant="ghost" 
+                      <Button
+                        variant="ghost"
                         size="sm"
                         className="text-white/80 hover:text-white hover:bg-white/10 rounded-full"
                         onClick={() => setSelectedTemplate(null)}
@@ -296,8 +359,8 @@ export default function NewsletterTemplates() {
                           <h4 className="font-medium text-gray-900 dark:text-gray-100">
                             {selectedTemplate.name}
                           </h4>
-                          <Badge 
-                            variant="outline" 
+                          <Badge
+                            variant="outline"
                             className="mt-1 bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-200"
                           >
                             {selectedTemplate.category}
@@ -306,8 +369,8 @@ export default function NewsletterTemplates() {
                       </div>
                     </div>
                     <div className="flex justify-end gap-3">
-                      <Button 
-                        variant="outline" 
+                      <Button
+                        variant="outline"
                         onClick={() => setSelectedTemplate(null)}
                         className="rounded-full"
                       >
