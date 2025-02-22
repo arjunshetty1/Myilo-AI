@@ -115,7 +115,7 @@ const TemplateCard = ({ template, onClick, isSelected, onPreviewClick }) => (
             src={template.image}
             alt={template.name}
             className="w-full h-full object-contain p-4"
-            loading="lazy"
+            // loading="lazy"
           />
           <div
             className="absolute bottom-2 right-2 bg-white/80 px-2 py-1 rounded-full text-xs shadow-sm cursor-pointer hover:bg-white transition-colors"

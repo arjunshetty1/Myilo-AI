@@ -180,7 +180,7 @@ export default function Posts() {
 
   return (
     <div className="mx-auto px-2 md:px-4 py-8">
-      <h1 className="text-2xl font-medium text-gray-900 mb-4 pb-2 border-b border-gray-200">
+      <h1 className="text-2xl font-medium text-gray-900 mb-4 pb-2 ">
         Posts
       </h1>
       <Tabs
