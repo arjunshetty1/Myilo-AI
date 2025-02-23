@@ -331,21 +331,21 @@ export default function LandingPage() {
           </div>
 
           <FloatingElement>
-            <div className="mt-20 relative group">
-              <div className="absolute -inset-1 rounded-2xl blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200"></div>
-              <div className="relative">
-                <video
-                  className="w-full rounded-xl shadow-2xl md:h-[43.5rem] h-[12.85rem] border border-gray-200/20 bg-white/5 backdrop-blur-sm"
-                  src="/Product video 2.mp4"
-                  controls
-                  autoPlay
-                  muted
-                  loop
-                  playsInline
-                />
-              </div>
-            </div>
-          </FloatingElement>
+  <div className="mt-20 relative group">
+    <div className="absolute -inset-2 bg-white/10 rounded-2xl blur-lg opacity-50 group-hover:opacity-75 transition duration-500 group-hover:duration-200"></div>
+    <div className="relative">
+      <video
+        className="w-full rounded-xl shadow-md transition-shadow duration-300 group-hover:shadow-xl"
+        src="/Product video 2.mp4"
+        controls
+        autoPlay
+        muted
+        loop
+        playsInline
+      />
+    </div>
+  </div>
+</FloatingElement>
         </motion.div>
         <motion.div
           className="absolute bottom-0 left-0 right-0"
