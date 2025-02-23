@@ -9,28 +9,32 @@ import { AlertCircle, CheckCircle, Loader2, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { GetCreatorProfile, OnboardSubscriber } from "@/services/Subscribers";
 
-const Page = () => {
+function OnboardingPage() {
   const params = useParams();
   const [email, setEmail] = useState("");
   const [isChecked, setIsChecked] = useState(false);
   const [status, setStatus] = useState("idle");
   const [errorMessage, setErrorMessage] = useState("");
   const [userName, setUserName] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
 
   const userId = params.onboarding;
 
   useEffect(() => {
+    const getCreatorData = async () => {
+      setIsLoading(true);
+      try {
+        const res = await GetCreatorProfile(userId);
+        setUserName(res.username);
+      } catch (error) {
+        console.log(error);
+        setUserName("the Creator");
+      } finally {
+        setIsLoading(false);
+      }
+    };
     getCreatorData();
-  }, []);
-
-  const getCreatorData = async () => {
-    try {
-      const res = await GetCreatorProfile(userId);
-      setUserName(res.username);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  }, [userId]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -39,14 +43,14 @@ const Page = () => {
       setErrorMessage("Please agree to the terms to continue.");
       return;
     }
-  
+
     setStatus("loading");
-  
+
     let retries = 3;
     while (retries > 0) {
       try {
         const result = await OnboardSubscriber({ email, userId });
-  
+
         if (result.acknowledged && result.modifiedCount > 0) {
           setStatus("success");
           setEmail("");
@@ -65,8 +69,9 @@ const Page = () => {
     }
   };
 
+  const formattedName = userName.charAt(0).toUpperCase() + userName.slice(1);
+
   const handleCheckboxClick = (e) => {
-    // Prevent double-firing of click events
     e.stopPropagation();
     setIsChecked(!isChecked);
   };
@@ -126,9 +131,25 @@ const Page = () => {
                 animate={{ scale: 1 }}
                 className="inline-flex items-center gap-2 rounded-full bg-indigo-500/10 px-4 py-1.5 text-xs sm:text-sm font-medium text-indigo-100"
               />
-              <h1 className="mt-4 text-2xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl">
-                Join {userName}'s Inner Circle
-              </h1>
+              {isLoading ? (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                  className="mt-4 flex justify-center items-center"
+                >
+                  <Loader2 className="h-8 w-8 animate-spin text-white/80 sm:h-10 sm:w-10 md:h-12 md:w-12" />
+                </motion.div>
+              ) : (
+                <motion.h1
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ duration: 0.3 }}
+                  className="mt-4 text-2xl font-bold tracking-tight text-white sm:text-4xl md:text-5xl"
+                >
+                  Join {formattedName}'s Inner Circle
+                </motion.h1>
+              )}
               <p className="mt-3 text-sm text-indigo-100 sm:text-lg">
                 Get exclusive content delivered straight to your inbox
               </p>
@@ -231,6 +252,6 @@ const Page = () => {
       </div>
     </div>
   );
-};
+}
 
-export default Page;
+export default OnboardingPage;
