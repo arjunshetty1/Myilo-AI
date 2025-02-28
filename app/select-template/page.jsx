@@ -175,8 +175,8 @@ export default function NewsletterTemplates() {
       length: context.choosenNewsLetterInputs.length,
       target: context.choosenNewsLetterInputs.target,
       tone: context.choosenNewsLetterInputs.tone,
-      brandGuidelines: context.choosenNewsLetterInputs.brandGuidelines,
-      keyPoints: context.choosenNewsLetterInputs.keyPoints,
+      // customInstruction: context.choosenNewsLetterInputs.brandGuidelines,
+      customInstruction: context.choosenNewsLetterInputs.keyPoints,
     };
 
     if (!context.choosenNewsLetterInputs) {
