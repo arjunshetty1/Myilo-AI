@@ -17,8 +17,8 @@ import {
 import { ChartContainer } from "@/components/UI/shadcn-ui/chart";
 
 const chartConfig = {
-  visitors: {
-    label: "Visitors",
+  subscribers: {
+    label: "subscribers",
   },
   safari: {
     label: "Safari",
@@ -28,7 +28,7 @@ const chartConfig = {
 
 export function RiadialChartShape({ totalSubscribers }) {
   const chartData = [
-    { browser: "safari", visitors: totalSubscribers, fill: "var(--primary)" },
+    { browser: "safari", subscribers: totalSubscribers, fill: "var(--primary)" },
   ];
   return (
     <Card className="flex flex-col">
@@ -54,7 +54,7 @@ export function RiadialChartShape({ totalSubscribers }) {
               className="first:fill-muted last:fill-background"
               polarRadius={[86, 74]}
             />
-            <RadialBar dataKey="visitors" background />
+            <RadialBar dataKey="subscribers" background />
             <PolarRadiusAxis tick={false} tickLine={false} axisLine={false}>
               <Label
                 content={({ viewBox }) => {
@@ -71,14 +71,14 @@ export function RiadialChartShape({ totalSubscribers }) {
                           y={viewBox.cy}
                           className="fill-foreground text-4xl font-bold"
                         >
-                          {chartData[0].visitors.toLocaleString()}
+                          {chartData[0].subscribers.toLocaleString()}
                         </tspan>
                         <tspan
                           x={viewBox.cx}
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          <Subscribers></Subscribers>
+                          subscribers
                         </tspan>
                       </text>
                     );
