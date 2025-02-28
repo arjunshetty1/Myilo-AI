@@ -78,7 +78,7 @@ export function RiadialChartShape({ totalSubscribers }) {
                           y={(viewBox.cy || 0) + 24}
                           className="fill-muted-foreground"
                         >
-                          Visitors
+                          <Subscribers></Subscribers>
                         </tspan>
                       </text>
                     );

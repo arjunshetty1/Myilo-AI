@@ -121,7 +121,7 @@ const handleSaveClick = async () => {
             isLoading={isInitialLoading}
           />
           <InfoItem
-            label="Newsletters Received"
+            label="Newsletters Generated"
             value={userData.usage.newslettersGenerated}
             isLoading={isInitialLoading}
           />
