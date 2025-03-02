@@ -6,7 +6,7 @@ export default function PrivacyPolicy() {
     <div className="min-h-screen bg-gray-50">
       <main className="py-12 px-4 sm:px-6 lg:px-8">
         <div className="max-w-3xl mx-auto">
-          <h2 className="text-2xl font-bold text-gray-900 text-center mb-8">
+          <h2 className="text-2xl text-gray-900 text-center mb-8">
             Privacy Policy
           </h2>
           <div className="bg-white shadow overflow-hidden sm:rounded-lg">
@@ -135,7 +135,7 @@ export default function PrivacyPolicy() {
                     3. Contact Us
                   </h4>
                   <p className="text-sm text-gray-600">
-                    If you have questions about this Privacy Policy or your data, please contact us at <a href="mailto:contact@clipmailo.com" className="text-indigo-500 hover:underline">privacy@clipmailo.com</a>.
+                    If you have questions about this Privacy Policy or your data, please contact us at <a href="mailto:contact@clipmailo.com" className="text-indigo-500 hover:underline">clipmailo@gmail.com</a>.
                   </p>
                 </div>
               </div>
