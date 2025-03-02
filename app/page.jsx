@@ -516,21 +516,21 @@ export default function LandingPage() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                name: "Sarah Johnson",
+                name: "Geroge Henry",
                 role: "Content Creator",
                 content:
                   "ClipMailo has transformed how I create newsletters. The AI suggestions are spot-on, and the templates are beautiful.",
                 image: "https://i.pravatar.cc/48?img=1",
               },
               {
-                name: "Mike Chen",
+                name: "Yusong Chals",
                 role: "Tech Blogger",
                 content:
                   "The efficiency and quality of content generation is unmatched. My subscriber engagement has increased by 40%.",
                 image: "https://i.pravatar.cc/48?img=2",
               },
               {
-                name: "Emma Davis",
+                name: "Nancy David",
                 role: "Marketing Director",
                 content:
                   "Finally, a newsletter platform that understands modern design and content needs. Absolutely worth every penny.",
@@ -703,6 +703,12 @@ export default function LandingPage() {
       <footer className="py-12 bg-white border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-8 mb-8">
+          <Link
+              href="/blogs"
+              className="text-xs sm:text-sm whitespace-nowrap text-gray-600 hover:text-gray-900 transition-colors"
+            >
+              Blogs
+            </Link>
             <Link
               href="/terms-of-service"
               className="text-xs sm:text-sm whitespace-nowrap text-gray-600 hover:text-gray-900 transition-colors"
