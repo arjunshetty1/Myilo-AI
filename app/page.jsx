@@ -518,7 +518,7 @@ export default function LandingPage() {
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                name: "Geroge Henry",
+                name: "Gorge Henry",
                 role: "Content Creator",
                 content:
                   "ClipMailo has transformed how I create newsletters. The AI suggestions are spot-on, and the templates are beautiful.",
