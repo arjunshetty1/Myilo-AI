@@ -25,7 +25,7 @@ export default function ContactUs() {
                     <div className="flex items-center">
                       <Mail className="h-5 w-5 text-gray-400 mr-2" />
                       <span className="text-sm text-gray-600">
-                        contact@clipmailo.com
+                        clipmailo@gmail.com
                       </span>
                     </div>
                     <div className="flex items-center">
