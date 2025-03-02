@@ -106,8 +106,9 @@ const PricingSection = () => {
                 "Full Analytics",
                 "Email service integrated",
               ],
-              cta: "Choose Growth",
+              cta: "Coming Soon",
               featured: true,
+              disabled:true,
             },
             {
               title: "Pro",
@@ -123,8 +124,9 @@ const PricingSection = () => {
                 "Email service integrated",
                 "$0.15 per additional subscriber",
               ],
-              cta: "Choose Pro",
+              cta: "Coming Soon",
               hasSlider: true,
+              disabled:true,
             },
           ].map((plan, index) => {
             const [subscribers, setSubscribers] = useState(1000);
