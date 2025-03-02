@@ -135,7 +135,7 @@ export default function PrivacyPolicy() {
                     3. Contact Us
                   </h4>
                   <p className="text-sm text-gray-600">
-                    If you have questions about this Privacy Policy or your data, please contact us at <a href="mailto:contact@clipmailo.com" className="text-indigo-500 hover:underline">clipmailo@gmail.com</a>.
+                    If you have questions about this Privacy Policy or your data, please contact us at <a href="mailto:clipmailo@gmail.com" className="text-indigo-500 hover:underline">clipmailo</a>.
                   </p>
                 </div>
               </div>
