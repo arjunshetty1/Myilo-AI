@@ -137,11 +137,11 @@ const PricingSection = () => {
                     : "bg-white shadow-md border border-gray-100 hover:shadow-lg"
                 } transition-all duration-300`}
               >
-                {plan.featured && (
+                {/* {plan.featured && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-amber-400 to-amber-500 text-white text-sm font-bold py-1 px-4 rounded-full shadow-md">
                     Most Popular
                   </div>
-                )}
+                )} */}
                 <h3 className="text-2xl font-bold mb-4">{plan.title}</h3>
                 {plan.hasSlider ? (
                   <div className="mb-6">
