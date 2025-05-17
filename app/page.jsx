@@ -5,6 +5,8 @@ import { motion, useScroll, useTransform } from "framer-motion"
 import Link from "next/link"
 import { Button } from "@/components/UI/shadcn-ui/button"
 import { Pen, Layout, Send, Mail, Users, BarChart, Youtube, FileOutputIcon as FileExport } from "lucide-react"
+import Logo from "@/components/App Components/Logo"
+
 
 const GradientText = ({ children, className = "" }) => (
   <span className={`bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 ${className}`}>
@@ -230,38 +232,22 @@ const PricingSection = () => {
   )
 }
 
-const Logo = () => (
-  <div className="flex items-center gap-2">
-    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xl">
-      C
-    </div>
-    <span className="text-xl font-bold">ClipMailo</span>
-  </div>
-)
-
 export default function LandingPage() {
-  const [scrolled, setScrolled] = useState(false)
+
   const { scrollYProgress } = useScroll()
   const opacity = useTransform(scrollYProgress, [0, 0.05], [1, 0])
   const heroRef = useRef(null)
   const heroScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95])
   const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0.8])
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50)
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
 
   return (
     <div className="min-h-screen bg-white text-gray-900">
       {/* Navbar */}
       <nav
-        className={`fixed w-full z-50 transition-all duration-300 ${
-          scrolled ? "bg-white/90 backdrop-blur-md shadow-sm py-3" : "py-5"
-        }`}
+        className=" w-full z-50 transition-all duration-300 bg-gradient-to-br from-blue-100 to-purple-100 pt-4"
       >
-        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between bg-gradient-to-br from-blue-100 to-purple-100">
           <Logo />
           <div className="flex items-center gap-4">
             <Link href="/Login" className="text-gray-700 hover:text-blue-600 transition-colors hidden md:block">
