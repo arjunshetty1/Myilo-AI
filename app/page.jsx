@@ -1,28 +1,16 @@
-"use client";
+"use client"
 
-import { useEffect, useState } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
-import Link from "next/link";
-import { Button } from "@/components/UI/shadcn-ui/button";
-import {
-  Pen,
-  Layout,
-  Send,
-  Mail,
-  Users,
-  BarChart,
-  Youtube,
-  FileOutputIcon as FileExport,
-} from "lucide-react";
-import Logo from "@/components/App Components/Logo";
+import { useEffect, useState, useRef } from "react"
+import { motion, useScroll, useTransform } from "framer-motion"
+import Link from "next/link"
+import { Button } from "@/components/UI/shadcn-ui/button"
+import { Pen, Layout, Send, Mail, Users, BarChart, Youtube, FileOutputIcon as FileExport } from "lucide-react"
 
 const GradientText = ({ children, className = "" }) => (
-  <span
-    className={`bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 ${className}`}
-  >
+  <span className={`bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600 ${className}`}>
     {children}
   </span>
-);
+)
 
 const FloatingElement = ({ children }) => (
   <motion.div
@@ -36,7 +24,7 @@ const FloatingElement = ({ children }) => (
   >
     {children}
   </motion.div>
-);
+)
 
 const TestimonialCard = ({ name, role, content, image }) => (
   <motion.div
@@ -44,20 +32,27 @@ const TestimonialCard = ({ name, role, content, image }) => (
     whileInView={{ opacity: 1, y: 0 }}
     transition={{ duration: 0.5 }}
     viewport={{ once: true }}
-    className="p-6 rounded-2xl bg-white shadow-md border border-gray-100"
+    className="p-8 rounded-2xl bg-white shadow-md border border-gray-100 hover:shadow-lg transition-all duration-300"
   >
-    <p className="text-gray-700 mb-6">{content}</p>
+    <p className="text-gray-700 mb-6 italic">{`"${content}"`}</p>
     <div className="flex items-center gap-4">
-      {/* <img src={image} alt={name} className="w-12 h-12 rounded-full" /> */}
+      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold">
+        {name.charAt(0)}
+      </div>
       <div>
         <h4 className="font-semibold text-gray-900">{name}</h4>
         <p className="text-sm text-gray-600">{role}</p>
       </div>
     </div>
   </motion.div>
-);
+)
 
 const PricingSection = () => {
+  const [subscribersPro, setSubscribersPro] = useState(1000)
+  const baseFeePro = 49
+  const additionalCostPro = subscribersPro > 1000 ? (subscribersPro - 1000) * 0.15 : 0
+  const totalCostPro = baseFeePro + additionalCostPro
+
   return (
     <section className="py-32 bg-gray-50">
       <div className="max-w-7xl mx-auto px-6">
@@ -71,9 +66,7 @@ const PricingSection = () => {
           <h2 className="text-4xl md:text-5xl font-bold mb-6">
             Simple, <GradientText>Transparent</GradientText> Pricing
           </h2>
-          <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Start free, upgrade as you grow
-          </p>
+          <p className="text-xl text-gray-600 max-w-2xl mx-auto">Start free, upgrade as you grow</p>
         </motion.div>
 
         <div className="grid md:grid-cols-3 gap-8">
@@ -108,7 +101,7 @@ const PricingSection = () => {
               ],
               cta: "Coming Soon",
               featured: true,
-              disabled:true,
+              disabled: true,
             },
             {
               title: "Pro",
@@ -126,15 +119,9 @@ const PricingSection = () => {
               ],
               cta: "Coming Soon",
               hasSlider: true,
-              disabled:true,
+              disabled: true,
             },
           ].map((plan, index) => {
-            const [subscribers, setSubscribers] = useState(1000);
-            const baseFee = 49;
-            const additionalCost =
-              subscribers > 1000 ? (subscribers - 1000) * 0.15 : 0;
-            const totalCost = baseFee + additionalCost;
-
             return (
               <motion.div
                 key={index}
@@ -142,25 +129,30 @@ const PricingSection = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.2 }}
                 viewport={{ once: true }}
-                className={`p-8 rounded-2xl flex flex-col ${
+                className={`p-8 rounded-2xl flex flex-col h-full ${
                   plan.featured
-                    ? "bg-blue-600 text-white shadow-md scale-105"
-                    : "bg-white shadow-md"
-                }`}
+                    ? "bg-gradient-to-br from-blue-600 to-indigo-600 text-white shadow-xl scale-105 border-0"
+                    : "bg-white shadow-md border border-gray-100 hover:shadow-lg"
+                } transition-all duration-300`}
               >
+                {plan.featured && (
+                  <div className="absolute -top-4 left-1/2 transform -translate-x-1/2 bg-gradient-to-r from-amber-400 to-amber-500 text-white text-sm font-bold py-1 px-4 rounded-full shadow-md">
+                    Most Popular
+                  </div>
+                )}
                 <h3 className="text-2xl font-bold mb-4">{plan.title}</h3>
                 {plan.hasSlider ? (
                   <div className="mb-6">
-                    <div className="text-4xl font-bold">
-                      ${totalCost.toFixed(0)}
-                      <span className="text-lg text-gray-500">/month</span>
+                    <div className="text-5xl font-bold">
+                      ${totalCostPro.toFixed(0)}
+                      <span className={`text-lg ${plan.featured ? "text-blue-200" : "text-gray-500"}`}>/month</span>
                     </div>
-                    <div className="mt-4 mb-2">
+                    <div className="mt-6 mb-2">
                       <label
                         htmlFor="subscribers"
-                        className="text-sm text-gray-600 block mb-1"
+                        className={`text-sm block mb-1 ${plan.featured ? "text-blue-200" : "text-gray-600"}`}
                       >
-                        Subscribers: {subscribers.toLocaleString()}
+                        Subscribers: {subscribersPro.toLocaleString()}
                       </label>
                       <input
                         type="range"
@@ -168,55 +160,33 @@ const PricingSection = () => {
                         min="1000"
                         max="10000"
                         step="100"
-                        value={subscribers}
-                        onChange={(e) =>
-                          setSubscribers(parseInt(e.target.value))
-                        }
+                        value={subscribersPro}
+                        onChange={(e) => setSubscribersPro(Number.parseInt(e.target.value))}
                         className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
                       />
                     </div>
-                    <p className="text-sm text-gray-500 mt-2">
-                      Base price $49 for 3000 subscribers + $0.15 per additional
-                      subscriber
+                    <p className={`text-sm mt-2 ${plan.featured ? "text-blue-200" : "text-gray-500"}`}>
+                      Base price $49 for 3000 subscribers + $0.15 per additional subscriber
                     </p>
                   </div>
                 ) : (
-                  <div className="text-4xl font-bold mb-6">
+                  <div className="text-5xl font-bold mb-6">
                     ${plan.price}
-                    <span
-                      className={`text-lg ${
-                        plan.featured ? "text-blue-100" : "text-gray-500"
-                      }`}
-                    >
-                      /month
-                    </span>
+                    <span className={`text-lg ${plan.featured ? "text-blue-200" : "text-gray-500"}`}>/month</span>
                   </div>
                 )}
-                <ul className="space-y-4 mb-6 flex-grow">
+                <ul className="space-y-4 mb-8 flex-grow">
                   {plan.features.map((feature, i) => (
-                    <li key={i} className="flex items-center gap-2">
+                    <li key={i} className="flex items-start gap-3">
                       <svg
-                        className={`w-5 h-5 ${
-                          plan.featured ? "text-blue-200" : "text-blue-500"
-                        }`}
+                        className={`w-5 h-5 mt-0.5 ${plan.featured ? "text-blue-200" : "text-blue-500"}`}
                         fill="none"
                         viewBox="0 0 24 24"
                         stroke="currentColor"
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M5 13l4 4L19 7"
-                        />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                       </svg>
-                      <span
-                        className={
-                          plan.featured ? "text-blue-100" : "text-gray-600"
-                        }
-                      >
-                        {feature}
-                      </span>
+                      <span className={plan.featured ? "text-blue-100" : "text-gray-600"}>{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -226,70 +196,91 @@ const PricingSection = () => {
                       className={`w-full py-6 ${
                         plan.featured
                           ? "bg-white text-blue-600 hover:bg-blue-50"
-                          : "bg-blue-600 text-white hover:bg-blue-700"
-                      } font-medium rounded-xl ${
-                        plan.cta === "Coming Soon"
-                          ? "opacity-50 cursor-not-allowed"
-                          : ""
+                          : "bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:from-blue-700 hover:to-indigo-700"
+                      } font-medium rounded-xl transition-all duration-300 ${
+                        plan.disabled ? "opacity-50 cursor-not-allowed" : ""
                       }`}
-                      disabled={plan.cta === "Coming Soon"}
+                      disabled={plan.disabled}
                     >
                       {plan.cta}
                     </Button>
                   </Link>
                 </div>
               </motion.div>
-            );
+            )
           })}
         </div>
 
         <div className="mt-16 text-center">
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            <strong>All plans include:</strong> Generate and send newsletters
-            within one platform. No third-party costs - AI generation, email
-            delivery, and all server costs are included in the pricing.
-          </p>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+            className="p-8 rounded-2xl bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-100"
+          >
+            <p className="text-lg text-gray-700 max-w-3xl mx-auto">
+              <strong>All plans include:</strong> Generate and send newsletters within one platform. No third-party
+              costs - AI generation, email delivery, and all server costs are included in the pricing.
+            </p>
+          </motion.div>
         </div>
       </div>
     </section>
-  );
-};
+  )
+}
+
+const Logo = () => (
+  <div className="flex items-center gap-2">
+    <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xl">
+      C
+    </div>
+    <span className="text-xl font-bold">ClipMailo</span>
+  </div>
+)
 
 export default function LandingPage() {
-  const [scrolled, setScrolled] = useState(false);
-  const { scrollYProgress } = useScroll();
-  const opacity = useTransform(scrollYProgress, [0, 0.05], [1, 0]);
+  const [scrolled, setScrolled] = useState(false)
+  const { scrollYProgress } = useScroll()
+  const opacity = useTransform(scrollYProgress, [0, 0.05], [1, 0])
+  const heroRef = useRef(null)
+  const heroScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95])
+  const heroOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0.8])
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+    const handleScroll = () => setScrolled(window.scrollY > 50)
+    window.addEventListener("scroll", handleScroll)
+    return () => window.removeEventListener("scroll", handleScroll)
+  }, [])
 
   return (
     <div className="min-h-screen bg-white text-gray-900">
       {/* Navbar */}
       <nav
         className={`fixed w-full z-50 transition-all duration-300 ${
-          scrolled ? "bg-white/80 backdrop-blur-lg shadow-sm" : ""
+          scrolled ? "bg-white/90 backdrop-blur-md shadow-sm py-3" : "py-5"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-6 flex items-center justify-between">
           <Logo />
-          <Link href="/Login">
-            <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-              Sign In
-            </Button>
-          </Link>
+          <div className="flex items-center gap-4">
+            <Link href="/Login" className="text-gray-700 hover:text-blue-600 transition-colors hidden md:block">
+              Log in
+            </Link>
+            <Link href="/Login">
+              <Button className="bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white transition-all duration-300">
+                Sign Up Free
+              </Button>
+            </Link>
+          </div>
         </div>
       </nav>
 
       {/* Hero Section */}
       <section className="relative min-h-screen pt-32 pb-20 overflow-hidden bg-gradient-to-br from-blue-100 to-purple-100">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
+          ref={heroRef}
+          style={{ scale: heroScale, opacity: heroOpacity }}
           className="relative z-10 max-w-7xl mx-auto px-6"
         >
           <div className="text-center md:max-w-4xl max-w-5xl mx-auto">
@@ -302,62 +293,72 @@ export default function LandingPage() {
               <span className="px-3 py-1 rounded-full bg-blue-100 text-blue-600 md:text-sm text-[0.6rem] font-medium whitespace-nowrap">
                 Private Beta
               </span>
-              <span className="md:text-sm text-[0.6rem] text-gray-600 whitespace-nowrap">
-                Internal Release
-              </span>
+              <span className="md:text-sm text-[0.6rem] text-gray-600 whitespace-nowrap">Internal Release</span>
             </motion.div>
 
-            <h1 className="text-4xl md:text-7xl font-bold mb-8 tracking-tight">
-              AI-Powered <GradientText>Newsletters</GradientText> Create,
-              Design & Send
-            </h1>
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="text-4xl md:text-7xl font-bold mb-8 tracking-tight leading-tight"
+            >
+              AI-Powered <GradientText>Newsletters</GradientText> <br className="hidden md:block" />
+              Create, Design & Send
+            </motion.h1>
 
-            <p className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto">
-              Generate engaging content, customize with premium templates, and
-              deliver directly to your subscribers.
-            </p>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+              className="text-xl text-gray-600 mb-12 max-w-2xl mx-auto"
+            >
+              Generate engaging content, customize with premium templates, and deliver directly to your subscribers.
+            </motion.p>
 
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link href="/Login">
-                <Button className="w-full sm:w-auto px-8 py-6 bg-blue-600 hover:bg-blue-700 text-white text-lg font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-200">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="flex flex-col sm:flex-row gap-4 justify-center"
+            >
+              <Link href="/Login" className="w-full sm:w-auto">
+                <Button className="w-full sm:w-auto px-8 py-6 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-lg font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
                   Try Now
                 </Button>
               </Link>
               <Button
                 variant="outline"
-                className="w-full sm:w-auto px-8 py-6 border-gray-200 hover:bg-gray-50 text-lg font-medium rounded-xl backdrop-blur-sm bg-white/50"
+                className="w-full sm:w-auto px-8 py-6 border-gray-200 hover:bg-gray-50 text-lg font-medium rounded-xl backdrop-blur-sm bg-white/50 flex items-center gap-2"
               >
                 Watch Demo
               </Button>
-            </div>
+            </motion.div>
           </div>
 
           <FloatingElement>
-  <div className="mt-20 relative group">
-    <div className="absolute -inset-2 bg-white/10 rounded-2xl blur-lg opacity-50 group-hover:opacity-75 transition duration-500 group-hover:duration-200"></div>
-    <div className="relative">
-      <video
-        className="w-full rounded-xl shadow-md transition-shadow duration-300 group-hover:shadow-xl"
-        src="/Product video 2.mp4"
-        controls
-        autoPlay
-        muted
-        loop
-        playsInline
-      />
-    </div>
-  </div>
-</FloatingElement>
+            <motion.div
+              initial={{ opacity: 0, y: 40 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.7 }}
+              className="mt-20 relative group"
+            >
+              <div className="absolute -inset-2 bg-gradient-to-r from-blue-400/20 to-indigo-400/20 rounded-2xl blur-xl opacity-70 group-hover:opacity-100 transition duration-500"></div>
+              <div className="relative">
+                <video
+                  className="w-full rounded-xl shadow-lg transition-shadow duration-300 group-hover:shadow-xl"
+                  src="/Product video 2.mp4"
+                  controls
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                />
+              </div>
+            </motion.div>
+          </FloatingElement>
         </motion.div>
-        <motion.div
-          className="absolute bottom-0 left-0 right-0"
-          style={{ opacity }}
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 1440 320"
-            className="w-full h-auto"
-          >
+        <motion.div className="absolute bottom-0 left-0 right-0 text-white/5" style={{ opacity }}>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="w-full h-auto">
             <path
               fill="currentColor"
               fillOpacity="1"
@@ -381,8 +382,7 @@ export default function LandingPage() {
               Crafted for <GradientText>Professional</GradientText> Creators
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Everything you need to create, manage, and grow your newsletter
-              audience.
+              Everything you need to create, manage, and grow your newsletter audience.
             </p>
           </motion.div>
 
@@ -425,12 +425,14 @@ export default function LandingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="group p-8 rounded-2xl bg-white shadow-sm hover:shadow-lg transition-all duration-300"
+                className="group p-8 rounded-2xl bg-white shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 hover:border-blue-200"
               >
-                <div className="h-12 w-12 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 mb-6 flex items-center justify-center text-white">
+                <div className="h-14 w-14 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 mb-6 flex items-center justify-center text-white group-hover:scale-110 transition-transform duration-300">
                   <feature.icon size={24} />
                 </div>
-                <h3 className="text-xl font-semibold mb-4">{feature.title}</h3>
+                <h3 className="text-xl font-semibold mb-4 group-hover:text-blue-600 transition-colors">
+                  {feature.title}
+                </h3>
                 <p className="text-gray-600 leading-relaxed">{feature.desc}</p>
               </motion.div>
             ))}
@@ -439,7 +441,7 @@ export default function LandingPage() {
       </section>
 
       {/* How It Works */}
-      <section className="py-32 bg-gray-50">
+      <section className="py-32 bg-gradient-to-br from-blue-50 to-indigo-50">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -456,19 +458,17 @@ export default function LandingPage() {
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-3 gap-12">
             {[
               {
                 step: "01",
                 title: "Share Your Idea",
-                description:
-                  "Input your Industry, topic, length, and preferences.",
+                description: "Input your Industry, topic, length, and preferences.",
               },
               {
                 step: "02",
                 title: "AI Magic",
-                description:
-                  "Our AI transforms your input into engaging content.",
+                description: "Our AI transforms your input into engaging content.",
               },
               {
                 step: "03",
@@ -482,18 +482,32 @@ export default function LandingPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.2 }}
                 viewport={{ once: true }}
-                className="relative p-8 rounded-2xl bg-white shadow-md"
+                className="relative p-8 rounded-2xl bg-white shadow-md border border-gray-100 hover:shadow-lg transition-all duration-300"
               >
-                <span className="absolute -top-6 left-8 text-7xl font-bold text-blue-100">
+                <div className="absolute -top-6 -left-6 w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-indigo-600 flex items-center justify-center text-white text-2xl font-bold">
                   {step.step}
-                </span>
-                <div className="relative">
+                </div>
+                <div className="relative pt-4 pl-4">
                   <h3 className="text-xl font-semibold mb-4">{step.title}</h3>
                   <p className="text-gray-600">{step.description}</p>
                 </div>
               </motion.div>
             ))}
           </div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            viewport={{ once: true }}
+            className="mt-24 text-center"
+          >
+            <Link href="/Login">
+              <Button className="px-8 py-6 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white text-lg font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
+                Start Creating Now
+              </Button>
+            </Link>
+          </motion.div>
         </div>
       </section>
 
@@ -510,9 +524,7 @@ export default function LandingPage() {
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               Loved by <GradientText>Creators</GradientText>
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Join thousands of satisfied newsletter creators
-            </p>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">Join thousands of satisfied newsletter creators</p>
           </motion.div>
 
           <div className="grid md:grid-cols-3 gap-8">
@@ -549,7 +561,7 @@ export default function LandingPage() {
       <PricingSection />
 
       {/* FAQ Section */}
-      <section className="py-32 bg-gray-50">
+      <section className="py-32 bg-gradient-to-br from-blue-50 to-indigo-50">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -561,12 +573,10 @@ export default function LandingPage() {
             <h2 className="text-4xl md:text-5xl font-bold mb-6">
               Frequently Asked <GradientText>Questions</GradientText>
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Got questions? We've got answers.
-            </p>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">Got questions? We've got answers.</p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 gap-8">
+          <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
             {[
               {
                 question: "How does the AI content generation work?",
@@ -575,8 +585,7 @@ export default function LandingPage() {
               },
               {
                 question: "Can I customize the templates?",
-                answer:
-                  "Absolutely! Our templates are fully customizable. You can edit any content.",
+                answer: "Our templates are fully customizable. You can edit any content.",
               },
               {
                 question: "Is there a free trial?",
@@ -593,9 +602,9 @@ export default function LandingPage() {
                 key={index}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.2 }}
+                transition={{ delay: index * 0.1 }}
                 viewport={{ once: true }}
-                className="p-6 rounded-2xl bg-white shadow-md"
+                className="p-8 rounded-2xl bg-white shadow-md border border-gray-100 hover:shadow-lg transition-all duration-300"
               >
                 <h3 className="text-xl font-semibold mb-4">{faq.question}</h3>
                 <p className="text-gray-600">{faq.answer}</p>
@@ -604,7 +613,8 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
-      <section className="py-32 bg-gradient-to-b from-white to-gray-50">
+
+      <section className="py-32 bg-white">
         <div className="max-w-7xl mx-auto px-6">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -617,8 +627,7 @@ export default function LandingPage() {
               Exciting <GradientText>Upcoming Features</GradientText>
             </h2>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              We're constantly innovating to make ClipMailo even better. Here's
-              a sneak peek at what's coming soon:
+              We're constantly innovating to make ClipMailo even better. Here's a sneak peek at what's coming soon:
             </p>
           </motion.div>
 
@@ -628,18 +637,16 @@ export default function LandingPage() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.1, duration: 0.6 }}
               viewport={{ once: true }}
-              className="bg-white rounded-2xl shadow-md overflow-hidden group hover:shadow-lg transition-shadow duration-300"
+              className="bg-white rounded-2xl shadow-md overflow-hidden group hover:shadow-lg transition-shadow duration-300 border border-gray-100"
             >
               <div className="p-8">
                 <div className="w-16 h-16 bg-blue-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                   <Youtube className="w-8 h-8 text-blue-600" />
                 </div>
-                <h3 className="text-2xl font-bold mb-4">
-                  YouTube to Newsletter Integration
-                </h3>
+                <h3 className="text-2xl font-bold mb-4">YouTube to Newsletter Integration</h3>
                 <p className="text-gray-600 mb-6">
-                  Seamlessly convert your YouTube content into engaging
-                  newsletters, expanding your reach across multiple platforms.
+                  Seamlessly convert your YouTube content into engaging newsletters, expanding your reach across
+                  multiple platforms.
                 </p>
                 <div className="flex items-center text-blue-600 font-semibold">
                   <span>Coming Soon</span>
@@ -651,19 +658,16 @@ export default function LandingPage() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.2, duration: 0.6 }}
               viewport={{ once: true }}
-              className="bg-white rounded-2xl shadow-md overflow-hidden group hover:shadow-lg transition-shadow duration-300"
+              className="bg-white rounded-2xl shadow-md overflow-hidden group hover:shadow-lg transition-shadow duration-300 border border-gray-100"
             >
               <div className="p-8">
                 <div className="w-16 h-16 bg-green-100 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
                   <FileExport className="w-8 h-8 text-green-600" />
                 </div>
-                <h3 className="text-2xl font-bold mb-4">
-                  Export Newsletter as an Image in Editor
-                </h3>
+                <h3 className="text-2xl font-bold mb-4">Export Newsletter as an Image in Editor</h3>
                 <p className="text-gray-600 mb-6">
-                  Gain ultimate flexibility with the ability to export your
-                  newsletters directly from the editor, perfect for
-                  multi-channel distribution strategies.
+                  Gain ultimate flexibility with the ability to export your newsletters directly from the editor,
+                  perfect for multi-channel distribution strategies.
                 </p>
                 <div className="flex items-center text-green-600 font-semibold">
                   <span>Coming Soon</span>
@@ -675,8 +679,18 @@ export default function LandingPage() {
       </section>
 
       {/* Final CTA Section */}
-      <section className="py-32 bg-blue-600">
-        <div className="max-w-7xl mx-auto px-6">
+      <section className="py-32 bg-gradient-to-br from-blue-600 to-indigo-700 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-10">
+          <svg width="100%" height="100%" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse">
+                <path d="M 10 0 L 0 0 0 10" fill="none" stroke="white" strokeWidth="0.5" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+          </svg>
+        </div>
+        <div className="max-w-7xl mx-auto px-6 relative z-10">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -684,19 +698,21 @@ export default function LandingPage() {
             viewport={{ once: true }}
             className="text-center text-white"
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">
-              Start Your Newsletter Journey Today
-            </h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6">Start Your Newsletter Journey Today</h2>
             <p className="text-xl text-blue-100 mb-12 max-w-2xl mx-auto">
-              Join thousands of creators who are building their audience and
-              monetizing their passion.
+              Join thousands of creators who are building their audience and monetizing their passion.
             </p>
             <Link href="/Login">
-              <Button className="px-12 py-6 bg-white text-blue-600 hover:bg-blue-50 text-lg font-medium rounded-xl">
+              <Button className="px-12 py-6 bg-white text-blue-600 hover:bg-blue-50 text-lg font-medium rounded-xl shadow-lg hover:shadow-xl transition-all duration-300">
                 Get Started Now
               </Button>
             </Link>
-            <p className="mt-4 text-blue-100">No credit card required</p>
+            <p className="mt-6 text-blue-200 flex items-center justify-center gap-2">
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+              No credit card required
+            </p>
           </motion.div>
         </div>
       </section>
@@ -742,5 +758,5 @@ export default function LandingPage() {
         </div>
       </footer>
     </div>
-  );
+  )
 }

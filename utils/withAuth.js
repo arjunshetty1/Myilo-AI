@@ -27,6 +27,7 @@ export function withAuth(WrappedComponent) {
             "/contact-us",
             "/credits",
             "/privacy-policy",
+            "/blogs"
           ];
     
           const publicPatterns = [
